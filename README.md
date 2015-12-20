@@ -1,16 +1,17 @@
 # ExqUi
 
-[![Travis Build Status](https://img.shields.io/travis/akira/exq.svg)](https://travis-ci.org/akira/exq)
-[![Coveralls Coverage](https://img.shields.io/coveralls/akira/exq.svg)](https://coveralls.io/github/akira/exq)
-[![Hex.pm Version](https://img.shields.io/hexpm/v/exq.svg)](https://hex.pm/packages/exq)
+[![Travis Build Status](https://img.shields.io/travis/akira/exq_ui.svg)](https://travis-ci.org/akira/exq_ui)
+[![Coveralls Coverage](https://img.shields.io/coveralls/akira/exq_ui.svg)](https://coveralls.io/github/akira/exq_ui)
+[![Hex.pm Version](https://img.shields.io/hexpm/v/exq_ui.svg)](https://hex.pm/packages/exq_ui)
 
-ExqUI provides a UI dashboard for Exq, a job processing library compatible with Resque / Sidekiq for the [Elixir](http://elixir-lang.org) language.
+ExqUI provides a UI dashboard for [Exq](https://github.com/akira/exq), a job processing library compatible with Resque / Sidekiq for the [Elixir](http://elixir-lang.org) language.
+ExqUI allow you to see various job processing stats, as well as details on failed, retried, scheduled jobs, etc.
 
 
 ## Getting Started:
 
-See [Exq](https://github.com/akira/exq_ui) for using the Exq library.
-This assumes you have an instance of [Redis](http://redis.io/) to use and you have already used Exq.
+See [Exq](https://github.com/akira/exq) for using the Exq library.
+This assumes you have an instance of [Redis](http://redis.io/).
 
 ### Installation:
 Add exq_ui to your mix.exs deps (replace version with the latest hex.pm package version):
@@ -62,6 +63,15 @@ You can also use [Plug](https://github.com/elixir-lang/plug) to connect the web 
 ## Contributions
 
 Contributions are welcome. Tests are encouraged.
+
+By default, a statis distribution of the UI is used.
+To run the UI and automatically build the JS distribution on changes, run:
+
+```
+> cd priv/ember/ui
+> npm install
+> bower install
+> ./node_modules/ember-cli/bin/ember server
 
 To run tests / ensure your changes have not caused any regressions:
 
