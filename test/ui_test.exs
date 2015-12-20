@@ -17,7 +17,7 @@ defmodule Exq.ApiTest do
   defp call(conn) do
     conn
     |> assign(:exq_name, :exq_ui_enqueuer)
-    |> Exq.RouterPlug.Router.call([])
+    |> ExqUi.RouterPlug.Router.call([])
  end
 
   test "serves the index" do

@@ -19,7 +19,7 @@ defmodule Mix.Tasks.Exq.Ui do
 
     IO.puts "Started ExqUI on Port #{webport}"
 
-    Plug.Adapters.Cowboy.http Exq.RouterPlug, [namespace: "", exqopts: opts], port: webport
+    Plug.Adapters.Cowboy.http ExqUi.RouterPlug, [namespace: "", exqopts: opts], port: webport
 
     :timer.sleep(:infinity)
   end

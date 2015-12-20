@@ -1,7 +1,7 @@
-defmodule Exq.RouterPlug do
+defmodule ExqUi.RouterPlug do
   require Logger
   require EEx
-  alias Exq.RouterPlug.Router
+  alias ExqUi.RouterPlug.Router
 
   def init(options) do
     if options[:exqopts] do
@@ -34,7 +34,7 @@ defmodule Exq.RouterPlug do
     import Plug.Conn
     use Plug.Router
 
-    plug Plug.Static, at: "/", from: :exq
+    plug Plug.Static, at: "/", from: :exq_ui
     plug JsonApi, on: "api"
 
     plug :match
@@ -160,7 +160,7 @@ defmodule Exq.RouterPlug do
 
 
     # precompile index.html into render_index/1 function
-    index_path = Path.join([Application.app_dir(:exq), "priv/static/index.html"])
+    index_path = Path.join([Application.app_dir(:exq_ui), "priv/static/index.html"])
     EEx.function_from_file :defp, :render_index, index_path, [:assigns]
 
     match _ do
