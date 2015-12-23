@@ -58,7 +58,33 @@ To start the web UI:
 > mix exq.ui
 ```
 
-You can also use [Plug](https://github.com/elixir-lang/plug) to connect the web UI to your Web application.
+## Using with Plug
+
+To use this with Plug 
+
+```elixir
+...
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :put_secure_browser_headers
+    # note that you need to remove the :protect_from_forgery plug and place it inside its own pipeline
+    plug Exq.RouterPlug, namespace: "exq"
+  end
+
+  pipeline :csrf do
+    plug :protect_from_forgery
+  end
+
+...
+  scope "/", MyApp do
+    pipe_through :browser
+
+    forward "/exq", Exq.RouterPlug.Router, :index
+  end
+```
+
 
 ## Contributions
 
