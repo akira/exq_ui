@@ -72,12 +72,12 @@ To run the UI and automatically build the JS distribution on changes, run:
 > npm install
 > bower install
 > ./node_modules/ember-cli/bin/ember server
+```
 
 To run tests / ensure your changes have not caused any regressions:
 
 ```
-redis-server --port 6555
-mix test
+mix test --no-start
 ```
 
 ## Contributors:
