@@ -53,8 +53,8 @@ config :exq_ui,
   web_namespace: ""
 ```
 
-The webport configures which port to start the UI on, as well as what web namespace to use
-(when using `mix exq.ui`).
+The webport configures which port to start the UI on, and the web_namespace configures what to use as the application root
+(both when using `mix exq.ui`).
 
 By default the empty namespace is used, so you can access the UI via:  `http://localhost:4040/`.
 
@@ -102,7 +102,7 @@ To use this with Plug
 
 Contributions are welcome. Tests are encouraged.
 
-By default, a statis distribution of the UI is used.
+By default, a static distribution of the UI is used.
 To run the UI and automatically build the JS distribution on changes, run:
 
 ```
