@@ -16,4 +16,8 @@ config :exq,
   genserver_timeout: 5000,
   max_retries: 25
 
+config :exq_ui,
+  webport: 4040,
+  web_namespace: ""
+
 import_config "#{Mix.env}.exs"
