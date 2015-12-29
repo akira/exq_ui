@@ -31,7 +31,6 @@ Then run ```mix deps.get```.
 
 By default, Exq will use configuration from your config.exs file.  You can use this
 to configure your Redis host, port, password, as well as namespace (which helps isolate the data in Redis).
-The "concurrency" setting will let you configure the amount of concurrent workers that will be allowed, or :infinite to disable any throttling.
 
 ```elixir
 config :exq,
@@ -47,6 +46,19 @@ config :exq,
   max_retries: 25
 ```
 
+There are also a few configuration options for the UI:
+```elixir
+config :exq_ui,
+  webport: 4040,
+  web_namespace: ""
+```
+
+The webport configures which port to start the UI on, as well as what web namespace to use
+(when using `mix exq.ui`).
+
+By default the empty namespace is used, so you can access the UI via:  `http://localhost:4040/`.
+
+When setting a different web_namespace, for example `exq_ui`, you can access the UI via: `http://localhost:4040/exq_ui`.
 
 ## Web UI:
 
@@ -60,7 +72,7 @@ To start the web UI:
 
 ## Using with Plug
 
-To use this with Plug 
+To use this with Plug
 
 ```elixir
 ...

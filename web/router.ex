@@ -7,7 +7,7 @@ defmodule ExqUi.RouterPlug do
     if options[:exqopts] do
       enq_opts = options[:exqopts]
     else
-      enq_opts = [{:name, :exq_enqueuer}]
+      enq_opts = [name: Exq.Enqueuer.Supervisor.server_name(nil, :normal)]
     end
     Keyword.put(options, :exqopts, enq_opts)
   end
@@ -48,8 +48,8 @@ defmodule ExqUi.RouterPlug do
       {:ok, retrying} = Exq.Api.queue_size(conn.assigns[:exq_name], :retry)
 
       {:ok, queues} = Exq.Api.queue_size(conn.assigns[:exq_name])
+
       queue_sizes = for {_q, size} <- queues do
-        {size, _} = Integer.parse(size)
         size
       end
       qtotal = "#{Enum.sum(queue_sizes)}"
