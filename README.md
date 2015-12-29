@@ -106,7 +106,7 @@ By default, a static distribution of the UI is used.
 To run the UI and automatically build the JS distribution on changes, run:
 
 ```
-> cd priv/ember/ui
+> cd priv/ember
 > npm install
 > bower install
 > ./node_modules/ember-cli/bin/ember server
