@@ -3,7 +3,7 @@ defmodule ExqUi.Mixfile do
 
   def project do
     [ app: :exq_ui,
-      version: "0.5.0",
+      version: "0.6.0",
       elixir: "~> 1.0.0 or ~> 1.1.1",
       elixirc_paths: ["lib", "web"],
       package: [
@@ -33,7 +33,7 @@ defmodule ExqUi.Mixfile do
   # { :foobar, "0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
     [
-      { :exq, git: "https://github.com/akira/exq.git" },
+      { :exq, ">= 0.6.0"},
       { :plug, ">= 0.8.1 and < 2.0.0"},
       { :cowboy, "~> 1.0" },
       { :excoveralls, "~> 0.3", only: :test }
