@@ -82,7 +82,7 @@ To use this with Plug
     plug :fetch_flash
     plug :put_secure_browser_headers
     # note that you need to remove the :protect_from_forgery plug and place it inside its own pipeline
-    plug Exq.RouterPlug, namespace: "exq"
+    plug ExqUi.RouterPlug, namespace: "exq"
   end
 
   pipeline :csrf do
@@ -93,7 +93,7 @@ To use this with Plug
   scope "/", MyApp do
     pipe_through :browser
 
-    forward "/exq", Exq.RouterPlug.Router, :index
+    forward "/exq", ExqUi.RouterPlug.Router, :index
   end
 ```
 
