@@ -11,7 +11,7 @@ defmodule Mix.Tasks.Exq.Ui do
     # Start exq enqueuer supervisor
     {:ok, _} = Exq.Enqueuer.Supervisor.start_link
 
-    api_name = Exq.Enqueuer.Supervisor.server_name(nil, :normal)
+    api_name = Exq.Enqueuer.Server.server_name(nil)
     exq_opts = [name: api_name]
 
     # Check connection

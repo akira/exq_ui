@@ -17,7 +17,7 @@ defmodule ExqUi do
     # Start exq enqueuer supervisor
     {:ok, _} = EnqueuerSupervisor.start_link
 
-    api_name = EnqueuerSupervisor.server_name(nil, :normal)
+    api_name = EnqueuerSupervisor.server_name(nil)
     exq_opts = [name: api_name]
 
     # Check connection
