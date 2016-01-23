@@ -20,7 +20,7 @@ Add exq_ui to your mix.exs deps (replace version with the latest hex.pm package 
   defp deps do
     [
       # ... other deps
-      {:exq_ui, "~> 0.6.2"}
+      {:exq_ui, "~> 0.6.3"}
     ]
   end
 ```
@@ -96,6 +96,12 @@ To use this with Plug
     forward "/exq", ExqUi.RouterPlug.Router, :index
   end
 ```
+
+## Questions?  Issues?
+
+For issues, please submit a Github issue with steps on how to reproduce the problem.
+
+For questions, stop in at the [#elixir-lang Slack group](https://elixir-slackin.herokuapp.com/)
 
 
 ## Contributions
