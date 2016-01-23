@@ -7,7 +7,7 @@ defmodule ExqUi.RouterPlug do
     if options[:exqopts] do
       enq_opts = options[:exqopts]
     else
-      enq_opts = [name: Exq.Enqueuer.Supervisor.server_name(nil)]
+      enq_opts = [name: Exq.Enqueuer.Server.server_name(nil)]
     end
     Keyword.put(options, :exqopts, enq_opts)
   end
