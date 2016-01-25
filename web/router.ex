@@ -4,18 +4,18 @@ defmodule ExqUi.RouterPlug do
   alias ExqUi.RouterPlug.Router
 
   def init(options) do
-    if options[:exqopts] do
-      enq_opts = options[:exqopts]
+    if options[:exq_opts] do
+      enq_opts = options[:exq_opts]
     else
-      enq_opts = [name: Exq.Enqueuer.Server.server_name(nil)]
+      enq_opts = [name: Exq.Api.Server.server_name(nil)]
     end
-    Keyword.put(options, :exqopts, enq_opts)
+    Keyword.put(options, :exq_opts, enq_opts)
   end
 
   def call(conn, opts) do
     namespace_opt = opts[:namespace] || "exq"
     conn = Plug.Conn.assign(conn, :namespace, namespace_opt)
-    conn = Plug.Conn.assign(conn, :exq_name, opts[:exqopts][:name])
+    conn = Plug.Conn.assign(conn, :exq_name, opts[:exq_opts][:name])
     case namespace_opt do
       "" ->
         Router.call(conn, Router.init(opts))

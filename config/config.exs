@@ -17,7 +17,7 @@ config :exq,
   max_retries: 25
 
 config :exq_ui,
-  webport: 4040,
+  web_port: 4040,
   web_namespace: ""
 
 import_config "#{Mix.env}.exs"
