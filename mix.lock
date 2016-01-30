@@ -6,7 +6,7 @@
   "eredis": {:hex, :eredis, "1.0.8"},
   "excoveralls": {:hex, :excoveralls, "0.4.3"},
   "exjsx": {:hex, :exjsx, "3.2.0"},
-  "exq": {:hex, :exq, "0.6.3"},
+  "exq": {:hex, :exq, "0.6.4"},
   "hackney": {:hex, :hackney, "1.4.8"},
   "idna": {:hex, :idna, "1.0.3"},
   "jsx": {:hex, :jsx, "2.6.2"},
@@ -18,4 +18,4 @@
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
   "timex": {:hex, :timex, "1.0.0"},
   "tzdata": {:hex, :tzdata, "0.5.6"},
-  "uuid": {:hex, :uuid, "1.1.2"}}
+  "uuid": {:hex, :uuid, "1.1.3"}}
