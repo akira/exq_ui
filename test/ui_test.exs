@@ -6,7 +6,7 @@ defmodule Exq.ApiTest do
 
   setup_all do
     TestRedis.setup
-    {:ok, sup} = Exq.Enqueuer.start_link([host: redis_host, port: redis_port, name: :exq_ui_enqueuer])
+    {:ok, sup} = Exq.start_link([host: redis_host, port: redis_port, name: Exq, mode: :api])
     on_exit fn ->
       TestRedis.teardown
       stop_process(sup)
@@ -16,7 +16,7 @@ defmodule Exq.ApiTest do
 
   defp call(conn) do
     conn
-    |> assign(:exq_name, :exq_ui_enqueuer)
+    |> assign(:exq_name, Exq.Api)
     |> ExqUi.RouterPlug.Router.call([])
  end
 
