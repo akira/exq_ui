@@ -10,8 +10,12 @@ defmodule ExqUi do
     web_port = Application.get_env(:exq_ui, :web_port, 4040)
     web_namespace = Application.get_env(:exq_ui, :web_namespace, "")
 
-    {:ok, _} = Exq.start_link(mode: :api)
     api_name = Exq.Api.Server.server_name(nil)
+
+    unless Process.whereis(api_name) do
+      {:ok, _} = Exq.start_link(mode: :api)
+    end
+
     {:ok, _} = Exq.Api.queue_size(api_name)
     IO.puts "Starting ExqUI on Port #{web_port}"
 
