@@ -186,7 +186,7 @@ defmodule ExqUi.RouterPlug do
       {:ok, date} = score
       |> String.to_float
       |> Timex.Date.from(:secs)
-      |> Timex.DateFormat.format("{ISO}")
+      |> Timex.format("{ISO}")
 
       date
     end
