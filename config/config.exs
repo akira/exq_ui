@@ -18,6 +18,7 @@ config :exq,
 
 config :exq_ui,
   web_port: 4040,
-  web_namespace: ""
+  web_namespace: "",
+  server: true
 
 import_config "#{Mix.env}.exs"
