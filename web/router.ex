@@ -4,11 +4,12 @@ defmodule ExqUi.RouterPlug do
   alias ExqUi.RouterPlug.Router
 
   def init(options) do
-    if options[:exq_opts] do
-      enq_opts = options[:exq_opts]
-    else
-      enq_opts = [name: Exq.Api.Server.server_name(nil)]
-    end
+    enq_opts =
+      if options[:exq_opts] do
+        options[:exq_opts]
+      else
+        [name: Exq.Api.Server.server_name(nil)]
+      end
     Keyword.put(options, :exq_opts, enq_opts)
   end
 
@@ -102,7 +103,7 @@ defmodule ExqUi.RouterPlug do
       conn |> send_resp(204, "") |> halt
     end
 
-    post "/api/failures/:id/retry" do
+    post "/api/failures/:_id/retry" do
       # TODO
       conn |> send_resp(200, "") |> halt
     end
