@@ -50,7 +50,8 @@ There are also a few configuration options for the UI:
 ```elixir
 config :exq_ui,
   webport: 4040,
-  web_namespace: ""
+  web_namespace: "",
+  server: true
 ```
 
 The webport configures which port to start the UI on, and the web_namespace configures what to use as the application root
@@ -59,6 +60,8 @@ The webport configures which port to start the UI on, and the web_namespace conf
 By default the empty namespace is used, so you can access the UI via:  `http://localhost:4040/`.
 
 When setting a different web_namespace, for example `exq_ui`, you can access the UI via: `http://localhost:4040/exq_ui`.
+
+The `server` option allows you to refrain from starting the web server during tests. It is set to `true` by default.
 
 ## Web UI:
 
