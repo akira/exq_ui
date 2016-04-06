@@ -9,6 +9,7 @@ defmodule ExqUi do
   def launch_app do
     web_port = Application.get_env(:exq_ui, :web_port, 4040)
     web_namespace = Application.get_env(:exq_ui, :web_namespace, "")
+    run_server? = Application.get_env(:exq_ui, :server, true)
 
     api_name = Exq.Api.Server.server_name(nil)
 
@@ -17,9 +18,14 @@ defmodule ExqUi do
     end
 
     {:ok, _} = Exq.Api.queue_size(api_name)
-    IO.puts "Starting ExqUI on Port #{web_port}"
 
-    Plug.Adapters.Cowboy.http ExqUi.RouterPlug,
-      [namespace: web_namespace, exq_opts: [name: api_name]], port: web_port
+    if run_server? do
+      IO.puts "Starting ExqUI on Port #{web_port}"
+      Plug.Adapters.Cowboy.http ExqUi.RouterPlug,
+        [namespace: web_namespace, exq_opts: [name: api_name]], port: web_port
+    else
+      import Supervisor.Spec, warn: false
+      Supervisor.start_link([], strategy: :one_for_one)
+    end
   end
 end
