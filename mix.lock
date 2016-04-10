@@ -6,7 +6,7 @@
   "eredis": {:hex, :eredis, "1.0.8"},
   "excoveralls": {:hex, :excoveralls, "0.4.3"},
   "exjsx": {:hex, :exjsx, "3.2.0"},
-  "exq": {:hex, :exq, "0.6.5"},
+  "exq": {:hex, :exq, "0.7.0"},
   "hackney": {:hex, :hackney, "1.4.8"},
   "idna": {:hex, :idna, "1.0.3"},
   "jsx": {:hex, :jsx, "2.6.2"},

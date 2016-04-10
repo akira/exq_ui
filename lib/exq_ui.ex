@@ -1,7 +1,7 @@
 defmodule ExqUi do
   use Application
+  import Supervisor.Spec, warn: false
 
-  # OTP Application
   def start(_type, _args) do
     launch_app
   end
@@ -11,6 +11,7 @@ defmodule ExqUi do
     web_namespace = Application.get_env(:exq_ui, :web_namespace, "")
     run_server? = Application.get_env(:exq_ui, :server, true)
 
+    {:ok, _} = Application.ensure_all_started(:tzdata)
     api_name = Exq.Api.Server.server_name(nil)
 
     unless Process.whereis(api_name) do
@@ -23,9 +24,7 @@ defmodule ExqUi do
       IO.puts "Starting ExqUI on Port #{web_port}"
       Plug.Adapters.Cowboy.http ExqUi.RouterPlug,
         [namespace: web_namespace, exq_opts: [name: api_name]], port: web_port
-    else
-      import Supervisor.Spec, warn: false
-      Supervisor.start_link([], strategy: :one_for_one)
     end
+    Supervisor.start_link([], strategy: :one_for_one)
   end
 end

@@ -111,9 +111,11 @@ ExUnit.configure(seed: 0, max_cases: 1, exclude: [failure_scenarios: true])
 # Start logger
 :application.start(:logger)
 
+{:ok, _} = Application.ensure_all_started(:tzdata)
+
 TestRedis.start
 
-System.at_exit fn(status) ->
+System.at_exit fn(_status) ->
   TestRedis.stop
 end
 
