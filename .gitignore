@@ -1,5 +1,11 @@
 /ebin
 priv/tmp_downloads/
+priv/ember/tmp
+priv/ember/dist/assets/
+priv/ember/dist/crossdomain.xml
+priv/ember/dist/robots.txt
+priv/ember/dist/testem.js
+priv/ember/dist/tests/
 /deps
 /erl_crash.dump
 /tmp

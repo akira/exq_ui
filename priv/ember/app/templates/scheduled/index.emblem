@@ -12,8 +12,8 @@ table.table.table-bordered.table-hover
         | Args
       th
         | Scheduled At
-      / th
-      /   | Actions
+      th
+        | Actions
   tbody
     each model as |scheduled|
       tr
@@ -25,6 +25,11 @@ table.table.table-bordered.table-hover
           = scheduled.args
         td
           = scheduled.scheduled_at
-        / td
-        /   button class="btn btn-danger btn-xs" click="'removeScheduled' scheduled"
-        /     | Delete
+        td
+          button class="btn btn-danger btn-xs" click="'removeScheduled' scheduled"
+            | Delete
+  tfoot
+    tr
+      td colspan="6"
+        button class="btn btn-danger btn-xs" click="clearScheduled"
+          | Clear Scheduled Queue

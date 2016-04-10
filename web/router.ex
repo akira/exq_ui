@@ -94,12 +94,32 @@ defmodule ExqUi.RouterPlug do
     end
 
     delete "/api/failures/:id" do
-      {:ok} = Exq.Api.remove_failed(conn.assigns[:exq_name], id)
+      :ok = Exq.Api.remove_failed(conn.assigns[:exq_name], id)
+      conn |> send_resp(204, "") |> halt
+    end
+
+    delete "/api/retries/:id" do
+      :ok = Exq.Api.remove_retry(conn.assigns[:exq_name], id)
+      conn |> send_resp(204, "") |> halt
+    end
+
+    delete "/api/scheduled/:id" do
+      :ok = Exq.Api.remove_scheduled(conn.assigns[:exq_name], id)
       conn |> send_resp(204, "") |> halt
     end
 
     delete "/api/failures" do
-      {:ok} = Exq.Api.clear_failed(conn.assigns[:exq_name])
+      :ok = Exq.Api.clear_failed(conn.assigns[:exq_name])
+      conn |> send_resp(204, "") |> halt
+    end
+
+    delete "/api/retries" do
+      :ok = Exq.Api.clear_retries(conn.assigns[:exq_name])
+      conn |> send_resp(204, "") |> halt
+    end
+
+    delete "/api/scheduled" do
+      :ok = Exq.Api.clear_scheduled(conn.assigns[:exq_name])
       conn |> send_resp(204, "") |> halt
     end
 
@@ -147,17 +167,10 @@ defmodule ExqUi.RouterPlug do
       conn |> send_resp(204, "") |> halt
     end
 
-    # delete "/api/processes/:id" do
-    #   {:ok} = Exq.Api.remove_process(:exq_enq_ui, id)
-    #   conn |> send_resp(204, "") |> halt
-    # end
-
     delete "/api/processes" do
-      {:ok} = Exq.Api.clear_processes(conn.assigns[:exq_name])
+      :ok = Exq.Api.clear_processes(conn.assigns[:exq_name])
       conn |> send_resp(204, "") |> halt
     end
-
-
 
     # precompile index.html into render_index/1 function
     index_path = Path.join([Application.app_dir(:exq_ui), "priv/static/index.html"])
