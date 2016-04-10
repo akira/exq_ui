@@ -3,18 +3,17 @@
 IndexController = Ember.Controller.extend
 
   actions:
-    clearFailures: ->
+    clearScheduled: ->
       self = this
       # jQuery.ajax({url: "#{window.exqNamespace}api/failures", type: "DELETE"}).done(->
-      request({url: "api/failures", type: "DELETE"}).then ->
-        console.log("clearFailures request finished")
-        self.store.unloadAll('failure')
+      request({url: "api/scheduled", type: "DELETE"}).then ->
+        console.log("clearScheduled request finished")
+        self.store.unloadAll('scheduled')
         self.send('reloadStats')
-    retryFailure: (failure) ->
-    removeFailure: (failure) ->
+    removeScheduled: (scheduled) ->
       self = this
-      failure.deleteRecord()
-      failure.save().then((f) ->
+      scheduled.deleteRecord()
+      scheduled.save().then((f) ->
         self.send('reloadStats')
       )
 
