@@ -20,7 +20,7 @@ Add exq_ui to your mix.exs deps (replace version with the latest hex.pm package 
   defp deps do
     [
       # ... other deps
-      {:exq_ui, "~> 0.6.5"}
+      {:exq_ui, "~> 0.7.0"}
     ]
   end
 ```
@@ -134,5 +134,7 @@ Justin McNally (j-mcnally) (structtv)
 Nick Sanders (nicksanders)
 
 Nick Gal (nickgal)
+
+pdilyard (Paul Dilyard)
 
 Alexander Shapiotko (thousandsofthem)
