@@ -2,6 +2,10 @@ defmodule Exq.ApiTest do
   use ExUnit.Case, async: false
   use Plug.Test
   alias Exq.Support.Json
+  alias Exq.Support.Job
+  alias Exq.Redis.JobQueue
+  alias Exq.Support.Process
+  alias Exq.Redis.JobStat
   import ExqTestUtil
 
   setup_all do
@@ -45,6 +49,8 @@ defmodule Exq.ApiTest do
   end
 
   test "serves the processes" do
+    job_json = Job.to_json(%Job{jid: "1234"})
+    JobStat.add_process(:testredis, "exq", %Process{pid: self, job: job_json})
     conn = conn(:get, "/api/processes") |> call
     assert conn.status == 200
     {:ok, json} = Json.decode(conn.resp_body)
@@ -54,6 +60,26 @@ defmodule Exq.ApiTest do
   test "serves the queues" do
     conn = conn(:get, "/api/queues") |> call
     assert conn.status == 200
+  end
+
+  test "serves scheduled" do
+    state = :sys.get_state(Exq.Api)
+    {:ok, jid} = JobQueue.enqueue_in(state.redis, state.namespace, "custom", 1000, TestWorker, [])
+    conn = conn(:get, "/api/scheduled") |> call
+    assert conn.status == 200
+
+    json = Json.decode!(conn.resp_body)
+    assert %{"scheduled" => [%{"scheduled_at" => _at, "jid" => ^jid}]} = json
+  end
+
+  test "serves retries" do
+    state = :sys.get_state(Exq.Api)
+    JobQueue.retry_job(state.redis, state.namespace, %Job{jid: "1234"}, 1, "this is an error")
+    conn = conn(:get, "/api/retries") |> call
+    assert conn.status == 200
+
+    json = Json.decode!(conn.resp_body)
+    assert json |> Map.get("retries") |> hd |> Map.get("jid") == "1234"
   end
 
   test "serves the queue" do
