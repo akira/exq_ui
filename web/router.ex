@@ -83,13 +83,16 @@ defmodule ExqUi.RouterPlug do
 
     get "/api/retries" do
       {:ok, retries} = Exq.Api.retries(conn.assigns[:exq_name])
-      {:ok, json} = Poison.encode(%{retries: map_jid_to_id(retries)})
+      retries = retries |> map_jid_to_id |> convert_results_to_times(:failed_at)
+      {:ok, json} = Poison.encode(%{retries: retries})
+
       conn |> send_resp(200, json) |> halt
     end
 
     get "/api/failures" do
       {:ok, failures} = Exq.Api.failed(conn.assigns[:exq_name])
-      {:ok, json} = Poison.encode(%{failures: map_jid_to_id(failures)})
+      failures = failures |> map_jid_to_id |> convert_results_to_times(:failed_at)
+      {:ok, json} = Poison.encode(%{failures: failures})
       conn |> send_resp(200, json) |> halt
     end
 
@@ -135,7 +138,8 @@ defmodule ExqUi.RouterPlug do
         process = Map.delete(p, "job")
         {:ok, pjob} = Poison.decode(p.job, %{})
         process = Map.put(process, :job_id, pjob["jid"])
-        process = Map.put(process, :id, "#{process.host}:#{process.pid}")
+        |> Map.put(:started_at, score_to_time(p.started_at))
+        |> Map.put(:id, "#{process.host}:#{process.pid}")
         pjob = Map.put(pjob, :id, pjob["jid"])
         [process, pjob]
       end
@@ -194,13 +198,21 @@ defmodule ExqUi.RouterPlug do
       end
     end
 
-    def score_to_time(score) do
-      {:ok, date} = score
-      |> String.to_float
-      |> Timex.Date.from_seconds
-      |> Timex.format("{ISO}")
+    def convert_results_to_times(jobs, score_key) do
+      for job <- jobs do
+        Map.put(job, score_key, score_to_time(Map.get(job, score_key)))
+      end
+    end
 
+    def score_to_time(score) when is_float(score) do
+      date = round(score * 1_000_000)
+      |> DateTime.from_unix!(:microseconds)
+      |> DateTime.to_iso8601
       date
+    end
+
+    def score_to_time(score) do
+      score_to_time(String.to_float(score))
     end
 
     def map_score_to_jobs(jobs) do

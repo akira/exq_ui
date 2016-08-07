@@ -11,7 +11,6 @@ defmodule ExqUi do
     web_namespace = Application.get_env(:exq_ui, :web_namespace, "")
     run_server? = Application.get_env(:exq_ui, :server, true)
 
-    {:ok, _} = Application.ensure_all_started(:tzdata)
     api_name = Exq.Api.Server.server_name(nil)
 
     unless Process.whereis(api_name) do
