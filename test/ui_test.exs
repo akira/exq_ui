@@ -50,7 +50,7 @@ defmodule Exq.ApiTest do
 
   test "serves the processes" do
     job_json = Job.to_json(%Job{jid: "1234"})
-    JobStat.add_process(:testredis, "exq", %Process{pid: self, job: job_json})
+    JobStat.add_process(:testredis, "exq", %Process{pid: self, job: job_json, started_at: 1470539976.93175})
     conn = conn(:get, "/api/processes") |> call
     assert conn.status == 200
     {:ok, json} = Json.decode(conn.resp_body)

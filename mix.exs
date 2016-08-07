@@ -25,7 +25,7 @@ defmodule ExqUi.Mixfile do
   def application do
     [
       mod: { ExqUi, [] },
-      applications: [:logger, :tzdata, :redix, :timex]
+      applications: [:logger, :redix]
     ]
   end
 
@@ -33,7 +33,7 @@ defmodule ExqUi.Mixfile do
   # { :foobar, "0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
     [
-      { :exq, "~> 0.7.0"},
+      { :exq, github: "akira/exq"},
       { :plug, ">= 0.8.1 and < 2.0.0"},
       { :cowboy, "~> 1.0" },
       { :excoveralls, "~> 0.3", only: :test }
