@@ -9,6 +9,7 @@ defmodule ExqUi.Mixfile do
       package: [
         maintainers: ["Alex Kira", "Justin McNally", "Nick Sanders"],
         links: %{"GitHub" => "https://github.com/akira/exq"},
+        licenses: ["Apache2.0"],
         files: ~w(lib priv test web) ++
                ~w(LICENSE mix.exs README.md)
       ],
