@@ -32,6 +32,8 @@ table.table.table-bordered.table-hover
         td
           button class="btn btn-danger btn-xs" click="'removeRetry' retry"
             | Delete
+          button class="btn btn-secondary btn-xs" click="'requeueRetry' retry"
+            | Retry
   tfoot
     tr
       td colspan="6"

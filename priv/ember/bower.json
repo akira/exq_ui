@@ -12,7 +12,7 @@
     "loader.js": "3.3.0",
     "qunit": "~1.19.0",
     "bootswatch-scss": "~3.2.0",
-    "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/ember-validations-latest.js",
+    "ember-validations": "~2.0.0-alpha.5",
     "ember-simple-auth": "0.6.7",
     "moment": "~2.8.3",
     "chartjs": "1.0.2"
