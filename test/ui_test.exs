@@ -1,7 +1,7 @@
 defmodule Exq.ApiTest do
   use ExUnit.Case, async: false
   use Plug.Test
-  alias Exq.Support.Json
+  alias Exq.Support.Config
   alias Exq.Support.Job
   alias Exq.Redis.JobQueue
   alias Exq.Support.Process
@@ -49,11 +49,11 @@ defmodule Exq.ApiTest do
   end
 
   test "serves the processes" do
-    job_json = Job.to_json(%Job{jid: "1234"})
+    job_json = Job.encode(%Job{jid: "1234"})
     JobStat.add_process(:testredis, "exq", %Process{pid: self, job: job_json, started_at: 1470539976.93175})
     conn = conn(:get, "/api/processes") |> call
     assert conn.status == 200
-    {:ok, json} = Json.decode(conn.resp_body)
+    {:ok, json} = Config.serializer.decode(conn.resp_body)
     assert json["processes"] != nil
   end
 
@@ -68,7 +68,7 @@ defmodule Exq.ApiTest do
     conn = conn(:get, "/api/scheduled") |> call
     assert conn.status == 200
 
-    json = Json.decode!(conn.resp_body)
+    json = Config.serializer.decode!(conn.resp_body)
     assert %{"scheduled" => [%{"scheduled_at" => _at, "jid" => ^jid}]} = json
   end
 
@@ -78,7 +78,7 @@ defmodule Exq.ApiTest do
     conn = conn(:get, "/api/retries") |> call
     assert conn.status == 200
 
-    json = Json.decode!(conn.resp_body)
+    json = Config.serializer.decode!(conn.resp_body)
     assert json |> Map.get("retries") |> hd |> Map.get("jid") == "1234"
   end
 
