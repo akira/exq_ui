@@ -131,6 +131,11 @@ defmodule ExqUi.RouterPlug do
       conn |> send_resp(200, "") |> halt
     end
 
+    put "/api/retries/:id" do
+      :ok = Exq.Api.retry_job(conn.assigns[:exq_name], id)
+      conn |> send_resp(204, "") |> halt
+    end
+
     get "/api/processes" do
       {:ok, processes} = Exq.Api.processes(conn.assigns[:exq_name])
 
