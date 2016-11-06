@@ -141,7 +141,7 @@ defmodule ExqUi.RouterPlug do
 
       process_jobs = for p <- processes do
         process = Map.delete(p, "job")
-        {:ok, pjob} = Poison.decode(p.job, %{})
+        pjob = p.job
         process = Map.put(process, :job_id, pjob["jid"])
         |> Map.put(:started_at, score_to_time(p.started_at))
         |> Map.put(:id, "#{process.host}:#{process.pid}")
