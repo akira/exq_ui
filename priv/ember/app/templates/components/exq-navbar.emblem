@@ -23,4 +23,4 @@ nav.navbar.navbar-default role="navigation"
         li
           link-to 'scheduled.index' | Scheduled
         li
-          link-to 'failures.index' | Failures
+          link-to 'failures.index' | Dead

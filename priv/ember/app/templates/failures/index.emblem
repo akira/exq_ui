@@ -40,4 +40,4 @@ table.table.table-bordered.table-hover
     tr
       td colspan="6"
         button class="btn btn-danger btn-xs" click="clearFailures"
-          | Clear Failed Jobs List
+          | Clear Dead Jobs List

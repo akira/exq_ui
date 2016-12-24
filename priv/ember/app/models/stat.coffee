@@ -5,5 +5,6 @@ Stat = DS.Model.extend
   enqueued: DS.attr 'number'
   retrying: DS.attr 'number'
   scheduled: DS.attr 'number'
+  dead: DS.attr 'number'
   date: DS.attr 'date'
 `export default Stat`
