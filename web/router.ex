@@ -8,7 +8,7 @@ defmodule ExqUi.RouterPlug do
       if options[:exq_opts] do
         options[:exq_opts]
       else
-        [name: Exq.Api.Server.server_name(nil)]
+        [name: Exq.Api.Server.server_name(ExqUi)]
       end
     Keyword.put(options, :exq_opts, enq_opts)
   end

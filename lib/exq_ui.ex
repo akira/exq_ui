@@ -11,10 +11,10 @@ defmodule ExqUi do
     web_namespace = Application.get_env(:exq_ui, :web_namespace, "")
     run_server? = Application.get_env(:exq_ui, :server, true)
 
-    api_name = Exq.Api.Server.server_name(nil)
+    api_name = Exq.Api.Server.server_name(ExqUi)
 
     unless Process.whereis(api_name) do
-      {:ok, _} = Exq.start_link(mode: :api)
+      {:ok, _} = Exq.start_link(name: ExqUi, mode: :api)
     end
 
     {:ok, _} = Exq.Api.queue_size(api_name)
