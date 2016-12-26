@@ -20,7 +20,7 @@ Add exq_ui to your mix.exs deps (replace version with the latest hex.pm package 
   defp deps do
     [
       # ... other deps
-      {:exq_ui, "~> 0.8.2"}
+      {:exq_ui, "~> 0.8.3"}
     ]
   end
 ```
