@@ -27,6 +27,21 @@ Add exq_ui to your mix.exs deps (replace version with the latest hex.pm package 
 
 Then run ```mix deps.get```.
 
+Make sure to load `exq_ui`
+```elixir
+  def application do
+    [mod: {OperationSpectrum, []},
+     applications: [
+      :phoenix, 
+      # ... other deps
+      :phoenix_ecto, 
+      :postgrex,
+      :exq,
+      :exq_ui
+    ]
+  ]
+  end```
+  
 For Elixir 1.2 or older, you will need to use Exq version 0.7.2 in hex, and you will also need to add `:tzdata` to your application list.
 
 ### Configuration:
