@@ -66,7 +66,7 @@ config :exq,
 There are also a few configuration options for the UI:
 ```elixir
 config :exq_ui,
-  webport: 4040,
+  web_port: 4040,
   web_namespace: "",
   server: true
 ```
