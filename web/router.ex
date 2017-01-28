@@ -65,11 +65,11 @@ defmodule ExqUi.RouterPlug do
       {:ok, failures, successes} = Exq.Api.realtime_stats(conn.assigns[:exq_name])
 
       f = for {date, count} <- failures do
-        %{id: "f#{date}", date: date, count: count, type: "failure"}
+        %{id: "f#{date}", timestamp: date, count: count}
       end
 
       s = for {date, count} <- successes do
-        %{id: "s#{date}", date: date, count: count, type: "success"}
+        %{id: "s#{date}", timestamp: date, count: count}
       end
       all = %{realtimes: f ++ s}
 
