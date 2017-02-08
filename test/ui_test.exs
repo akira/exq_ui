@@ -63,7 +63,7 @@ defmodule Exq.ApiTest do
 
   test "serves scheduled" do
     state = :sys.get_state(Exq.Api)
-    {:ok, jid} = JobQueue.enqueue_in(state.redis, state.namespace, "custom", 1000, TestWorker, [])
+    {:ok, jid} = JobQueue.enqueue_in(state.redis, state.namespace, "custom", 1000, TestWorker, [], [])
     conn = conn(:get, "/api/scheduled") |> call
     assert conn.status == 200
 
