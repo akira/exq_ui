@@ -8,7 +8,7 @@ defmodule ExqUi.Mixfile do
       elixirc_paths: ["lib", "web"],
       package: [
         maintainers: ["Alex Kira", "Justin McNally", "Nick Sanders"],
-        links: %{"GitHub" => "https://github.com/akira/exq"},
+        links: %{"GitHub" => "https://github.com/akira/exq_ui"},
         licenses: ["Apache2.0"],
         files: ~w(lib priv test web) ++
                ~w(LICENSE mix.exs README.md)
