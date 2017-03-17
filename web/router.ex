@@ -212,14 +212,19 @@ defmodule ExqUi.RouterPlug do
     end
 
     def score_to_time(score) when is_float(score) do
-      date = round(score * 1_000_000)
+      round(score * 1_000_000)
       |> DateTime.from_unix!(:microseconds)
       |> DateTime.to_iso8601
-      date
     end
 
     def score_to_time(score) do
-      score_to_time(String.to_float(score))
+      if String.contains?(score, ".") do
+        score_to_time(String.to_float(score))
+      else
+        String.to_integer(score)
+        |> DateTime.from_unix!
+        |> DateTime.to_iso8601
+      end
     end
 
     def map_score_to_jobs(jobs) do
