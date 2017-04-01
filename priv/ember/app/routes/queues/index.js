@@ -1,0 +1,9 @@
+var IndexRoute;
+
+IndexRoute = Ember.Route.extend({
+  model: function(params) {
+    return this.store.findAll('queue');
+  }
+});
+
+export default IndexRoute;

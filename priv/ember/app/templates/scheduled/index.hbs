@@ -1,0 +1,28 @@
+<h2>Scheduled</h2>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Queue</th>
+      <th>Class</th>
+      <th>Args</th>
+      <th>Scheduled At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model as |scheduled|}}
+      <tr>
+        <td>{{scheduled.queue}}</td>
+        <td>{{scheduled.class}}</td>
+        <td>{{scheduled.args}}</td>
+        <td>{{scheduled.scheduled_at}}</td>
+        <td><button {{action 'removeScheduled' scheduled on="click"}} class="btn btn-danger btn-xs">Delete</button></td>
+      </tr>
+    {{/each}}
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="6"><button {{action "clearScheduled" on="click"}} class="btn btn-danger btn-xs">Clear Scheduled Queue</button></td>
+    </tr>
+  </tfoot>
+</table>

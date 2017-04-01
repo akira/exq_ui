@@ -1,0 +1,21 @@
+<h2>Queues</h2>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Queue</th>
+      <th>Size</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model as |queue|}}
+      <tr>
+        <td>{{queue.id}}</td>
+        <td>
+          {{#link-to 'queues.show' queue.id}}{{queue.size}}{{/link-to}}
+        </td>
+        <td><button {{action 'deleteQueue' queue on="click"}} class="btn btn-danger btn-xs">Delete</button></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

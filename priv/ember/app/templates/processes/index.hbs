@@ -1,0 +1,28 @@
+<h2>Workers</h2>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Worker</th>
+      <th>Queue</th>
+      <th>Class</th>
+      <th>Arguments</th>
+      <th>Started</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model as |process|}}
+      <tr>
+        <td>{{process.host}}:{{process.pid}}</td>
+        <td>{{process.job.queue}}</td>
+        <td>{{process.job.class}}</td>
+        <td>{{process.job.args}}</td>
+        <td>{{process.started_at}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="5"><button {{action "clearProcesses" on="click"}} class="btn btn-danger btn-xs">Clear worker list</button></td>
+    </tr>
+  </tfoot>
+</table>

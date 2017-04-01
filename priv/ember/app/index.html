@@ -3,22 +3,29 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ExqAdmin</title>
+    <title>Exqui</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{content-for "head"}}
+
     <base href="/<%= assigns[:base] %>" />
 
     <script>
       window.exqNamespace = "<%= assigns[:base] %>";
     </script>
 
-    {{content-for 'head'}}
-    
-    <link rel="stylesheet" href="assets/vendor.css">
-    <link rel="stylesheet" href="assets/exq-admin.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/exqui.css">
+
+    {{content-for "head-footer"}}
   </head>
   <body>
-    <script src="assets/vendor.js"></script>
-    <script src="assets/exq-admin.js"></script>
+    {{content-for "body"}}
+
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/exqui.js"></script>
+
+    {{content-for "body-footer"}}
   </body>
 </html>

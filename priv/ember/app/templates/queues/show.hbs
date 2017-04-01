@@ -1,0 +1,21 @@
+<h2>Queue:{{model.id}}</h2>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Args</th>
+      <th>Enqueued At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model.jobs as |job|}}
+      <tr>
+        <td>{{job.class}}</td>
+        <td>{{job.args}}</td>
+        <td>{{job.enqueued_at}}</td>
+        <td><button class="btn btn-danger btn-xs">Delete</button></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
