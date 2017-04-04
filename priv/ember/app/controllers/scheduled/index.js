@@ -1,4 +1,5 @@
 import request from 'ic-ajax';
+import Ember from "ember";
 var IndexController;
 
 IndexController = Ember.Controller.extend({
@@ -10,7 +11,6 @@ IndexController = Ember.Controller.extend({
         url: "api/scheduled",
         type: "DELETE"
       }).then(function() {
-        console.log("clearScheduled request finished");
         self.store.unloadAll('scheduled');
         return self.send('reloadStats');
       });
@@ -19,7 +19,7 @@ IndexController = Ember.Controller.extend({
       var self;
       self = this;
       scheduled.deleteRecord();
-      return scheduled.save().then(function(f) {
+      return scheduled.save().then(function(_f) {
         return self.send('reloadStats');
       });
     }

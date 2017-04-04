@@ -1,4 +1,5 @@
 var IndexController;
+import Ember from "ember";
 
 IndexController = Ember.Controller.extend({
   actions: {
@@ -10,7 +11,7 @@ IndexController = Ember.Controller.extend({
       if (confirm("Are you sure you want to delete " + queue.id + " and all its jobs?")) {
         self = this;
         queue.deleteRecord();
-        return queue.save().then(function(q) {
+        return queue.save().then(function(_q) {
           return self.send('reloadStats');
         });
       }

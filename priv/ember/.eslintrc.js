@@ -6,8 +6,10 @@ module.exports = {
   },
   extends: 'eslint:recommended',
   env: {
-    browser: true
+    browser: true, 
+    "jquery" : true
   },
   rules: {
+    "no-unused-vars": [2, { "args": "all", "varsIgnorePattern": "^_.+", "argsIgnorePattern": "^_.+" }],
   }
 };

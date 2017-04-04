@@ -1,7 +1,8 @@
 var ApplicationRoute;
+import Ember from "ember";
 
 ApplicationRoute = Ember.Route.extend({
-  model: function(params) {
+  model: function(_params) {
     return this.get('store').findRecord('stat', 'all');
   },
   actions: {

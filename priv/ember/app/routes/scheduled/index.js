@@ -1,7 +1,8 @@
 var IndexRoute;
+import Ember from "ember";
 
 IndexRoute = Ember.Route.extend({
-  model: function(params) {
+  model: function(_params) {
     return this.store.findAll('scheduled');
   }
 });
