@@ -1,4 +1,5 @@
 import request from 'ic-ajax';
+import Ember from "ember";
 
 var IndexController = Ember.Controller.extend({
   actions: {
@@ -9,17 +10,16 @@ var IndexController = Ember.Controller.extend({
         url: "api/failures",
         type: "DELETE"
       }).then(function() {
-        console.log("clearFailures request finished");
         self.store.unloadAll('failure');
         return self.send('reloadStats');
       });
     },
-    retryFailure: function(failure) {},
+    retryFailure: function(_failure) {},
     removeFailure: function(failure) {
       var self;
       self = this;
       failure.deleteRecord();
-      return failure.save().then(function(f) {
+      return failure.save().then(function(_f) {
         return self.send('reloadStats');
       });
     }

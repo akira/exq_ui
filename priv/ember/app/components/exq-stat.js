@@ -1,4 +1,5 @@
 var ExqStat;
+import Ember from "ember";
 
 ExqStat = Ember.Component.extend({
   link: "index",

@@ -1,4 +1,5 @@
 var ShowRoute;
+import Ember from "ember";
 
 ShowRoute = Ember.Route.extend({
   model: function(params) {

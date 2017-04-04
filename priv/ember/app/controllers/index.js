@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Ember from "ember";
 
 var IndexController = Ember.Controller.extend({
   date: null,

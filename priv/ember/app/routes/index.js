@@ -1,4 +1,5 @@
 var IndexRoute;
+import Ember from "ember";
 
 IndexRoute = Ember.Route.extend({
   timeout: null,
