@@ -1,14 +1,22 @@
 ---
 language: node_js
+node_js:
+  - "6"
 
 sudo: false
 
 cache:
   directories:
-    - node_modules
+    - $HOME/.npm
+    - $HOME/.cache # includes bowers cache
+
+before_install:
+  - npm config set spin false
+  - npm install -g bower phantomjs-prebuilt
+  - bower --version
+  - phantomjs --version
 
 install:
-  - npm install -g bower
   - npm install
   - bower install
 
