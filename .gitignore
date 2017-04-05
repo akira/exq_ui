@@ -10,6 +10,7 @@ priv/ember/dist/tests/
 /erl_crash.dump
 /tmp
 _build/
+/doc
 *.swp
 *.log
 .*.swp
