@@ -188,9 +188,9 @@ defmodule ExqUi.RouterPlug do
     EEx.function_from_file :defp, :render_index, index_path, [:assigns]
 
     match _ do
-      base = ""
-      if conn.assigns[:namespace] != "" do
-        base = "#{conn.assigns[:namespace]}/"
+      base = case conn.assigns[:namespace] do
+        "" -> ""
+        namespace -> "#{namespace}/"
       end
 
       conn
