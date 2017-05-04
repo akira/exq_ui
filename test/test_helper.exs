@@ -35,9 +35,9 @@ defmodule ExqTestUtil do
 
   def assert_exq_up(exq) do
     my_pid = String.to_atom(UUID.uuid4)
-    Process.register(self, my_pid)
+    Process.register(self(), my_pid)
     {:ok, _} = Exq.enqueue(exq, "default", "ExqTestUtil.SendWorker", [my_pid])
-    wait_long
+    wait_long()
     ExUnit.Assertions.assert_received {:worked}
     Process.unregister(my_pid)
   end
@@ -83,9 +83,9 @@ defmodule TestRedis do
   end
 
   def setup do
-    {:ok, redis} = Redix.start_link([host: redis_host, port: redis_port])
+    {:ok, redis} = Redix.start_link([host: redis_host(), port: redis_port()])
     Process.register(redis, :testredis)
-    flush_all
+    flush_all()
     :ok
   end
 
@@ -96,7 +96,7 @@ defmodule TestRedis do
   def teardown do
     if !Process.whereis(:testredis) do
       # For some reason at the end of test the link is down, before we acutally stop and unregister?
-      {:ok, redis} = Redix.start_link([host: redis_host, port: redis_port])
+      {:ok, redis} = Redix.start_link([host: redis_host(), port: redis_port()])
       Process.register(redis, :testredis)
     end
     Process.unregister(:testredis)

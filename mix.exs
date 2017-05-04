@@ -17,7 +17,7 @@ defmodule ExqUi.Mixfile do
       Exq UI is the UI component for Exq, a job processing library.  Exq UI provides the UI dashboard
       to display stats on job processing.
       """,
-      deps: deps,
+      deps: deps(),
       test_coverage: [tool: ExCoveralls]
     ]
   end

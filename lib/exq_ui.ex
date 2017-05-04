@@ -3,7 +3,7 @@ defmodule ExqUi do
   import Supervisor.Spec, warn: false
 
   def start(_type, _args) do
-    launch_app
+    launch_app()
   end
 
   def launch_app do
