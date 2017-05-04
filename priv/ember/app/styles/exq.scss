@@ -10,7 +10,7 @@
 }
 
 .failure-error-message {
-  max-height: $line-height-computed;
+  max-height: ($line-height-computed * 10);
   overflow: auto;
   // white-space: pre;
 }
