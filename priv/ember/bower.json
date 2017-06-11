@@ -1,6 +1,7 @@
 {
   "name": "exqui",
   "dependencies": {
-    "bootswatch-scss": "~3.2.0"
+    "bootswatch-scss": "~3.2.0",
+    "chartjs": "2.6.0"
   }
 }
