@@ -40,7 +40,8 @@ Make sure to load `exq_ui`
       :exq_ui
     ]
   ]
-  end```
+  end
+```
 
 For Elixir 1.2 or older, you will need to use Exq version 0.7.2 in hex, and you will also need to add `:tzdata` to your application list.
 
