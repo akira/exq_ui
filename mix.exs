@@ -36,7 +36,7 @@ defmodule ExqUi.Mixfile do
     [
       { :exq, "~> 0.9"},
       { :plug, "~> 1.6.3"},
-      { :cowboy, "~> 2.4.0" },
+      { :cowboy, "~>2.4.0 or ~> 1.0" },
       { :excoveralls, "~> 0.3", only: :test },
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]

@@ -21,9 +21,16 @@ defmodule ExqUi do
 
     if run_server? do
       IO.puts "Starting ExqUI on Port #{web_port}"
-      Plug.Adapters.Cowboy2.http ExqUi.RouterPlug,
+      cowboy_version_adapter().http ExqUi.RouterPlug,
         [namespace: web_namespace, exq_opts: [name: api_name]], port: web_port
     end
     Supervisor.start_link([], strategy: :one_for_one)
+  end
+
+  defp cowboy_version_adapter() do
+    case :application.get_key(:cowboy, :vsn) do
+      [?1 | _] -> Plug.Adapters.Cowboy
+      _ -> Plug.Adapters.Cowboy2
+    end
   end
 end
