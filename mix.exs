@@ -36,9 +36,21 @@ defmodule ExqUi.Mixfile do
     [
       { :exq, "~> 0.9"},
       { :plug, "~> 1.6.3"},
-      { :cowboy, "~>2.4.0 or ~> 1.0" },
       { :excoveralls, "~> 0.3", only: :test },
-      {:ex_doc, ">= 0.0.0", only: :dev}
-    ]
+      { :ex_doc, ">= 0.0.0", only: :dev }
+    ] ++ cowboy_deps()
+  end
+
+  def cowboy_deps do
+    case otp_version() >= 19 do
+      true -> [{ :cowboy, "~>2.4.0" }]
+      _ -> [{ :cowboy, "~>1.0" }]
+    end
+  end
+
+  def otp_version do
+    :erlang.system_info(:otp_release)
+    |> to_string()
+    |> String.to_integer()
   end
 end
