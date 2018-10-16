@@ -11,9 +11,9 @@ otp_release:
 before_script:
   - MIX_ENV=test mix do deps.get
 script:
-  - MIX_ENV=test mix test --no-start
+  - MIX_ENV=test mix test
 after_script:
-  - MIX_ENV=test mix coveralls.travis --no-start
+  - MIX_ENV=test mix coveralls.travis
 services:
   - redis-server
 sudo: false

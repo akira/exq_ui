@@ -24,17 +24,17 @@ defmodule ExqUi.Mixfile do
 
   # Configuration for the OTP application
   def application do
-    case minor_elixir_version() >= 6 do
+    case __MODULE__.minor_elixir_version() >= 6 do
       true ->
         [
           mod: { ExqUi, [] },
           applications: [:redix],
-          extra_applications: [:logger, :plug]
+          extra_applications: [:plug, :logger]
         ]
       _ ->
         [
           mod: { ExqUi, [] },
-          applications: [:logger, :redix, :plug]
+          applications: [:logger, :redix]
         ]
     end
   end
@@ -56,7 +56,7 @@ defmodule ExqUi.Mixfile do
           { :cowboy, "~> 2.4.0" }
       ]
       _ -> [
-          { :plug, "< 2.0.0" },
+          { :plug, "< 1.0.3" },
           { :cowboy, "~> 1.0" }
       ]
     end
