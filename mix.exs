@@ -44,8 +44,8 @@ defmodule ExqUi.Mixfile do
   def cowboy_deps do
     case otp_version() >= 19 && minor_elixir_version() >= 4 do
       true -> [
-          { :plug, "~> 1.6.3"},
-          { :cowboy, "~> 2.4.0" }
+          { :plug, "~> 1.6"},
+          { :cowboy, "~> 2.4" }
       ]
       _ -> [
           { :plug, "< 1.0.3" },
