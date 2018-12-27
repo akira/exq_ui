@@ -111,6 +111,8 @@ ExUnit.configure(seed: 0, max_cases: 1, exclude: [failure_scenarios: true])
 # Start logger
 :application.start(:logger)
 
+:application.start(:plug)
+
 TestRedis.start
 
 System.at_exit fn(_status) ->

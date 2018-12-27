@@ -4,8 +4,8 @@ config :logger, :console,
   format: "\n$date $time [$level]: $message \n"
 
 config :exq,
-  host: "127.0.0.1",
-  port: 6379,
+  host: System.get_env("REDIS_HOST") || "127.0.0.1",
+  port: System.get_env("REDIS_PORT") || 6555,
   namespace: "exq",
   queues: ["default"],
   scheduler_enable: false,
