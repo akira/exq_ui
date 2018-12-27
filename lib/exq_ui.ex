@@ -27,10 +27,21 @@ defmodule ExqUi do
     Supervisor.start_link([], strategy: :one_for_one)
   end
 
-  defp cowboy_version_adapter() do
-    case :application.get_key(:cowboy, :vsn) do
-      [?1 | _] -> Plug.Adapters.Cowboy
-      _ -> Plug.Adapters.Cowboy2
+  def cowboy_version_adapter() do
+    case otp_version() >= 19 && minor_elixir_version() >= 4 do
+      true -> Plug.Adapters.Cowboy2
+      _ -> Plug.Adapters.Cowboy
     end
+  end
+
+  def otp_version do
+    :erlang.system_info(:otp_release)
+    |> to_string()
+    |> String.to_integer()
+  end
+
+  def minor_elixir_version do
+    {_, version} = Version.parse(System.version)
+    version.minor
   end
 end

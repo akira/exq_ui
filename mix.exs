@@ -26,7 +26,8 @@ defmodule ExqUi.Mixfile do
   def application do
     [
       mod: { ExqUi, [] },
-      applications: [:logger, :redix]
+      applications: [:redix],
+      extra_applications: [:plug, :logger]
     ]
   end
 
@@ -34,11 +35,34 @@ defmodule ExqUi.Mixfile do
   # { :foobar, "0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
     [
-      {:exq, "~> 0.9"},
-      {:plug, "~> 1.6"},
-      {:cowboy, "~>2.4 or ~> 1.0" },
-      {:excoveralls, "~> 0.3", only: :test },
-      {:ex_doc, ">= 0.0.0", only: :dev}
-    ]
+      { :exq, "~> 0.9"},
+      { :excoveralls, "~> 0.3", only: :test },
+      { :ex_doc, ">= 0.0.0", only: :dev }
+    ] ++ cowboy_deps()
+  end
+
+  def cowboy_deps do
+    case otp_version() >= 19 && minor_elixir_version() >= 4 do
+      true -> [
+          { :plug, "~> 1.6"},
+          { :cowboy, "~> 2.4" }
+      ]
+      _ -> [
+          { :plug, "< 1.0.3" },
+          { :cowboy, "~> 1.0" }
+      ]
+    end
+  end
+
+  # elixir/otp version helpers
+  def minor_elixir_version do
+    {_, version} = Version.parse(System.version)
+    version.minor
+  end
+
+  def otp_version do
+    :erlang.system_info(:otp_release)
+    |> to_string()
+    |> String.to_integer()
   end
 end
