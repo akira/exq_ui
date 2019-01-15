@@ -47,7 +47,7 @@ defmodule ExqUi.Mixfile do
       true ->
         [
           {:plug, "~> 1.6"},
-          {:cowboy, "~> 2.4"}
+          {:plug_cowboy, "~> 2.0"}
         ]
 
       _ ->
