@@ -35,9 +35,10 @@ defmodule ExqUi.Mixfile do
   # { :foobar, "0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
     [
-      {:exq, "~> 0.9"},
+      {:exq, "~> 0.13"},
       {:excoveralls, "~> 0.3", only: :test},
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:ex_doc, ">= 0.0.0", only: :dev},
+      {:redix, ">= 0.8.1"}
     ] ++ cowboy_deps()
   end
 
