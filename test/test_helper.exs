@@ -59,7 +59,7 @@ defmodule ExqTestUtil do
   end
 
   def reset_config do
-    config = Mix.Config.read!(Path.join([Path.dirname(__DIR__), "config", "config.exs"]))
+    config = Mix.Config.eval!(Path.join([Path.dirname(__DIR__), "config", "config.exs"]))
     Mix.Config.persist(config)
   end
 end
