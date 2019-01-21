@@ -20,18 +20,16 @@ defmodule ExqUi do
     {:ok, _} = Exq.Api.queue_size(api_name)
 
     if run_server? do
-      IO.puts "Starting ExqUI on Port #{web_port}"
-      cowboy_version_adapter().http ExqUi.RouterPlug,
-        [namespace: web_namespace, exq_opts: [name: api_name]], port: web_port
-    end
-    Supervisor.start_link([], strategy: :one_for_one)
-  end
+      IO.puts("Starting ExqUI on Port #{web_port}")
 
-  def cowboy_version_adapter() do
-    case otp_version() >= 19 && minor_elixir_version() >= 4 do
-      true -> Plug.Adapters.Cowboy2
-      _ -> Plug.Adapters.Cowboy
+      Plug.Cowboy.http(
+        ExqUi.RouterPlug,
+        [namespace: web_namespace, exq_opts: [name: api_name]],
+        port: web_port
+      )
     end
+
+    Supervisor.start_link([], strategy: :one_for_one)
   end
 
   def otp_version do
@@ -41,7 +39,7 @@ defmodule ExqUi do
   end
 
   def minor_elixir_version do
-    {_, version} = Version.parse(System.version)
+    {_, version} = Version.parse(System.version())
     version.minor
   end
 end

@@ -1,7 +1,6 @@
 use Mix.Config
 
-config :logger, :console,
-  format: "\n$date $time [$level]: $message \n"
+config :logger, :console, format: "\n$date $time [$level]: $message \n"
 
 config :exq,
   host: "127.0.0.1",
@@ -21,4 +20,4 @@ config :exq_ui,
   web_namespace: "",
   server: true
 
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

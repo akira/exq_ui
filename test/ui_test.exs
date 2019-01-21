@@ -9,12 +9,14 @@ defmodule Exq.ApiTest do
   import ExqTestUtil
 
   setup_all do
-    TestRedis.setup
-    {:ok, sup} = Exq.start_link([host: redis_host(), port: redis_port(), name: Exq, mode: :api])
-    on_exit fn ->
-      TestRedis.teardown
+    TestRedis.setup()
+    {:ok, sup} = Exq.start_link(host: redis_host(), port: redis_port(), name: Exq, mode: :api)
+
+    on_exit(fn ->
+      TestRedis.teardown()
       stop_process(sup)
-    end
+    end)
+
     :ok
   end
 
@@ -22,12 +24,13 @@ defmodule Exq.ApiTest do
     conn
     |> assign(:exq_name, Exq.Api)
     |> ExqUi.RouterPlug.Router.call([])
- end
+  end
 
   test "serves the index" do
     conn = conn(:get, "/") |> call
     assert conn.status == 200
   end
+
   test "serves the stats" do
     conn = conn(:get, "/api/stats/all") |> call
     assert conn.status == 200
@@ -49,10 +52,15 @@ defmodule Exq.ApiTest do
   end
 
   test "serves the processes" do
-    JobStat.add_process(:testredis, "exq", %Process{pid: self(), job: %Job{jid: "1234"}, started_at: 1470539976.93175})
+    JobStat.add_process(:testredis, "exq", %Process{
+      pid: self(),
+      job: %Job{jid: "1234"},
+      started_at: 1_470_539_976.93175
+    })
+
     conn = conn(:get, "/api/processes") |> call
     assert conn.status == 200
-    {:ok, json} = Config.serializer.decode(conn.resp_body)
+    {:ok, json} = Config.serializer().decode(conn.resp_body)
     assert json["processes"] != nil
   end
 
@@ -63,11 +71,14 @@ defmodule Exq.ApiTest do
 
   test "serves scheduled" do
     state = :sys.get_state(Exq.Api)
-    {:ok, jid} = JobQueue.enqueue_in(state.redis, state.namespace, "custom", 1000, TestWorker, [], [])
+
+    {:ok, jid} =
+      JobQueue.enqueue_in(state.redis, state.namespace, "custom", 1000, TestWorker, [], [])
+
     conn = conn(:get, "/api/scheduled") |> call
     assert conn.status == 200
 
-    json = Config.serializer.decode!(conn.resp_body)
+    json = Config.serializer().decode!(conn.resp_body)
     assert %{"scheduled" => [%{"scheduled_at" => _at, "jid" => ^jid}]} = json
   end
 
@@ -77,7 +88,7 @@ defmodule Exq.ApiTest do
     conn = conn(:get, "/api/retries") |> call
     assert conn.status == 200
 
-    json = Config.serializer.decode!(conn.resp_body)
+    json = Config.serializer().decode!(conn.resp_body)
     assert json |> Map.get("retries") |> hd |> Map.get("jid") == "1234"
   end
 
