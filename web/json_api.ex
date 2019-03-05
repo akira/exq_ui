@@ -1,4 +1,4 @@
-defmodule JsonApi do
+defmodule ExqUi.JsonApi do
   def init(opts), do: opts
 
   def call(conn, opts) do

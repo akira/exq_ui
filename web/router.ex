@@ -36,7 +36,7 @@ defmodule ExqUi.RouterPlug do
     use Plug.Router
 
     plug Plug.Static, at: "/", from: :exq_ui
-    plug JsonApi, on: "api"
+    plug ExqUi.JsonApi, on: "api"
 
     plug :match
     plug :dispatch
