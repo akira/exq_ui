@@ -28,8 +28,8 @@ defmodule ExqUi do
   end
 
   def cowboy_version_adapter() do
-    case otp_version() >= 19 && minor_elixir_version() >= 4 do
-      true -> Plug.Adapters.Cowboy2
+    case minor_elixir_version() >= 4 do
+      true -> plug_adapter_cowboy(otp_version())
       _ -> Plug.Adapters.Cowboy
     end
   end
@@ -44,4 +44,8 @@ defmodule ExqUi do
     {_, version} = Version.parse(System.version)
     version.minor
   end
+
+  defp plug_adapter_cowboy(otp_version) when otp_version < 19, do: Plug.Adapters.Cowboy
+  defp plug_adapter_cowboy(otp_version) when otp_version in 19..20, do: Plug.Adapters.Cowboy2
+  defp plug_adapter_cowboy(otp_version) when otp_version >= 21, do: Plug.Cowboy
 end
