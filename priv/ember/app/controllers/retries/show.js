@@ -1,4 +1,3 @@
-import request from 'ic-ajax';
 import Ember from "ember";
 var ShowController;
 
