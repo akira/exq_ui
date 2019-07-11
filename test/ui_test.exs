@@ -81,6 +81,16 @@ defmodule Exq.ApiTest do
     assert json |> Map.get("retries") |> hd |> Map.get("jid") == "1234"
   end
 
+  test "serves a retry" do
+    state = :sys.get_state(Exq.Api)
+    JobQueue.retry_job(state.redis, state.namespace, %Job{jid: "1234"}, 1, "this is an error")
+    conn = conn(:get, "/api/retries/1234") |> call
+    assert conn.status == 200
+
+    json = Config.serializer.decode!(conn.resp_body)
+    assert json |> Map.get("retry") |> Map.get("jid") == "1234"
+  end
+
   test "serves the queue" do
     conn = conn(:get, "/api/queues/default") |> call
     assert conn.status == 200
