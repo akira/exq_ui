@@ -9,7 +9,6 @@ otp_release:
   - 17.5
   - 18.0
   - 19.0
-  - 22.0
 before_script:
   - MIX_ENV=test mix do deps.get
 script:
