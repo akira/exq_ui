@@ -92,7 +92,7 @@ defmodule ExqUi.RouterPlug do
     end
 
     get "/api/retries/:id" do
-      {:ok, retry} = Exq.Api.find_retry(conn.assigns[:exq_name], conn.params["id"])
+      {:ok, retry} = Exq.Api.find_retry(conn.assigns[:exq_name], id)
       retry = retry |> map_jid_to_id |> convert_results_to_times(:failed_at)
       {:ok, json} = Poison.encode(%{retry: retry})
 
