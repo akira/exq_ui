@@ -29,16 +29,16 @@ defmodule ExqTestUtil do
 
   defmodule SendWorker do
     def perform(pid) do
-      send String.to_atom(pid), {:worked}
+      send(String.to_atom(pid), {:worked})
     end
   end
 
   def assert_exq_up(exq) do
-    my_pid = String.to_atom(UUID.uuid4)
+    my_pid = String.to_atom(UUID.uuid4())
     Process.register(self(), my_pid)
     {:ok, _} = Exq.enqueue(exq, "default", "ExqTestUtil.SendWorker", [my_pid])
     wait_long()
-    ExUnit.Assertions.assert_received {:worked}
+    ExUnit.Assertions.assert_received({:worked})
     Process.unregister(my_pid)
   end
 
@@ -68,7 +68,7 @@ defmodule TestRedis do
   import ExqTestUtil
   alias Exq.Redis.Connection
 
-  #TODO: Automate config
+  # TODO: Automate config
   def start do
     unless Exq.Support.Config.get(:test_with_local_redis) == false do
       [] = :os.cmd('redis-server test/test-redis.conf')
@@ -83,22 +83,23 @@ defmodule TestRedis do
   end
 
   def setup do
-    {:ok, redis} = Redix.start_link([host: redis_host(), port: redis_port()])
+    {:ok, redis} = Redix.start_link(host: redis_host(), port: redis_port())
     Process.register(redis, :testredis)
     flush_all()
     :ok
   end
 
   def flush_all do
-    Connection.flushdb! :testredis
+    Connection.flushdb!(:testredis)
   end
 
   def teardown do
     if !Process.whereis(:testredis) do
       # For some reason at the end of test the link is down, before we acutally stop and unregister?
-      {:ok, redis} = Redix.start_link([host: redis_host(), port: redis_port()])
+      {:ok, redis} = Redix.start_link(host: redis_host(), port: redis_port())
       Process.register(redis, :testredis)
     end
+
     Process.unregister(:testredis)
     :ok
   end
@@ -113,10 +114,10 @@ ExUnit.configure(seed: 0, max_cases: 1, exclude: [failure_scenarios: true])
 
 :application.start(:plug)
 
-TestRedis.start
+TestRedis.start()
 
-System.at_exit fn(_status) ->
-  TestRedis.stop
-end
+System.at_exit(fn _status ->
+  TestRedis.stop()
+end)
 
-ExUnit.start
+ExUnit.start()

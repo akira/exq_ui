@@ -4,7 +4,7 @@ defmodule Mix.Tasks.Exq.Ui do
   @shortdoc "Starts the Exq UI Server"
 
   def run(_args) do
-    ExqUi.launch_app
+    ExqUi.launch_app()
     :timer.sleep(:infinity)
   end
 end
