@@ -37,7 +37,8 @@ defmodule ExqUi.Mixfile do
     [
       { :exq, "~> 0.9"},
       { :excoveralls, "~> 0.3", only: :test },
-      { :ex_doc, "~> 0.19", only: :dev }
+      { :ex_doc, "~> 0.19", only: :dev },
+      {:jason, "~> 1.1"},
     ] ++ cowboy_deps()
   end
 
