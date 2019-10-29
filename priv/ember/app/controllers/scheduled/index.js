@@ -22,6 +22,9 @@ IndexController = Ember.Controller.extend({
       return scheduled.save().then(function(_f) {
         return self.send('reloadStats');
       });
+    },
+    toggleArgsDetails: function() {
+      this.toggleProperty("argsDetails", true)
     }
   }
 });

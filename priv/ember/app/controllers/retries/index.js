@@ -30,6 +30,9 @@ IndexController = Ember.Controller.extend({
         self.send('reloadStats');
         return self.store.unloadRecord(retry);
       });
+    },
+    toggleArgsDetails: function() {
+      this.toggleProperty("argsDetails", true)
     }
   }
 });

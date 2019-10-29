@@ -4,7 +4,7 @@
     <tr>
       <th>Queue</th>
       <th>Class</th>
-      <th>Args</th>
+      <th {{action 'toggleArgsDetails'}}>Args {{#if argsDetails}}&#9664;{{else}}&#9654;{{/if}}</th>
       <th>Scheduled At</th>
       <th>Actions</th>
     </tr>
@@ -14,7 +14,13 @@
       <tr>
         <td>{{scheduled.queue}}</td>
         <td>{{scheduled.class}}</td>
-        <td>{{scheduled.args}}</td>
+        <td>
+          {{#if argsDetails}}
+            {{scheduled.parsed_args}}
+          {{else}}
+            {{scheduled.args}}
+          {{/if}}
+        </td>
         <td>{{scheduled.scheduled_at}}</td>
         <td><button {{action 'removeScheduled' scheduled on="click"}} class="btn btn-danger btn-xs">Delete</button></td>
       </tr>

@@ -4,7 +4,7 @@
     <tr>
       <th>Queue</th>
       <th>Class</th>
-      <th>Args</th>
+      <th {{action 'toggleArgsDetails'}}>Args {{#if argsDetails}}&#9664;{{else}}&#9654;{{/if}}</th>
       <th>Failed At</th>
       <th>Error</th>
       <th>Actions</th>
@@ -15,7 +15,13 @@
       <tr>
         <td>{{failure.queue}}</td>
         <td>{{failure.class}}</td>
-        <td>{{failure.args}}</td>
+        <td>
+          {{#if argsDetails}}
+            {{failure.parsed_args}}
+          {{else}}
+            {{failure.args}}
+          {{/if}}
+        </td>
         <td>{{failure.failed_at}}</td>
         <td>
           <div class="failure-error-message">{{failure.error_message}}</div>
