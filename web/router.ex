@@ -91,6 +91,14 @@ defmodule ExqUi.RouterPlug do
       conn |> send_resp(200, json) |> halt
     end
 
+    get "/api/retries/:id" do
+      {:ok, retry} = Exq.Api.find_retry(conn.assigns[:exq_name], id)
+      retry = retry |> map_jid_to_id |> convert_results_to_times(:failed_at)
+      {:ok, json} = Poison.encode(%{retry: retry})
+
+      conn |> send_resp(200, json) |> halt
+    end
+
     get "/api/failures" do
       {:ok, failures} = Exq.Api.failed(conn.assigns[:exq_name])
       failures = failures |> map_jid_to_id |> convert_results_to_times(:failed_at)
@@ -199,16 +207,20 @@ defmodule ExqUi.RouterPlug do
         |> halt
     end
 
-    def map_jid_to_id(jobs) do
+    def map_jid_to_id(jobs) when is_list(jobs) do
       for job <- jobs do
-        Map.put(job, :id, job.jid)
+        map_jid_to_id(job)
       end
     end
+    def map_jid_to_id(job), do: Map.put(job, :id, job.jid)
 
-    def convert_results_to_times(jobs, score_key) do
+    def convert_results_to_times(jobs, score_key) when is_list(jobs) do
       for job <- jobs do
-        Map.put(job, score_key, score_to_time(Map.get(job, score_key)))
+        convert_results_to_times(job, score_key)
       end
+    end
+    def convert_results_to_times(job, score_key) do
+      Map.put(job, score_key, score_to_time(Map.get(job, score_key)))
     end
 
     def score_to_time(score) when is_float(score) do

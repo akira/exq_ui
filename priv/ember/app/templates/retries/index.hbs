@@ -13,9 +13,11 @@
   <tbody>
     {{#each model as |retry|}}
       <tr>
-        <td>{{retry.queue}}</td>
+        <td>
+          {{#link-to 'retries.show' retry.id}}{{retry.queue}}{{/link-to}}
+        </td>
         <td>{{retry.class}}</td>
-        <td>{{retry.args}}</td>
+        <td>{{retry.prettyArgs}}</td>
         <td>{{retry.failed_at}}</td>
         <td>{{retry.retry_count}}</td>
         <td><button {{action 'removeRetry' retry on="click"}} class="btn btn-danger btn-xs">Delete</button><button {{action 'requeueRetry' retry on="click"}} class="btn btn-secondary btn-xs">Retry</button></td>
