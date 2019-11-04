@@ -36,6 +36,7 @@ defmodule ExqUi.Mixfile do
   defp deps do
     [
       { :exq, ">= 0.9.0"},
+      { :poison, ">= 1.2.0 or ~> 2.0"}, # Take out after #83
       { :excoveralls, "~> 0.3", only: :test },
       { :ex_doc, "~> 0.19", only: :dev }
     ] ++ cowboy_deps()
