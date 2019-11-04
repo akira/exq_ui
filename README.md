@@ -119,9 +119,6 @@ To use this with Plug, edit your router.ex and add this section:
 
 For issues, please submit a Github issue with steps on how to reproduce the problem.
 
-For questions, stop in at the [#elixir-lang Slack group](https://elixir-slackin.herokuapp.com/)
-
-
 ## Contributions
 
 Contributions are welcome. Tests are encouraged.
