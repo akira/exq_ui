@@ -9,7 +9,7 @@ ExqUI allow you to see various job processing stats, as well as details on faile
 
 ## Maintainers Needed
 
-We are seeking maintainers for this projects. If you are interested in contributing as lead of co-maintainer, please reach out. See #58. 
+We are seeking maintainers for this projects. If you are interested in contributing as lead of co-maintainer, please reach out. See #58.
 
 ## Getting Started:
 
@@ -23,7 +23,7 @@ Add exq_ui to your mix.exs deps (replace version with the latest hex.pm package 
   defp deps do
     [
       # ... other deps
-      {:exq_ui, "~> 0.10.0"}
+      {:exq_ui, "~> 0.11.0"}
     ]
   end
 ```
