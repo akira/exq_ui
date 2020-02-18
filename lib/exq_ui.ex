@@ -10,7 +10,7 @@ defmodule ExqUi do
     web_port = Application.get_env(:exq_ui, :web_port, 4040)
     web_namespace = Application.get_env(:exq_ui, :web_namespace, "")
     run_server? = Application.get_env(:exq_ui, :server, true)
-    server_name = Application.get_env(:exq_ui, :api_name, ExqUi)
+    server_name = Application.get_env(:exq_ui, :server_name, ExqUi)
 
     api_name = Exq.Api.Server.server_name(server_name)
 
