@@ -9,7 +9,7 @@ ExqUI allow you to see various job processing stats, as well as details on faile
 
 ## Maintainers Needed
 
-We are seeking maintainers for this projects. If you are interested in contributing as lead of co-maintainer, please reach out. See #58.
+We are seeking maintainers for this project. If you are interested in contributing as lead of co-maintainer, please reach out. See #58.
 
 ## Getting Started:
 
@@ -154,5 +154,3 @@ Alexander Shapiotko (thousandsofthem)
 Matt Ward (theRealWardo)
 
 Lin He (he9lin)
-
-
