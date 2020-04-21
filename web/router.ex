@@ -149,15 +149,19 @@ defmodule ExqUi.RouterPlug do
     get "/api/processes" do
       {:ok, processes} = Exq.Api.processes(conn.assigns[:exq_name])
 
-      process_jobs = for p <- processes do
-        process = Map.delete(p, "job")
-        pjob = p.job
-        process = Map.put(process, :job_id, pjob["jid"])
-        |> Map.put(:started_at, score_to_time(p.started_at))
-        |> Map.put(:id, "#{process.host}:#{process.pid}")
-        pjob = Map.put(pjob, :id, pjob["jid"])
-        [process, pjob]
-      end
+      process_jobs =
+        for p <- processes do
+          process = Map.delete(p, :job)
+          pjob = Jason.decode!(p.job, keys: :atoms)
+
+          process =
+            Map.put(process, :job_id, pjob.jid)
+            |> Map.put(:started_at, score_to_time(p.started_at))
+            |> Map.put(:id, "#{process.host}:#{process.pid}")
+
+          pjob = Map.merge(pjob, %{id: pjob.jid, args: Jason.encode!(pjob.args)})
+          [process, pjob]
+        end
 
       processes = for [process, _job] <- process_jobs, do: process
       jobs = for [_process, job] <- process_jobs, do: job
