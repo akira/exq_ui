@@ -159,7 +159,7 @@ defmodule ExqUi.RouterPlug do
             |> Map.put(:started_at, score_to_time(p.started_at))
             |> Map.put(:id, "#{process.host}:#{process.pid}")
 
-          pjob = Map.merge(pjob, %{id: pjob.jid, args: Jason.encode!(pjob.args)})
+          pjob = Map.merge(pjob, %{id: pjob.jid, args: safe_json_encode(pjob.args)})
           [process, pjob]
         end
 
@@ -244,11 +244,22 @@ defmodule ExqUi.RouterPlug do
     end
 
     def map_score_to_jobs(jobs) do
-      Enum.map(jobs, fn {job,score} ->
-        job
-        |> Map.put(:scheduled_at, score_to_time(score))
-        |> Map.put(:id, job.jid)
+      Enum.map(jobs, fn {job, score} ->
+        Map.merge(
+          job,
+          %{
+            id: job.jid,
+            scheduled_at: score_to_time(score),
+            args: safe_json_encode(job.args)
+          }
+        )
       end)
+    end
+
+    def safe_json_encode(data) do
+      Jason.encode!(data)
+    rescue
+      _ -> data
     end
   end
 end
