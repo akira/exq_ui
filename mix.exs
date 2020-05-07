@@ -2,13 +2,13 @@ defmodule ExqUi.Mixfile do
   use Mix.Project
 
   def project do
-    [ app: :exq_ui,
-      version: "0.11.0",
+    [ app: :gh_exq_ui,
+      version: "0.12.0",
       elixir: "~> 1.3",
       elixirc_paths: ["lib", "web"],
       package: [
         maintainers: ["Alex Kira", "Justin McNally", "Nick Sanders"],
-        links: %{"GitHub" => "https://github.com/akira/exq_ui"},
+        links: %{"GitHub" => "https://github.com/GeminiHealthLLC/exq_ui"},
         licenses: ["Apache2.0"],
         files: ~w(lib priv test web) ++
                ~w(LICENSE mix.exs README.md)

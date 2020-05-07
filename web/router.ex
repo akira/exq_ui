@@ -35,7 +35,7 @@ defmodule ExqUi.RouterPlug do
     import Plug.Conn
     use Plug.Router
 
-    plug Plug.Static, at: "/", from: :exq_ui
+    plug Plug.Static, at: "/", from: :gh_exq_ui
     plug ExqUi.JsonApi, on: "api"
 
     plug :match
@@ -196,7 +196,7 @@ defmodule ExqUi.RouterPlug do
     end
 
     # precompile index.html into render_index/1 function
-    index_path = Path.join([Application.app_dir(:exq_ui), "priv/static/index.html"])
+    index_path = Path.join([Application.app_dir(:gh_exq_ui), "priv/static/index.html"])
     EEx.function_from_file :defp, :render_index, index_path, [:assigns]
 
     match _ do

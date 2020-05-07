@@ -23,7 +23,7 @@ Add exq_ui to your mix.exs deps (replace version with the latest hex.pm package 
   defp deps do
     [
       # ... other deps
-      {:exq_ui, "~> 0.11.0"}
+      {:gh_exq_ui, "~> 0.12.0"}
     ]
   end
 ```
@@ -40,7 +40,7 @@ Make sure to load `exq_ui`
       :phoenix_ecto,
       :postgrex,
       :exq,
-      :exq_ui
+      :gh_exq_ui
     ]
   ]
   end
@@ -69,7 +69,7 @@ config :exq,
 
 There are also a few configuration options for the UI:
 ```elixir
-config :exq_ui,
+config :gh_exq_ui,
   web_port: 4040,
   web_namespace: "",
   server: true
