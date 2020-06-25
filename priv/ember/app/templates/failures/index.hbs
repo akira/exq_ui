@@ -20,7 +20,10 @@
         <td>
           <div class="failure-error-message">{{failure.error_message}}</div>
         </td>
-        <td><button {{action 'removeFailure' failure on="click"}} class="btn btn-danger btn-xs">Delete</button></td>
+        <td>
+          <button {{action 'retryFailure' failure on="click"}} class="btn btn-danger btn-xs">Retry</button>
+          <button {{action 'removeFailure' failure on="click"}} class="btn btn-danger btn-xs">Delete</button>
+        </td>
       </tr>
     {{/each}}
   </tbody>
