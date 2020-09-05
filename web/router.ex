@@ -25,7 +25,10 @@ defmodule ExqUi.RouterPlug do
     end
   end
 
-  def namespace(%Plug.Conn{path_info: [ns | path]} = conn, opts, ns) do
+  def namespace(%Plug.Conn{path_info: path_info} = conn, opts, ns) when is_list(path_info) and path_info != [] do
+    np_path = String.split(ns, "/")
+    path = Enum.slice(path_info, length(np_path)..length(path_info))
+
     Router.call(%Plug.Conn{conn | path_info: path}, Router.init(opts))
   end
 
