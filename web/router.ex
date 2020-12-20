@@ -106,6 +106,12 @@ defmodule ExqUi.RouterPlug do
       conn |> send_resp(200, json) |> halt
     end
 
+    post "/api/failures/:id/retry" do
+      {:ok, %{jid: jid}} = Exq.Api.find_failed(conn.assigns[:exq_name], id)
+      :ok = Exq.Api.retry_job(conn.assigns[:exq_name], jid)
+      conn |> send_resp(204, "") |> halt
+    end
+
     delete "/api/failures/:id" do
       :ok = Exq.Api.remove_failed(conn.assigns[:exq_name], id)
       conn |> send_resp(204, "") |> halt
@@ -134,11 +140,6 @@ defmodule ExqUi.RouterPlug do
     delete "/api/scheduled" do
       :ok = Exq.Api.clear_scheduled(conn.assigns[:exq_name])
       conn |> send_resp(204, "") |> halt
-    end
-
-    post "/api/failures/:_id/retry" do
-      # TODO
-      conn |> send_resp(200, "") |> halt
     end
 
     put "/api/retries/:id" do

@@ -14,7 +14,17 @@ var IndexController = Ember.Controller.extend({
         return self.send('reloadStats');
       });
     },
-    retryFailure: function(_failure) {},
+    retryFailure: function(failure) {
+      var self;
+      self = this;
+      return request({
+        url: `api/failures/${failure.id}/retry`,
+        type: "POST"
+      }).then(function() {
+        self.send('reloadStats');
+        return self.store.unloadRecord(failure);
+      });
+    },
     removeFailure: function(failure) {
       var self;
       self = this;
