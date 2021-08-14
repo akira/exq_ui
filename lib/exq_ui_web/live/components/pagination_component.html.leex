@@ -1,0 +1,16 @@
+<nav>
+  <ul class="pagination justify-content-end">
+    <li class="page-item <%= if @current_page == 1, do: "disabled" %>">
+      <%= link "«", class: "page-link", to: "#", phx_click: "page", phx_value_page: 1 %>
+    </li>
+    <%= for i <- @start_page..@end_page do %>
+      <li class="page-item <%= if @current_page == i, do: "active" %>">
+        <%= link i, class: "page-link", to: "#", phx_click: "page", phx_value_page: i %>
+      </li>
+    <% end %>
+    <li class="page-item <%= if @current_page == @total_page, do: "disabled" %>">
+      <%= link "»", class: "page-link", to: "#", phx_click: "page", phx_value_page: @total_page %>
+    </li>
+  </ul>
+</nav>
+
