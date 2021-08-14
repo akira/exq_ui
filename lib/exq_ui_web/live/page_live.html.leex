@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.processed %></h5>
+        <p class="card-text">Processed</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.failed %></h5>
+        <p class="card-text">Failed</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.busy %></h5>
+        <p class="card-text">Busy</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.retries %></h5>
+        <p class="card-text">Retries</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.scheduled %></h5>
+        <p class="card-text">Scheduled</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.dead %></h5>
+        <p class="card-text">Dead</p>
+      </div>
+    </div>
+  </div>
+</div>
