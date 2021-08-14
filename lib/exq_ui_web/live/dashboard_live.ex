@@ -19,16 +19,15 @@ defmodule ExqUIWeb.DashboardLive do
   end
 
   defp stats() do
-    {:ok, processed} = Api.stats(Exq.Api, "processed")
-    {:ok, failed} = Api.stats(Exq.Api, "failed")
+    {:ok, queues} = Api.queue_size(Exq.Api)
+    enqueued = Enum.reduce(queues, 0, fn {_name, count}, sum -> count + sum end)
     {:ok, busy} = Api.busy(Exq.Api)
     {:ok, retries} = Api.retry_size(Exq.Api)
     {:ok, scheduled} = Api.scheduled_size(Exq.Api)
     {:ok, dead} = Api.failed_size(Exq.Api)
 
     %{
-      processed: processed,
-      failed: failed,
+      enqueued: enqueued,
       busy: busy,
       retries: retries,
       scheduled: scheduled,
