@@ -19,6 +19,7 @@ defmodule ExqUIWeb.Router do
 
     live "/", DashboardLive, :index
     live "/queues", QueueLive.Index, :index
+    live "/queues/:name", QueueLive.Show, :index
   end
 
   # Other scopes may use custom stacks.

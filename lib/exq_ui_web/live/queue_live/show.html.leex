@@ -1,0 +1,26 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Module</th>
+      <th scope="col">Arguments</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for %{job: job, raw: raw} <- @jobs do %>
+        <tr>
+          <td>
+            <%= job.class %>
+          </td>
+          <td>
+            <%= inspect(job.args) %>
+          </td>
+          <td>
+            <span>
+              <%= link "Delete", class: "btn btn-danger btn-sm", to: "#", phx_click: "delete", phx_value_raw: raw, phx_value_queue: @name, data: [confirm: "Are you sure?"] %>
+            </span>
+          </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

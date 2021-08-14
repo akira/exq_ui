@@ -9,7 +9,11 @@
   <tbody>
     <%= for queue <- @queues do %>
         <tr>
-          <td><%= queue.name %></td>
+          <td>
+            <span>
+              <%= link queue.name, to: Routes.queue_show_path(@socket, :index, queue.name) %>
+            </span>
+          </td>
           <td><%= queue.count %></td>
           <td>
             <span>
