@@ -17,7 +17,7 @@ defmodule ExqUIWeb.Router do
   scope "/", ExqUIWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/", DashboardLive, :index
     live "/queues", QueueLive.Index, :index
   end
 

@@ -1,4 +1,4 @@
-defmodule ExqUIWeb.PageLive do
+defmodule ExqUIWeb.DashboardLive do
   use ExqUIWeb, :live_view
 
   alias Exq.Api
