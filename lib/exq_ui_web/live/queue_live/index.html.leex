@@ -1,0 +1,22 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Queue</th>
+      <th scope="col">Size</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for queue <- @queues do %>
+        <tr>
+          <td><%= queue.name %></td>
+          <td><%= queue.count %></td>
+          <td>
+            <span>
+              <%= link "Delete", class: "btn btn-danger btn-sm", to: "#", phx_click: "delete", phx_value_name: queue.name, data: [confirm: "Are you sure?"] %>
+            </span>
+          </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

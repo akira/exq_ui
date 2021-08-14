@@ -1,6 +1,7 @@
 defmodule ExqUIWeb.PageLive do
-  alias Exq.Api
   use ExqUIWeb, :live_view
+
+  alias Exq.Api
 
   @tick_interval 10000
 
