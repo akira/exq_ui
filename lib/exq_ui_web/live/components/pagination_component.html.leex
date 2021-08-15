@@ -1,3 +1,4 @@
+<%= if @total_page > 0 do %>
 <nav>
   <ul class="pagination justify-content-end">
     <li class="page-item <%= if @current_page == 1, do: "disabled" %>">
@@ -13,4 +14,5 @@
     </li>
   </ul>
 </nav>
+<% end %>
 
