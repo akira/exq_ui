@@ -22,5 +22,6 @@ defmodule ExqUIWeb.Router do
     live "/queues/:name", QueueLive.Show, :index
     live "/retries", RetryLive, :index
     live "/dead", DeadLive, :index
+    live "/scheduled", ScheduledLive, :index
   end
 end
