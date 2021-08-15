@@ -21,10 +21,6 @@ defmodule ExqUIWeb.Router do
     live "/queues", QueueLive.Index, :index
     live "/queues/:name", QueueLive.Show, :index
     live "/retries", RetryLive, :index
+    live "/dead", DeadLive, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", ExqUIWeb do
-  #   pipe_through :api
-  # end
 end
