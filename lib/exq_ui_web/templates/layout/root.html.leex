@@ -16,10 +16,13 @@
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" href="/">Dashboard</a>
+              <a class="nav-link active" href="<%= Routes.dashboard_path(@conn, :index)%>">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/queues">Queues</a>
+              <a class="nav-link active" href="<%= Routes.queue_index_path(@conn, :index)%>">Queues</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="<%= Routes.retry_path(@conn, :index)%>">Retries</a>
             </li>
           </ul>
         </div>
