@@ -19,7 +19,7 @@
           <td><%= job.queue %></td>
           <td><%= job.class %></td>
           <td><%= inspect(job.args) %></td>
-          <td><pre><%= job.error_message %></pre></td>
+          <td><pre class="small lh-sm"><%= job.error_message %></pre></td>
         </tr>
     <% end %>
   </tbody>
