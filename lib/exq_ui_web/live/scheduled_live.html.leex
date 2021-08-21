@@ -1,22 +1,2 @@
 <%= live_component ExqUIWeb.PaginationComponent, total: @total, current_page: @current_page, page_size: @page_size %>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">When</th>
-      <th scope="col">Queue</th>
-      <th scope="col">Module</th>
-      <th scope="col">Arguments</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for %{job: job, score: score, scheduled_at: scheduled_at} <- @jobs do %>
-        <tr>
-          <td><%= scheduled_at %></td>
-          <td><%= job.queue %></td>
-          <td><%= job.class %></td>
-          <td><%= inspect(job.args) %></td>
-        </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= live_component ExqUIWeb.TableComponent, id: "scheduled-table", actions: @actions, columns: @columns, items: @items %>
