@@ -6,7 +6,17 @@ defmodule ExqUIWeb.RetryLive do
 
   @impl true
   def mount(params, _session, socket) do
-    {:ok, assign(socket, jobs_details(params["page"] || "1"))}
+    socket =
+      assign(socket, :columns, [
+        %{header: "Next Retry", accessor: fn item -> item.scheduled_at end},
+        %{header: "Retry Count", accessor: fn item -> item.job.retry_count end},
+        %{header: "Queue", accessor: fn item -> item.job.queue end},
+        %{header: "Module", accessor: fn item -> item.job.class end},
+        %{header: "Arguments", accessor: fn item -> inspect(item.job.args) end},
+        %{header: "Error", accessor: fn item -> item.job.error_message end}
+      ])
+
+    {:ok, assign(socket, jobs_details(params["page"] || "1")) |> IO.inspect()}
   end
 
   @impl true
@@ -33,15 +43,20 @@ defmodule ExqUIWeb.RetryLive do
     {:ok, total} = Api.retry_size(Exq.Api)
 
     {:ok, jobs} =
-      Api.retries(Exq.Api, score: true, offset: @page_size * (current_page - 1), size: @page_size)
+      Api.retries(Exq.Api,
+        score: true,
+        offset: @page_size * (current_page - 1),
+        size: @page_size,
+        raw: true
+      )
 
-    jobs =
-      Enum.map(jobs, fn {job, score} ->
+    items =
+      Enum.map(jobs, fn {json, score} ->
         {epoch, ""} = Float.parse(score)
         scheduled_at = DateTime.from_unix!(round(epoch))
-        %{job: job, score: score, scheduled_at: scheduled_at}
+        %{raw: json, job: Exq.Support.Job.decode(json), score: score, scheduled_at: scheduled_at}
       end)
 
-    %{jobs: jobs, total: total, current_page: current_page, page_size: @page_size}
+    %{items: items, total: total, current_page: current_page, page_size: @page_size}
   end
 end

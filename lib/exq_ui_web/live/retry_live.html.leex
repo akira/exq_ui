@@ -1,26 +1,4 @@
 <%= live_component ExqUIWeb.PaginationComponent, total: @total, current_page: @current_page, page_size: @page_size %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Next Retry</th>
-      <th scope="col">Retry Count</th>
-      <th scope="col">Queue</th>
-      <th scope="col">Module</th>
-      <th scope="col">Arguments</th>
-      <th scope="col">Error</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for %{job: job, score: score, scheduled_at: scheduled_at} <- @jobs do %>
-        <tr>
-          <td><%= scheduled_at %></td>
-          <td><%= job.retry_count %></td>
-          <td><%= job.queue %></td>
-          <td><%= job.class %></td>
-          <td><%= inspect(job.args) %></td>
-          <td><pre class="small lh-sm"><%= job.error_message %></pre></td>
-        </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= live_component ExqUIWeb.TableComponent, columns: @columns, items: @items %>
+
