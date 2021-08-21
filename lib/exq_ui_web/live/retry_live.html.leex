@@ -1,4 +1,4 @@
 <%= live_component ExqUIWeb.PaginationComponent, total: @total, current_page: @current_page, page_size: @page_size %>
 
-<%= live_component ExqUIWeb.TableComponent, columns: @columns, items: @items %>
+<%= live_component ExqUIWeb.TableComponent, id: "retry-table", actions: @actions, columns: @columns, items: @items %>
 

@@ -1,18 +1,29 @@
-<table class="table">
-  <thead>
-    <tr>
-      <%= for %{header: header} <- @columns do %>
-        <th scope="col"><%= header %></th>
+<div phx-hook="Table">
+  <%= for %{name: name, label: label} <- @actions do %>
+    <button type="button" class="btn btn-danger btn-sm js-action" data-name="<%= name %>" ><%= label %></button>
+  <% end %>
+  <%= f = form_for :table, "#", [phx_submit: :action] %>
+  <button type="submit" class="btn btn-primary js-submit-button" style="display:none">Submit</button>
+  <%= hidden_input(f, :action, class: "js-hidden-submit") %>
+  <table class="table" id="<%= @id %>">
+    <thead>
+      <tr>
+        <th><input class="form-check-input js-select-all-rows" type="checkbox" value=""></th>
+        <%= for %{header: header} <- @columns do %>
+          <th scope="col"><%= header %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for item <- @items do %>
+          <tr>
+            <td><%= checkbox(f, item.id, hidden_input: false, checked_value: item.raw, class: "form-check-input js-select-row") %></td>
+            <%= for %{header: header, accessor: accessor} <- @columns do %>
+                <td><%= accessor.(item) %></td>
+            <% end %>
+          </tr>
       <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for item <- @items do %>
-        <tr>
-          <%= for %{header: header, accessor: accessor} <- @columns do %>
-              <td><%= accessor.(item) %></td>
-          <% end %>
-        </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  </form>
+</div>

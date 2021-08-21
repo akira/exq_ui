@@ -15,8 +15,11 @@ defmodule ExqUIWeb.RetryLive do
         %{header: "Arguments", accessor: fn item -> inspect(item.job.args) end},
         %{header: "Error", accessor: fn item -> item.job.error_message end}
       ])
+      |> assign(:actions, [
+        %{name: "delete", label: "Delete"}
+      ])
 
-    {:ok, assign(socket, jobs_details(params["page"] || "1")) |> IO.inspect()}
+    {:ok, assign(socket, jobs_details(params["page"] || "1"))}
   end
 
   @impl true
@@ -33,19 +36,37 @@ defmodule ExqUIWeb.RetryLive do
     {:noreply, socket}
   end
 
-  defp jobs_details(page) do
-    current_page =
+  @impl true
+  def handle_event("action", %{"table" => %{"action" => "delete"} = params}, socket) do
+    raw_jobs =
+      Map.delete(params, "action")
+      |> Map.values()
+
+    unless Enum.empty?(raw_jobs) do
+      :ok = Api.remove_retry_jobs(Exq.Api, raw_jobs)
+    end
+
+    socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
+    {:noreply, socket}
+  end
+
+  defp jobs_details(page) when is_binary(page) do
+    page =
       case Integer.parse(page) do
         :error -> 1
         {page, _} -> page
       end
 
+    jobs_details(page)
+  end
+
+  defp jobs_details(page) do
     {:ok, total} = Api.retry_size(Exq.Api)
 
     {:ok, jobs} =
       Api.retries(Exq.Api,
         score: true,
-        offset: @page_size * (current_page - 1),
+        offset: @page_size * (page - 1),
         size: @page_size,
         raw: true
       )
@@ -54,9 +75,10 @@ defmodule ExqUIWeb.RetryLive do
       Enum.map(jobs, fn {json, score} ->
         {epoch, ""} = Float.parse(score)
         scheduled_at = DateTime.from_unix!(round(epoch))
-        %{raw: json, job: Exq.Support.Job.decode(json), score: score, scheduled_at: scheduled_at}
+        job = Exq.Support.Job.decode(json)
+        %{raw: json, id: job.jid, job: job, score: score, scheduled_at: scheduled_at}
       end)
 
-    %{items: items, total: total, current_page: current_page, page_size: @page_size}
+    %{items: items, total: total, current_page: page, page_size: @page_size}
   end
 end
