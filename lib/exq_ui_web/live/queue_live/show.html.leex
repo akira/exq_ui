@@ -1,28 +1,2 @@
 <%= live_component ExqUIWeb.PaginationComponent, total: @total, current_page: @current_page, page_size: @page_size %>
-
-<table class="table table-sm">
-  <thead>
-    <tr>
-      <th scope="col">Module</th>
-      <th scope="col">Arguments</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for %{job: job, raw: raw} <- @jobs do %>
-        <tr>
-          <td>
-            <%= job.class %>
-          </td>
-          <td>
-            <%= inspect(job.args) %>
-          </td>
-          <td>
-            <span>
-              <%= link "Delete", class: "btn btn-danger btn-sm", to: "#", phx_click: "delete", phx_value_raw: raw, phx_value_queue: @name, data: [confirm: "Are you sure?"] %>
-            </span>
-          </td>
-        </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= live_component ExqUIWeb.TableComponent, id: "queues-table", actions: @actions, columns: @columns, items: @items %>
