@@ -14,7 +14,8 @@ defmodule ExqUIWeb.ScheduledLive do
         %{header: "Arguments", accessor: fn item -> inspect(item.job.args) end}
       ])
       |> assign(:actions, [
-        %{name: "delete", label: "Delete"}
+        %{name: "delete", label: "Delete"},
+        %{name: "delete_all", label: "Delete All"}
       ])
 
     {:ok, assign(socket, jobs_details(params["page"] || "1"))}
@@ -44,6 +45,13 @@ defmodule ExqUIWeb.ScheduledLive do
       :ok = Api.remove_scheduled_jobs(Exq.Api, raw_jobs)
     end
 
+    socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("action", %{"table" => %{"action" => "delete_all"}}, socket) do
+    :ok = Api.clear_scheduled(Exq.Api)
     socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
     {:noreply, socket}
   end

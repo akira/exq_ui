@@ -16,7 +16,8 @@ defmodule ExqUIWeb.DeadLive do
         %{header: "Error", accessor: fn item -> item.job.error_message end}
       ])
       |> assign(:actions, [
-        %{name: "delete", label: "Delete"}
+        %{name: "delete", label: "Delete"},
+        %{name: "delete_all", label: "Delete All"}
       ])
 
     {:ok, assign(socket, jobs_details(params["page"] || "1"))}
@@ -46,6 +47,13 @@ defmodule ExqUIWeb.DeadLive do
       :ok = Api.remove_failed_jobs(Exq.Api, raw_jobs)
     end
 
+    socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("action", %{"table" => %{"action" => "delete_all"}}, socket) do
+    :ok = Api.clear_failed(Exq.Api)
     socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
     {:noreply, socket}
   end

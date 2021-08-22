@@ -12,7 +12,8 @@ defmodule ExqUIWeb.QueueLive.Show do
         %{header: "Arguments", accessor: fn item -> inspect(item.job.args) end}
       ])
       |> assign(:actions, [
-        %{name: "delete", label: "Delete"}
+        %{name: "delete", label: "Delete"},
+        %{name: "delete_all", label: "Delete All"}
       ])
 
     {:ok, assign(socket, jobs_details(name, params["page"] || "1"))}
@@ -36,6 +37,14 @@ defmodule ExqUIWeb.QueueLive.Show do
     end
 
     socket = assign(socket, jobs_details(name, socket.assigns.current_page))
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("action", %{"table" => %{"action" => "delete_all"}}, socket) do
+    name = socket.assigns.name
+    :ok = Api.remove_queue(Exq.Api, name)
+    socket = assign(socket, jobs_details(name, "1"))
     {:noreply, socket}
   end
 
