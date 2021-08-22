@@ -1,6 +1,6 @@
 defmodule ExqUIWeb.DeadLive do
   use ExqUIWeb, :live_view
-  alias Exq.Api
+  alias ExqUI.Queue
 
   @page_size 30
 
@@ -43,9 +43,7 @@ defmodule ExqUIWeb.DeadLive do
       Map.delete(params, "action")
       |> Map.values()
 
-    unless Enum.empty?(raw_jobs) do
-      :ok = Api.remove_failed_jobs(Exq.Api, raw_jobs)
-    end
+    :ok = Queue.remove_dead_jobs(raw_jobs)
 
     socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
     {:noreply, socket}
@@ -53,7 +51,7 @@ defmodule ExqUIWeb.DeadLive do
 
   @impl true
   def handle_event("action", %{"table" => %{"action" => "delete_all"}}, socket) do
-    :ok = Api.clear_failed(Exq.Api)
+    :ok = Queue.remove_all_dead_jobs()
     socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
     {:noreply, socket}
   end
@@ -69,24 +67,8 @@ defmodule ExqUIWeb.DeadLive do
   end
 
   defp jobs_details(page) do
-    {:ok, total} = Api.failed_size(Exq.Api)
-
-    {:ok, jobs} =
-      Api.failed(Exq.Api,
-        score: true,
-        offset: @page_size * (page - 1),
-        size: @page_size,
-        raw: true
-      )
-
-    items =
-      Enum.map(jobs, fn {json, score} ->
-        {epoch, ""} = Float.parse(score)
-        scheduled_at = DateTime.from_unix!(round(epoch))
-        job = Exq.Support.Job.decode(json)
-        %{raw: json, id: job.jid, job: job, score: score, scheduled_at: scheduled_at}
-      end)
-
+    total = Queue.count_dead_jobs()
+    items = Queue.list_dead_jobs(offset: @page_size * (page - 1), size: @page_size)
     %{items: items, total: total, current_page: page, page_size: @page_size}
   end
 end

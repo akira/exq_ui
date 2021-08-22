@@ -1,6 +1,6 @@
 defmodule ExqUIWeb.ScheduledLive do
   use ExqUIWeb, :live_view
-  alias Exq.Api
+  alias ExqUI.Queue
 
   @page_size 30
 
@@ -41,17 +41,14 @@ defmodule ExqUIWeb.ScheduledLive do
       Map.delete(params, "action")
       |> Map.values()
 
-    unless Enum.empty?(raw_jobs) do
-      :ok = Api.remove_scheduled_jobs(Exq.Api, raw_jobs)
-    end
-
+    :ok = Queue.remove_scheduled_jobs(raw_jobs)
     socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
     {:noreply, socket}
   end
 
   @impl true
   def handle_event("action", %{"table" => %{"action" => "delete_all"}}, socket) do
-    :ok = Api.clear_scheduled(Exq.Api)
+    :ok = Queue.remove_all_scheduled_jobs()
     socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
     {:noreply, socket}
   end
@@ -67,24 +64,8 @@ defmodule ExqUIWeb.ScheduledLive do
   end
 
   defp jobs_details(page) do
-    {:ok, total} = Api.scheduled_size(Exq.Api)
-
-    {:ok, jobs} =
-      Api.scheduled(Exq.Api,
-        score: true,
-        offset: @page_size * (page - 1),
-        size: @page_size,
-        raw: true
-      )
-
-    items =
-      Enum.map(jobs, fn {json, score} ->
-        {epoch, ""} = Float.parse(score)
-        scheduled_at = DateTime.from_unix!(round(epoch))
-        job = Exq.Support.Job.decode(json)
-        %{raw: json, id: job.jid, job: job, score: score, scheduled_at: scheduled_at}
-      end)
-
+    total = Queue.count_scheduled_jobs()
+    items = Queue.list_scheduled_jobs(offset: @page_size * (page - 1), size: @page_size)
     %{items: items, total: total, current_page: page, page_size: @page_size}
   end
 end

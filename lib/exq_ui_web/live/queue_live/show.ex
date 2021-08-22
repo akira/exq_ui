@@ -1,6 +1,6 @@
 defmodule ExqUIWeb.QueueLive.Show do
   use ExqUIWeb, :live_view
-  alias Exq.Api
+  alias ExqUI.Queue
 
   @page_size 30
 
@@ -32,9 +32,7 @@ defmodule ExqUIWeb.QueueLive.Show do
       Map.delete(params, "action")
       |> Map.values()
 
-    unless Enum.empty?(raw_jobs) do
-      :ok = Api.remove_enqueued_jobs(Exq.Api, name, raw_jobs)
-    end
+    :ok = Queue.remove_enqueued_jobs(name, raw_jobs)
 
     socket = assign(socket, jobs_details(name, socket.assigns.current_page))
     {:noreply, socket}
@@ -43,7 +41,7 @@ defmodule ExqUIWeb.QueueLive.Show do
   @impl true
   def handle_event("action", %{"table" => %{"action" => "delete_all"}}, socket) do
     name = socket.assigns.name
-    :ok = Api.remove_queue(Exq.Api, name)
+    :ok = Queue.remove_queue(name)
     socket = assign(socket, jobs_details(name, "1"))
     {:noreply, socket}
   end
@@ -70,17 +68,8 @@ defmodule ExqUIWeb.QueueLive.Show do
   end
 
   defp jobs_details(name, page) do
-    {:ok, total} = Api.queue_size(Exq.Api, name)
-
-    {:ok, raw_jobs} =
-      Api.jobs(Exq.Api, name, raw: true, offset: @page_size * (page - 1), size: @page_size)
-
-    items =
-      Enum.map(raw_jobs, fn json ->
-        job = Exq.Support.Job.decode(json)
-        %{job: job, id: job.jid, raw: json}
-      end)
-
+    total = Queue.count_enqueued_jobs(name)
+    items = Queue.list_enqueued_jobs(name, offset: @page_size * (page - 1), size: @page_size)
     %{items: items, name: name, total: total, current_page: page, page_size: @page_size}
   end
 end
