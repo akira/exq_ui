@@ -1,0 +1,42 @@
+<div class="row g-2 align-items-center">
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.enqueued %></h5>
+        <p class="card-text">Enqueued</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.busy %></h5>
+        <p class="card-text">Busy</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.retries %></h5>
+        <p class="card-text">Retries</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.scheduled %></h5>
+        <p class="card-text">Scheduled</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title"><%= @stats.dead %></h5>
+        <p class="card-text">Dead</p>
+      </div>
+    </div>
+  </div>
+</div>

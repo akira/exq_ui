@@ -1,6 +1,6 @@
 <%= if @total_page > 0 do %>
-<nav>
-  <ul class="pagination justify-content-end">
+<nav class="my-2">
+  <ul class="pagination pagination-sm justify-content-end mb-0">
     <li class="page-item <%= if @current_page == 1, do: "disabled" %>">
       <%= link "«", class: "page-link", to: "#", phx_click: "page", phx_value_page: 1 %>
     </li>
