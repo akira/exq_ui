@@ -88,6 +88,7 @@ defmodule ExqUIWeb do
       import Phoenix.View
 
       import ExqUIWeb.ErrorHelpers
+      import ExqUIWeb.Helpers
       import ExqUIWeb.Gettext
       alias ExqUIWeb.Router.Helpers, as: Routes
     end

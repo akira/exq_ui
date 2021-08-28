@@ -1,5 +1,5 @@
 <%= live_component ExqUIWeb.StatsComponent, id: "stats" %>
-<table class="table">
+<table class="mt-2 table table-bordered">
   <thead>
     <tr>
       <th scope="col">Queue</th>
@@ -12,7 +12,7 @@
         <tr>
           <td>
             <span>
-              <%= link queue.name, to: Routes.queue_show_path(@socket, :index, queue.name) %>
+              <%= live_redirect queue.name, class: "nounderline", to: Routes.queue_show_path(@socket, :index, queue.name) %>
             </span>
           </td>
           <td><%= queue.count %></td>

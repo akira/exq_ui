@@ -1,0 +1,24 @@
+<header class="mb-2 navbar navbar-expand-md navbar-dark bg-dark">
+  <nav role="navigation" class="container">
+    <span class="navbar-brand mb-0 h1">Exq</span>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= nav_link(@socket, "Dashboard", Routes.dashboard_path(@socket, :index)) %>
+        </li>
+        <li class="nav-item">
+          <%= nav_link(@socket, "Queues", Routes.queue_index_path(@socket, :index)) %>
+        </li>
+        <li class="nav-item">
+          <%= nav_link(@socket, "Retries", Routes.retry_path(@socket, :index)) %>
+        </li>
+        <li class="nav-item">
+          <%= nav_link(@socket, "Scheduled", Routes.scheduled_path(@socket, :index)) %>
+        </li>
+        <li class="nav-item">
+          <%= nav_link(@socket, "Dead", Routes.dead_path(@socket, :index)) %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

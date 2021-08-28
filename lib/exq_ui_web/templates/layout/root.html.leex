@@ -10,30 +10,6 @@
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header class="navbar navbar-expand-md navbar-light">
-      <nav role="navigation" class="container">
-        <span class="navbar-brand mb-0 h1">Exq</span>
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" href="<%= Routes.dashboard_path(@conn, :index)%>">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="<%= Routes.queue_index_path(@conn, :index)%>">Queues</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="<%= Routes.retry_path(@conn, :index)%>">Retries</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="<%= Routes.scheduled_path(@conn, :index)%>">Scheduled</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="<%= Routes.dead_path(@conn, :index)%>">Dead</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
     <%= @inner_content %>
   </body>
 </html>

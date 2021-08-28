@@ -14,10 +14,10 @@
       <%= f = form_for :table, "#", [phx_submit: :action] %>
       <button type="submit" class="btn btn-primary js-submit-button" style="display:none">Submit</button>
       <%= hidden_input(f, :action, class: "js-hidden-submit") %>
-      <table class="table" id="<%= @id %>">
+      <table class="table table-bordered" id="<%= @id %>">
         <thead>
           <tr>
-            <th><input class="form-check-input js-select-all-rows" type="checkbox" value=""></th>
+            <th class="text-center"><input class="form-check-input js-select-all-rows" type="checkbox" value=""></th>
             <%= for %{header: header} <- @columns do %>
               <th scope="col"><%= header %></th>
             <% end %>
@@ -26,7 +26,7 @@
         <tbody>
           <%= for item <- @items do %>
               <tr>
-                <td><%= checkbox(f, item.id, hidden_input: false, checked_value: item.raw, class: "form-check-input js-select-row") %></td>
+                <td class="text-center"><%= checkbox(f, item.id, hidden_input: false, checked_value: item.raw, class: "form-check-input js-select-row") %></td>
                 <%= for %{header: header, accessor: accessor} <- @columns do %>
                     <td><%= accessor.(item) %></td>
                 <% end %>
