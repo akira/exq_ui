@@ -7,8 +7,6 @@ defmodule ExqUI.Application do
 
   def start(_type, _args) do
     children = [
-      # Start the Telemetry supervisor
-      ExqUIWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: ExqUI.PubSub},
       # Start the Endpoint (http/https)
