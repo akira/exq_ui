@@ -4,19 +4,19 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= nav_link(@socket, "Dashboard", Routes.dashboard_path(@socket, :index)) %>
+          <%= nav_link(@socket, "Dashboard", Routes.dashboard_path(@socket)) %>
         </li>
         <li class="nav-item">
-          <%= nav_link(@socket, "Queues", Routes.queue_index_path(@socket, :index)) %>
+          <%= nav_link(@socket, "Queues", Routes.queue_index_path(@socket)) %>
         </li>
         <li class="nav-item">
-          <%= nav_link(@socket, "Retries", Routes.retry_path(@socket, :index)) %>
+          <%= nav_link(@socket, "Retries", Routes.retry_path(@socket)) %>
         </li>
         <li class="nav-item">
-          <%= nav_link(@socket, "Scheduled", Routes.scheduled_path(@socket, :index)) %>
+          <%= nav_link(@socket, "Scheduled", Routes.scheduled_path(@socket)) %>
         </li>
         <li class="nav-item">
-          <%= nav_link(@socket, "Dead", Routes.dead_path(@socket, :index)) %>
+          <%= nav_link(@socket, "Dead", Routes.dead_path(@socket)) %>
         </li>
       </ul>
     </div>

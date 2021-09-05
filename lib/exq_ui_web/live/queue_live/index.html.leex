@@ -12,7 +12,7 @@
         <tr>
           <td>
             <span>
-              <%= live_redirect queue.name, class: "nounderline", to: Routes.queue_show_path(@socket, :index, queue.name) %>
+              <%= live_redirect queue.name, class: "nounderline", to: Routes.queue_show_path(@socket, queue.name) %>
             </span>
           </td>
           <td><%= queue.count %></td>

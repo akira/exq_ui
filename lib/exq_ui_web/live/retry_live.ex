@@ -32,7 +32,7 @@ defmodule ExqUIWeb.RetryLive do
   def handle_event("page", %{"page" => page}, socket) do
     socket =
       assign(socket, jobs_details(page))
-      |> push_patch(to: Routes.retry_path(socket, :index, page: page))
+      |> push_patch(to: Routes.retry_path(socket, page: page))
 
     {:noreply, socket}
   end

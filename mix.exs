@@ -33,11 +33,10 @@ defmodule ExqUI.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:exq, "~> 0.15.0"},
-      {:phoenix, "~> 1.5.10"},
-      {:phoenix_live_view, "~> 0.15.1"},
+      # {:exq, "~> 0.15.0"},
+      {:exq, path: "../exq"},
+      {:phoenix_live_view, "~> 0.16.0"},
       {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
@@ -53,7 +52,8 @@ defmodule ExqUI.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "cmd npm install --prefix assets"]
+      setup: ["deps.get", "cmd npm install --prefix assets"],
+      dev: "run --no-halt dev.exs"
     ]
   end
 end

@@ -1,27 +1,41 @@
 defmodule ExqUIWeb.Router do
-  use ExqUIWeb, :router
+  defmacro live_exq_ui(path, opts \\ []) do
+    quote bind_quoted: binding() do
+      scope path, alias: false, as: false do
+        {session_name, session_opts, route_opts} = ExqUIWeb.Router.__options__(opts)
+        import Phoenix.LiveView.Router, only: [live: 4, live_session: 3]
 
-  pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {ExqUIWeb.LayoutView, :root}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+        live_session session_name, session_opts do
+          live "/", ExqUIWeb.DashboardLive, :root, route_opts
+          live "/queues", ExqUIWeb.QueueLive.Index, :index, route_opts
+          live "/queues/:name", ExqUIWeb.QueueLive.Show, :index, route_opts
+          live "/retries", ExqUIWeb.RetryLive, :index, route_opts
+          live "/dead", ExqUIWeb.DeadLive, :index, route_opts
+          live "/scheduled", ExqUIWeb.ScheduledLive, :index, route_opts
+        end
+      end
+    end
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  @doc false
+  def __options__(options) do
+    live_socket_path = Keyword.get(options, :live_socket_path, "/live")
+
+    {
+      options[:live_session_name] || :exq_ui,
+      [
+        session: {__MODULE__, :__session__, []},
+        root_layout: {ExqUIWeb.LayoutView, :root}
+      ],
+      [
+        private: %{live_socket_path: live_socket_path},
+        as: :exq_ui
+      ]
+    }
   end
 
-  scope "/", ExqUIWeb do
-    pipe_through :browser
-
-    live "/", DashboardLive, :index
-    live "/queues", QueueLive.Index, :index
-    live "/queues/:name", QueueLive.Show, :index
-    live "/retries", RetryLive, :index
-    live "/dead", DeadLive, :index
-    live "/scheduled", ScheduledLive, :index
+  @doc false
+  def __session__(_conn) do
+    %{}
   end
 end

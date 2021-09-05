@@ -13,7 +13,8 @@ defmodule ExqUIWeb.StatsComponent do
     {:ok, socket}
   end
 
-  def update(assigns, socket) do
+  @impl true
+  def update(_assigns, socket) do
     send_update_after(__MODULE__, [id: "stats"], @tick_interval)
     {:ok, assign(socket, :stats, Queue.stats())}
   end

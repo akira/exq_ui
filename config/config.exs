@@ -1,10 +1,3 @@
-# This file is responsible for configuring your application
-# and its dependencies with the aid of the Mix.Config module.
-#
-# This configuration file is loaded before any dependency and
-# is restricted to this project.
-
-# General application configuration
 use Mix.Config
 
 config :exq,
@@ -17,15 +10,6 @@ config :exq,
 config :exq_ui,
   namespace: ExqUI
 
-# Configures the endpoint
-config :exq_ui, ExqUIWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "JUrii8hEdYZjAo/LHUziUO1xx0ViDK+I1yYDVvNrLpcYWH93l4kSBvWsbfGwJRu5",
-  render_errors: [view: ExqUIWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: ExqUI.PubSub,
-  live_view: [signing_salt: "jhwmDSe0"]
-
-# Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
