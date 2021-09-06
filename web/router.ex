@@ -149,15 +149,19 @@ defmodule ExqUi.RouterPlug do
     get "/api/processes" do
       {:ok, processes} = Exq.Api.processes(conn.assigns[:exq_name])
 
-      process_jobs = for p <- processes do
-        process = Map.delete(p, "job")
-        pjob = p.job
-        process = Map.put(process, :job_id, pjob["jid"])
-        |> Map.put(:started_at, score_to_time(p.started_at))
-        |> Map.put(:id, "#{process.host}:#{process.pid}")
-        pjob = Map.put(pjob, :id, pjob["jid"])
-        [process, pjob]
-      end
+      process_jobs =
+        for p <- processes do
+          process = Map.delete(p, :job)
+          pjob = Jason.decode!(p.job, keys: :atoms)
+
+          process =
+            Map.put(process, :job_id, pjob.jid)
+            |> Map.put(:started_at, score_to_time(p.started_at))
+            |> Map.put(:id, "#{process.host}:#{process.pid}")
+
+          pjob = Map.merge(pjob, %{id: pjob.jid, args: safe_json_encode(pjob.args)})
+          [process, pjob]
+        end
 
       processes = for [process, _job] <- process_jobs, do: process
       jobs = for [_process, job] <- process_jobs, do: job
@@ -240,11 +244,22 @@ defmodule ExqUi.RouterPlug do
     end
 
     def map_score_to_jobs(jobs) do
-      Enum.map(jobs, fn {job,score} ->
-        job
-        |> Map.put(:scheduled_at, score_to_time(score))
-        |> Map.put(:id, job.jid)
+      Enum.map(jobs, fn {job, score} ->
+        Map.merge(
+          job,
+          %{
+            id: job.jid,
+            scheduled_at: score_to_time(score),
+            args: safe_json_encode(job.args)
+          }
+        )
       end)
+    end
+
+    def safe_json_encode(data) do
+      Jason.encode!(data)
+    rescue
+      _ -> data
     end
   end
 end
