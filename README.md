@@ -1,19 +1,27 @@
 # ExqUI
 
-To start your Phoenix server:
+## Configuration
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+1) ExqUI uses Phoenix LiveView feature. If you already use LiveView,
+skip to next step. Otherwise follow LiveView [installation docs](https://hexdocs.pm/phoenix_live_view/installation.html).
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+2) In your phoenix router import `ExqUIWeb.Router` and add
+`live_exq_ui(path)`
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+```elixir
+defmodule DemoWeb.Router do
+  use Phoenix.Router
+  import ExqUIWeb.Router
 
-## Learn more
+  pipeline :browser do
+    plug :fetch_session
+    plug :protect_from_forgery
+  end
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+  scope "/", DemoWeb do
+    pipe_through :browser
+
+    live_exq_ui("/exq")
+  end
+end
+```
