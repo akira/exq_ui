@@ -2,8 +2,8 @@
 
 ## Configuration
 
-1) ExqUI uses Phoenix LiveView feature. If you already use LiveView,
-skip to next step. Otherwise follow LiveView [installation docs](https://hexdocs.pm/phoenix_live_view/installation.html).
+1) ExqUI uses Phoenix LiveView. If you already use LiveView, skip to
+next step. Otherwise follow LiveView [installation docs](https://hexdocs.pm/phoenix_live_view/installation.html).
 
 2) In your phoenix router import `ExqUIWeb.Router` and add
 `live_exq_ui(path)`
