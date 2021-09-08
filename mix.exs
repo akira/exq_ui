@@ -33,8 +33,7 @@ defmodule ExqUI.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      # {:exq, "~> 0.15.0"},
-      {:exq, path: "../exq"},
+      {:exq, github: "akira/exq", branch: "exq_ui"},
       {:phoenix_live_view, "~> 0.16.0"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
