@@ -56,7 +56,7 @@ defmodule ExqUi.RouterPlug do
       end
       qtotal = "#{Enum.sum(queue_sizes)}"
 
-      {:ok, json} = Poison.encode(%{stat: %{id: "all", processed: processed || 0, failed: failed || 0,
+      {:ok, json} = Exq.Serializers.JsonSerializer.encode(%{stat: %{id: "all", processed: processed || 0, failed: failed || 0,
         busy: busy || 0, scheduled: scheduled || 0, dead: dead || 0, retrying: retrying || 0, enqueued: qtotal}})
       conn |> send_resp(200, json) |> halt
     end
@@ -73,20 +73,20 @@ defmodule ExqUi.RouterPlug do
       end
       all = %{realtimes: f ++ s}
 
-      {:ok, json} = Poison.encode(all)
+      {:ok, json} = Exq.Serializers.JsonSerializer.encode(all)
       conn |> send_resp(200, json) |> halt
     end
 
     get "/api/scheduled" do
       {:ok, jobs} = Exq.Api.scheduled_with_scores(conn.assigns[:exq_name])
-      {:ok, json} = Poison.encode(%{scheduled: map_score_to_jobs(jobs) })
+      {:ok, json} = Exq.Serializers.JsonSerializer.encode(%{scheduled: map_score_to_jobs(jobs) })
       conn |> send_resp(200, json) |> halt
     end
 
     get "/api/retries" do
       {:ok, retries} = Exq.Api.retries(conn.assigns[:exq_name])
       retries = retries |> map_jid_to_id |> convert_results_to_times(:failed_at)
-      {:ok, json} = Poison.encode(%{retries: retries})
+      {:ok, json} = Exq.Serializers.JsonSerializer.encode(%{retries: retries})
 
       conn |> send_resp(200, json) |> halt
     end
@@ -94,7 +94,7 @@ defmodule ExqUi.RouterPlug do
     get "/api/retries/:id" do
       {:ok, retry} = Exq.Api.find_retry(conn.assigns[:exq_name], id)
       retry = retry |> map_jid_to_id |> convert_results_to_times(:failed_at)
-      {:ok, json} = Poison.encode(%{retry: retry})
+      {:ok, json} = Exq.Serializers.JsonSerializer.encode(%{retry: retry})
 
       conn |> send_resp(200, json) |> halt
     end
@@ -102,7 +102,7 @@ defmodule ExqUi.RouterPlug do
     get "/api/failures" do
       {:ok, failures} = Exq.Api.failed(conn.assigns[:exq_name])
       failures = failures |> map_jid_to_id |> convert_results_to_times(:failed_at)
-      {:ok, json} = Poison.encode(%{failures: failures})
+      {:ok, json} = Exq.Serializers.JsonSerializer.encode(%{failures: failures})
       conn |> send_resp(200, json) |> halt
     end
 
@@ -166,14 +166,14 @@ defmodule ExqUi.RouterPlug do
       processes = for [process, _job] <- process_jobs, do: process
       jobs = for [_process, job] <- process_jobs, do: job
 
-      {:ok, json} = Poison.encode(%{processes: processes, jobs: jobs})
+      {:ok, json} = Exq.Serializers.JsonSerializer.encode(%{processes: processes, jobs: jobs})
       conn |> send_resp(200, json) |> halt
     end
 
     get "/api/queues" do
       {:ok, queues} = Exq.Api.queue_size(conn.assigns[:exq_name])
       job_counts = for {q, size} <- queues, do: %{id: q, size: size}
-      {:ok, json} = Poison.encode(%{queues: job_counts})
+      {:ok, json} = Exq.Serializers.JsonSerializer.encode(%{queues: job_counts})
       conn |> send_resp(200, json) |> halt
     end
 
@@ -181,7 +181,7 @@ defmodule ExqUi.RouterPlug do
       {:ok, jobs} = Exq.Api.jobs(conn.assigns[:exq_name], id)
       jobs_structs = map_jid_to_id(jobs)
       job_ids = for j <- jobs_structs, do: j[:id]
-      {:ok, json} = Poison.encode(%{queue: %{id: id, job_ids: job_ids, partial: false}, jobs: map_jid_to_id(jobs)})
+      {:ok, json} = Exq.Serializers.JsonSerializer.encode(%{queue: %{id: id, job_ids: job_ids, partial: false}, jobs: map_jid_to_id(jobs)})
       conn |> send_resp(200, json) |> halt
     end
 
