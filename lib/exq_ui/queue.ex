@@ -124,12 +124,24 @@ defmodule ExqUI.Queue do
     decode_jobs_with_score(jobs)
   end
 
+  def find_dead_job(score, jid) do
+    {:ok, json} = Api.find_failed(@api, score, jid, raw: true)
+
+    if json do
+      job_with_score(json, score)
+    end
+  end
+
   defp decode_jobs_with_score(jobs) do
     Enum.map(jobs, fn {json, score} ->
-      {epoch, ""} = Float.parse(score)
-      scheduled_at = DateTime.from_unix!(round(epoch))
-      job = Exq.Support.Job.decode(json)
-      %JobItem{raw: json, id: job.jid, job: job, score: score, scheduled_at: scheduled_at}
+      job_with_score(json, score)
     end)
+  end
+
+  defp job_with_score(json, score) do
+    {epoch, ""} = Float.parse(score)
+    scheduled_at = DateTime.from_unix!(round(epoch))
+    job = Exq.Support.Job.decode(json)
+    %JobItem{raw: json, id: job.jid, job: job, score: score, scheduled_at: scheduled_at}
   end
 end

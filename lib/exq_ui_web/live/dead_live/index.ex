@@ -1,4 +1,4 @@
-defmodule ExqUIWeb.DeadLive do
+defmodule ExqUIWeb.DeadLive.Index do
   use ExqUIWeb, :live_view
   alias ExqUI.Queue
 
@@ -8,7 +8,14 @@ defmodule ExqUIWeb.DeadLive do
   def mount(params, _session, socket) do
     socket =
       assign(socket, :columns, [
-        %{header: "Last Failed", accessor: fn item -> item.scheduled_at end},
+        %{
+          header: "Last Failed",
+          accessor: fn item ->
+            live_redirect(item.scheduled_at,
+              to: Routes.dead_show_path(socket, item.score, item.id)
+            )
+          end
+        },
         %{header: "Retry Count", accessor: fn item -> item.job.retry_count end},
         %{header: "Queue", accessor: fn item -> item.job.queue end},
         %{header: "Module", accessor: fn item -> item.job.class end},
@@ -32,7 +39,7 @@ defmodule ExqUIWeb.DeadLive do
   def handle_event("page", %{"page" => page}, socket) do
     socket =
       assign(socket, jobs_details(page))
-      |> push_patch(to: Routes.dead_path(socket, page: page))
+      |> push_patch(to: Routes.dead_index_path(socket, page: page))
 
     {:noreply, socket}
   end

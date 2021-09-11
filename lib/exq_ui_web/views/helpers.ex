@@ -12,4 +12,12 @@ defmodule ExqUIWeb.Helpers do
 
     live_redirect(name, to: link, class: "nav-link" <> active)
   end
+
+  def human_time(nil) do
+    ""
+  end
+
+  def human_time(epoch) when is_number(epoch) do
+    DateTime.from_unix!(round(epoch))
+  end
 end
