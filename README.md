@@ -28,7 +28,6 @@ end
 
 ## Development
 
-
 ```sh
 mix run dev.exs
 open http://localhost:4000/exq

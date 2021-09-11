@@ -22,7 +22,6 @@ defmodule ExqUIWeb do
       use Phoenix.Controller, namespace: ExqUIWeb
 
       import Plug.Conn
-      import ExqUIWeb.Gettext
       alias ExqUIWeb.Router.Helpers, as: Routes
     end
   end
@@ -72,7 +71,6 @@ defmodule ExqUIWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import ExqUIWeb.Gettext
     end
   end
 
@@ -87,9 +85,7 @@ defmodule ExqUIWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import ExqUIWeb.ErrorHelpers
       import ExqUIWeb.Helpers
-      import ExqUIWeb.Gettext
       alias ExqUIWeb.Router.Helpers, as: Routes
     end
   end

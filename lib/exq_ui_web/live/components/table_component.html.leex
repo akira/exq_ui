@@ -27,7 +27,7 @@
           <%= for item <- @items do %>
               <tr>
                 <td class="text-center"><%= checkbox(f, item.id, hidden_input: false, checked_value: item.raw, class: "form-check-input js-select-row") %></td>
-                <%= for %{header: header, accessor: accessor} <- @columns do %>
+                <%= for %{accessor: accessor} <- @columns do %>
                     <td><%= accessor.(item) %></td>
                 <% end %>
               </tr>
