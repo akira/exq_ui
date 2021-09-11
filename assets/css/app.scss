@@ -4,7 +4,7 @@ $font-size-sm: 1rem * .750 !default;
 $primary: #B5179E;
 $dark: #560BAD;
 
-@import "~bootstrap/scss/bootstrap";
+@import "./bootstrap";
 
 .nounderline {
   text-decoration: none !important

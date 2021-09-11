@@ -12,7 +12,6 @@ import "../css/app.scss";
 //     import {Socket} from "phoenix"
 //     import socket from "./socket"
 //
-import "bootstrap";
 import "phoenix_html";
 import { Socket } from "phoenix";
 import topbar from "topbar";
