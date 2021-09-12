@@ -8,7 +8,14 @@ defmodule ExqUIWeb.RetryLive.Index do
   def mount(params, _session, socket) do
     socket =
       assign(socket, :columns, [
-        %{header: "Next Retry", accessor: fn item -> item.scheduled_at end},
+        %{
+          header: "Next Retry",
+          accessor: fn item ->
+            live_redirect(item.scheduled_at,
+              to: Routes.retry_show_path(socket, item.score, item.id)
+            )
+          end
+        },
         %{header: "Retry Count", accessor: fn item -> item.job.retry_count end},
         %{header: "Queue", accessor: fn item -> item.job.queue end},
         %{header: "Module", accessor: fn item -> item.job.class end},

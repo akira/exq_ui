@@ -80,6 +80,14 @@ defmodule ExqUI.Queue do
     decode_jobs_with_score(jobs)
   end
 
+  def find_retry_job(score, jid) do
+    {:ok, json} = Api.find_retry(@api, score, jid, raw: true)
+
+    if json do
+      job_with_score(json, score)
+    end
+  end
+
   def count_scheduled_jobs() do
     {:ok, total} = Api.scheduled_size(@api)
     total
