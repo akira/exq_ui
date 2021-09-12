@@ -1,4 +1,4 @@
-defmodule ExqUIWeb.ScheduledLive do
+defmodule ExqUIWeb.ScheduledLive.Index do
   use ExqUIWeb, :live_view
   alias ExqUI.Queue
 
@@ -30,7 +30,7 @@ defmodule ExqUIWeb.ScheduledLive do
   def handle_event("page", %{"page" => page}, socket) do
     socket =
       assign(socket, jobs_details(page))
-      |> push_patch(to: Routes.scheduled_path(socket, page: page))
+      |> push_patch(to: Routes.scheduled_index_path(socket, page: page))
 
     {:noreply, socket}
   end
