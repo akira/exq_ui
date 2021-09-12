@@ -8,6 +8,10 @@ defmodule ExqUIWeb.Router.Helpers do
     do: build(socket, "/retries/#{score}/#{jid}", params)
 
   def scheduled_index_path(socket, params \\ %{}), do: build(socket, "/scheduled", params)
+
+  def scheduled_show_path(socket, score, jid, params \\ %{}),
+    do: build(socket, "/scheduled/#{score}/#{jid}", params)
+
   def dead_index_path(socket, params \\ %{}), do: build(socket, "/dead", params)
 
   def dead_show_path(socket, score, jid, params \\ %{}),

@@ -8,7 +8,14 @@ defmodule ExqUIWeb.ScheduledLive.Index do
   def mount(params, _session, socket) do
     socket =
       assign(socket, :columns, [
-        %{header: "When", accessor: fn item -> item.scheduled_at end},
+        %{
+          header: "When",
+          accessor: fn item ->
+            live_redirect(item.scheduled_at,
+              to: Routes.scheduled_show_path(socket, item.score, item.id)
+            )
+          end
+        },
         %{header: "Queue", accessor: fn item -> item.job.queue end},
         %{header: "Module", accessor: fn item -> item.job.class end},
         %{header: "Arguments", accessor: fn item -> inspect(item.job.args) end}
