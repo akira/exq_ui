@@ -12,7 +12,8 @@ defmodule ExqUIWeb.ScheduledLive.Index do
           header: "When",
           accessor: fn item ->
             live_redirect(item.scheduled_at,
-              to: Routes.scheduled_show_path(socket, item.score, item.id)
+              to: Routes.scheduled_show_path(socket, item.score, item.id),
+              class: "nounderline"
             )
           end
         },

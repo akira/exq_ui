@@ -12,7 +12,8 @@ defmodule ExqUIWeb.DeadLive.Index do
           header: "Last Failed",
           accessor: fn item ->
             live_redirect(item.scheduled_at,
-              to: Routes.dead_show_path(socket, item.score, item.id)
+              to: Routes.dead_show_path(socket, item.score, item.id),
+              class: "nounderline"
             )
           end
         },

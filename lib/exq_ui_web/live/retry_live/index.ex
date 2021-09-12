@@ -12,7 +12,8 @@ defmodule ExqUIWeb.RetryLive.Index do
           header: "Next Retry",
           accessor: fn item ->
             live_redirect(item.scheduled_at,
-              to: Routes.retry_show_path(socket, item.score, item.id)
+              to: Routes.retry_show_path(socket, item.score, item.id),
+              class: "nounderline"
             )
           end
         },
