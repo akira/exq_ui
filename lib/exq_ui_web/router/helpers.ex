@@ -2,7 +2,7 @@ defmodule ExqUIWeb.Router.Helpers do
   def dashboard_path(socket, params \\ %{}), do: build(socket, "/", params)
   def queue_index_path(socket, params \\ %{}), do: build(socket, "/queues", params)
   def queue_show_path(socket, queue, params \\ %{}), do: build(socket, "/queues/#{queue}", params)
-  def retry_path(socket, params \\ %{}), do: build(socket, "/retries", params)
+  def retry_index_path(socket, params \\ %{}), do: build(socket, "/retries", params)
   def scheduled_path(socket, params \\ %{}), do: build(socket, "/scheduled", params)
   def dead_index_path(socket, params \\ %{}), do: build(socket, "/dead", params)
 

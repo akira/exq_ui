@@ -9,7 +9,7 @@ defmodule ExqUIWeb.Router do
           live "/", ExqUIWeb.DashboardLive, :root, route_opts
           live "/queues", ExqUIWeb.QueueLive.Index, :index, route_opts
           live "/queues/:name", ExqUIWeb.QueueLive.Show, :index, route_opts
-          live "/retries", ExqUIWeb.RetryLive, :index, route_opts
+          live "/retries", ExqUIWeb.RetryLive.Index, :index, route_opts
           live "/dead", ExqUIWeb.DeadLive.Index, :index, route_opts
           live "/dead/:score/:jid", ExqUIWeb.DeadLive.Show, :index, route_opts
           live "/scheduled", ExqUIWeb.ScheduledLive, :index, route_opts
