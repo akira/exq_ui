@@ -10,6 +10,15 @@ $dark: #560BAD;
   text-decoration: none !important
 }
 
+svg {
+  color: rgba(0,0,0,0.250);
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+}
+
 /* LiveView specific classes for your customizations */
 
 .phx-no-feedback.invalid-feedback,

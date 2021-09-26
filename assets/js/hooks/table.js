@@ -5,9 +5,8 @@ import { ViewHook } from "phoenix_live_view";
 // simulate multiple submit button
 // https://github.com/phoenixframework/phoenix_live_view/issues/511
 
-/** @type {Object.<string, ViewHook>}*/
-let Hooks = {};
-Hooks.Table = {
+/** @type {ViewHook}*/
+let Table = {
   mounted() {
     let table = this.el;
     /** @type {HTMLInputElement} */
@@ -35,4 +34,4 @@ Hooks.Table = {
   },
 };
 
-export { Hooks };
+export { Table };

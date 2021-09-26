@@ -24,6 +24,19 @@ defmodule ExqUI.Queue do
     }
   end
 
+  def realtime_stats(last \\ %{}) do
+    last = last || %{}
+    {:ok, processed_total} = Api.stats(@api, "processed")
+    {:ok, failed_total} = Api.stats(@api, "failed")
+
+    %{
+      processed: processed_total - Map.get(last, :processed_total, processed_total),
+      processed_total: processed_total,
+      failed: failed_total - Map.get(last, :failed_total, failed_total),
+      failed_total: failed_total
+    }
+  end
+
   def list_queues() do
     {:ok, queues} = Api.queue_size(@api)
     Enum.map(queues, fn {name, count} -> %{name: name, count: count} end)
