@@ -1,0 +1,19 @@
+<div class="row">
+  <div id="realtime-chart" class="col-12" phx-hook="Plot" phx-update="ignore" data-tick="<%= @tick_interval %>">
+  </div>
+</div>
+<div class="row align-items-center">
+  <div class="col-12">
+    <div class="d-flex">
+      <span class="legend me-2">
+        <svg class="rounded me-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007200"></rect></svg>
+        <span>Processed <b><%= @stats.processed_total %></b> <small>total</small></span>
+      </span>
+      <span class="legend me-2">
+        <svg class="rounded me-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#dc3545"></rect></svg>
+        <span>Failed <b><%= @stats.failed_total %></b> <small>total</small></span>
+      </span>
+    </div>
+  </div>
+</div>
+
