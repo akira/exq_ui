@@ -20,4 +20,12 @@ defmodule ExqUIWeb.Helpers do
   def human_time(epoch) when is_number(epoch) do
     DateTime.from_unix!(round(epoch))
   end
+
+  def date_selector_class(current, days) do
+    if current == days do
+      "btn-primary"
+    else
+      "btn-outline-primary"
+    end
+  end
 end

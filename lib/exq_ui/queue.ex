@@ -37,6 +37,18 @@ defmodule ExqUI.Queue do
     }
   end
 
+  def historical_stats(days) do
+    today = Date.utc_today()
+    dates = Enum.map(0..(days - 1), fn i -> Date.add(today, -1 * i) |> Date.to_string() end)
+    {:ok, processed_counts} = Api.stats(@api, "processed", dates)
+    {:ok, failed_counts} = Api.stats(@api, "failed", dates)
+
+    Enum.zip([dates, processed_counts, failed_counts])
+    |> Enum.map(fn {date, processed, failed} ->
+      %{date: date, processed: processed, failed: failed}
+    end)
+  end
+
   def list_queues() do
     {:ok, queues} = Api.queue_size(@api)
     Enum.map(queues, fn {name, count} -> %{name: name, count: count} end)
