@@ -9,7 +9,7 @@ import { easeLinear } from "d3-ease";
 import { format } from "d3-format";
 
 function graph(element) {
-  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+  const margin = { top: 10, right: 20, bottom: 30, left: 40 };
   const height = 250;
   const width = element.clientWidth;
 
