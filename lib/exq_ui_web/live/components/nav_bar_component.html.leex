@@ -7,6 +7,9 @@
           <%= nav_link(@socket, "Dashboard", Routes.dashboard_path(@socket)) %>
         </li>
         <li class="nav-item">
+          <%= nav_link(@socket, "Busy", Routes.busy_index_path(@socket)) %>
+        </li>
+        <li class="nav-item">
           <%= nav_link(@socket, "Queues", Routes.queue_index_path(@socket)) %>
         </li>
         <li class="nav-item">

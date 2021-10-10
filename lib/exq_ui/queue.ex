@@ -173,6 +173,16 @@ defmodule ExqUI.Queue do
     end
   end
 
+  def list_nodes() do
+    {:ok, nodes} = Api.nodes(@api)
+    nodes
+  end
+
+  def list_current_jobs() do
+    {:ok, processes} = Api.processes(@api)
+    processes
+  end
+
   defp decode_jobs_with_score(jobs) do
     Enum.map(jobs, fn {json, score} ->
       job_with_score(json, score)
