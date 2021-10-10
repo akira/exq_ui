@@ -14,13 +14,17 @@ defmodule ExqUI.Queue do
     {:ok, retries} = Api.retry_size(@api)
     {:ok, scheduled} = Api.scheduled_size(@api)
     {:ok, dead} = Api.failed_size(@api)
+    {:ok, processed} = Api.stats(@api, "processed")
+    {:ok, failed} = Api.stats(@api, "failed")
 
     %{
       enqueued: enqueued,
       busy: busy,
       retries: retries,
       scheduled: scheduled,
-      dead: dead
+      dead: dead,
+      processed: processed,
+      failed: failed
     }
   end
 

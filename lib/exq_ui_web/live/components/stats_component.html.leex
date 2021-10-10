@@ -1,41 +1,47 @@
-<div class="row g-2 align-items-center">
-  <div class="col-sm-2">
-    <div class="card">
-      <div class="card-body text-center">
-        <h5 class="card-title"><%= @stats.enqueued %></h5>
-        <p class="card-text">Enqueued</p>
+<div class="row mt-4 mb-4 align-items-center">
+  <div class="col-16">
+    <div class="d-flex justify-content-evenly border rounded">
+      <div class="card border-white">
+        <div class="card-body text-center">
+          <h5 class="card-title"><%= @stats.processed %></h5>
+          <p class="card-text text-muted">Processed</p>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="col-sm-2">
-    <div class="card">
-      <div class="card-body text-center">
-        <h5 class="card-title"><%= @stats.busy %></h5>
-        <p class="card-text">Busy</p>
+      <div class="card border-white">
+        <div class="card-body text-center">
+          <h5 class="card-title"><%= @stats.failed %></h5>
+          <p class="card-text text-muted">Failed</p>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="col-sm-2">
-    <div class="card">
-      <div class="card-body text-center">
-        <h5 class="card-title"><%= @stats.retries %></h5>
-        <p class="card-text">Retries</p>
+      <div class="card border-white">
+        <div class="card-body text-center">
+          <h5 class="card-title"><%= @stats.enqueued %></h5>
+          <p class="card-text text-muted">Enqueued</p>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="col-sm-2">
-    <div class="card">
-      <div class="card-body text-center">
-        <h5 class="card-title"><%= @stats.scheduled %></h5>
-        <p class="card-text">Scheduled</p>
+      <div class="card border-white">
+        <div class="card-body text-center">
+          <h5 class="card-title"><%= @stats.busy %></h5>
+          <p class="card-text text-muted">Busy</p>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="col-sm-2">
-    <div class="card">
-      <div class="card-body text-center">
-        <h5 class="card-title"><%= @stats.dead %></h5>
-        <p class="card-text">Dead</p>
+      <div class="card border-white">
+        <div class="card-body text-center">
+          <h5 class="card-title"><%= @stats.retries %></h5>
+          <p class="card-text text-muted">Retries</p>
+        </div>
+      </div>
+      <div class="card border-white">
+        <div class="card-body text-center">
+          <h5 class="card-title"><%= @stats.scheduled %></h5>
+          <p class="card-text text-muted">Scheduled</p>
+        </div>
+      </div>
+      <div class="card border-white">
+        <div class="card-body text-center">
+          <h5 class="card-title"><%= @stats.dead %></h5>
+          <p class="card-text text-muted">Dead</p>
+        </div>
       </div>
     </div>
   </div>
