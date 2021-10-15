@@ -1,5 +1,10 @@
 # ExqUI
 
+ExqUI provides a UI dashboard for [Exq](https://github.com/akira/exq), a job processing library
+compatible with Resque / Sidekiq for the Elixir language. ExqUI allow
+you to see various job processing stats, as well as details on failed,
+retried, scheduled jobs, etc.
+
 ## Configuration
 
 1. ExqUI depends on the [api server](https://hexdocs.pm/exq/Exq.Api.html#content) component of the [exq](https://github.com/akira/exq). The
