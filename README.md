@@ -2,10 +2,35 @@
 
 ## Configuration
 
-1) ExqUI uses Phoenix LiveView. If you already use LiveView, skip to
+1. ExqUI depends on the [api server](https://hexdocs.pm/exq/Exq.Api.html#content) component of the [exq](https://github.com/akira/exq). The
+   user of ExqUI is expected to start the Exq with proper config. The
+   only config required on ExqUI side is the name of the api
+   server. It's set to Exq.Api by default.
+
+   ```elixir
+   config :exq_ui,
+     api_name: Exq.Api
+   ```
+   There are two typical scenarios
+
+   If ExqUI is embedded in a worker node which runs exq jobs, then
+   nothing special needs to be done. Exq by default starts the api
+   server on all worker nodes.
+
+   If ExqUI needs to be embedded in a node which is not a worker, then
+   Exq can be started in `api` mode, which will only start the api
+   gen server and will not pickup jobs for execution. This can be done
+   by configuring the `mode`.
+
+   ```elixir
+   config :exq,
+     mode: :api
+   ```
+
+1. ExqUI uses Phoenix LiveView. If you already use LiveView, skip to
 next step. Otherwise follow LiveView [installation docs](https://hexdocs.pm/phoenix_live_view/installation.html).
 
-2) In your phoenix router import `ExqUIWeb.Router` and add
+1. In your phoenix router import `ExqUIWeb.Router` and add
 `live_exq_ui(path)`
 
 ```elixir

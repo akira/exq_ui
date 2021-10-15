@@ -5,7 +5,7 @@ defmodule ExqUI.Queue do
     defstruct [:job, :id, :raw, :score, :scheduled_at]
   end
 
-  @api Exq.Api
+  @api Application.get_env(:exq_ui, :api_name, Exq.Api)
 
   def stats() do
     {:ok, queues} = Api.queue_size(@api)

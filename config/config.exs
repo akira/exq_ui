@@ -8,7 +8,7 @@ config :exq,
   namespace: "exq"
 
 config :exq_ui,
-  namespace: ExqUI
+  api_name: Exq.Api
 
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
