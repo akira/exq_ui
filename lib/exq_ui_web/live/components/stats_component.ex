@@ -2,20 +2,26 @@ defmodule ExqUIWeb.StatsComponent do
   use ExqUIWeb, :live_component
   alias ExqUI.Queue
 
-  @tick_interval 5000
-
   @impl true
-  def mount(socket) do
-    if connected?(socket) do
-      send_update_after(__MODULE__, [id: "stats"], @tick_interval)
-    end
+  def update(assigns, socket) do
+    interval = assigns[:refresh_interval] || socket.assigns[:refresh_interval] || 5
+    timer_ref = send_update_after(__MODULE__, [id: "stats"], interval * 1000)
 
-    {:ok, socket}
+    assigns =
+      Map.put(assigns, :stats, Queue.stats())
+      |> Map.put(:timer_ref, timer_ref)
+
+    {:ok, assign(socket, assigns)}
   end
 
   @impl true
-  def update(_assigns, socket) do
-    send_update_after(__MODULE__, [id: "stats"], @tick_interval)
-    {:ok, assign(socket, :stats, Queue.stats())}
+  def handle_event("refresh-interval", %{"interval" => interval}, socket) do
+    if socket.assigns.timer_ref do
+      Process.cancel_timer(socket.assigns.timer_ref)
+    end
+
+    timer_ref = send_update_after(__MODULE__, [id: "stats"], interval * 1000)
+
+    {:noreply, assign(socket, %{refresh_interval: interval, timer_ref: timer_ref})}
   end
 end

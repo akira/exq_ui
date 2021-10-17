@@ -19,6 +19,7 @@ import { LiveSocket } from "phoenix_live_view";
 
 import { Table } from "./hooks/table";
 import { RealtimePlot, HistoricalPlot } from "./hooks/plot";
+import { Refresh } from "./hooks/refresh";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -29,6 +30,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     Table: Table,
     RealtimePlot: RealtimePlot,
     HistoricalPlot: HistoricalPlot,
+    Refresh: Refresh,
   },
 });
 
