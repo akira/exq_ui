@@ -28,6 +28,6 @@ defmodule ExqUIWeb.Router.Helpers do
         "?" <> Plug.Conn.Query.encode(params)
       end
 
-    root <> path <> query
+    Path.join(root, path) <> query
   end
 end
