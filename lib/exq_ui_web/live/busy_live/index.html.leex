@@ -1,0 +1,50 @@
+<%= live_component ExqUIWeb.StatsComponent, id: "stats" %>
+<h5 class="mt-2 text-muted">Nodes</h5>
+<table class="mt-2 table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Started</th>
+      <th scope="col">Busy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for node <- @nodes do %>
+        <tr>
+          <td>
+            <%= node.identity %> <br />
+            <span><b>Queues: </b><%= Enum.join(node.queues, ", ") %></span>
+          </td>
+          <td><%= human_time(node.started_at) %></td>
+          <td><%= node.busy %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+<h5 class="text-muted">Jobs</h5>
+<table class="mt-2 table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Node</th>
+      <th scope="col">PID</th>
+      <th scope="col">JID</th>
+      <th scope="col">Queue</th>
+      <th scope="col">Module</th>
+      <th scope="col">Arguments</th>
+      <th scope="col">Started</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for job <- @jobs do %>
+        <tr>
+          <td><%= job.host %></td>
+          <td><%= job.pid %></td>
+          <td><%= job.payload.jid %></td>
+          <td><%= live_redirect job.queue, class: "nounderline", to: Routes.queue_show_path(@socket, job.queue) %></td>
+          <td><%= job.payload.class %></td>
+          <td><%= inspect(job.payload.args) %></td>
+          <td><%= human_time(job.run_at) %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

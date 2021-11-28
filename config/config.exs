@@ -1,24 +1,22 @@
 use Mix.Config
 
-config :logger, :console,
-  format: "\n$date $time [$level]: $message \n"
-
 config :exq,
+  name: Exq,
+  mode: :api,
   host: "127.0.0.1",
   port: 6379,
-  namespace: "exq",
-  queues: ["default"],
-  scheduler_enable: true,
-  concurrency: 100,
-  scheduler_poll_timeout: 200,
-  poll_timeout: 100,
-  redis_timeout: 5000,
-  genserver_timeout: 5000,
-  max_retries: 25
+  namespace: "exq"
 
 config :exq_ui,
-  web_port: 4040,
-  web_namespace: "",
-  server: true
+  api_name: Exq.Api
 
-import_config "#{Mix.env}.exs"
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:request_id]
+
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
+
+# Import environment specific config. This must remain at the bottom
+# of this file so it overrides the configuration defined above.
+import_config "#{Mix.env()}.exs"

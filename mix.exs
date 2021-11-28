@@ -1,69 +1,57 @@
-defmodule ExqUi.Mixfile do
+defmodule ExqUI.MixProject do
   use Mix.Project
 
   def project do
-    [ app: :exq_ui,
-      version: "0.11.1",
-      elixir: "~> 1.3",
-      elixirc_paths: ["lib", "web"],
-      package: [
-        maintainers: ["Alex Kira", "Justin McNally", "Nick Sanders"],
-        links: %{"GitHub" => "https://github.com/akira/exq_ui"},
-        licenses: ["Apache2.0"],
-        files: ~w(lib priv test web) ++
-               ~w(LICENSE mix.exs README.md)
-      ],
-      description: """
-      Exq UI is the UI component for Exq, a job processing library.  Exq UI provides the UI dashboard
-      to display stats on job processing.
-      """,
-      deps: deps(),
-      test_coverage: [tool: ExCoveralls]
+    [
+      app: :exq_ui,
+      version: "0.1.0",
+      elixir: "~> 1.7",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix] ++ Mix.compilers(),
+      start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
+      deps: deps()
     ]
   end
 
-  # Configuration for the OTP application
+  # Configuration for the OTP application.
+  #
+  # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: { ExqUi, [] },
-      applications: [:redix],
-      extra_applications: [:plug, :logger]
+      mod: {ExqUI.Application, []},
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
-  # Returns the list of dependencies in the format:
-  # { :foobar, "0.1", git: "https://github.com/elixir-lang/foobar.git" }
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
+  # Specifies your project dependencies.
+  #
+  # Type `mix help deps` for examples and options.
   defp deps do
     [
-      { :exq, ">= 0.9.0"},
-      { :poison, ">= 1.2.0 or ~> 2.0"}, # Take out after #83
-      { :excoveralls, "~> 0.3", only: :test },
-      { :ex_doc, "~> 0.19", only: :dev }
-    ] ++ cowboy_deps()
+      {:exq, github: "akira/exq", branch: "sidekiq_5_ui"},
+      {:phoenix_live_view, "~> 0.16.0"},
+      {:floki, ">= 0.30.0", only: :test},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:jason, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"}
+    ]
   end
 
-  def cowboy_deps do
-    case otp_version() >= 19 && minor_elixir_version() >= 4 do
-      true -> [
-          { :plug, "~> 1.6"},
-          { :cowboy, "~> 2.4" }
-      ]
-      _ -> [
-          { :plug, "< 1.0.3" },
-          { :cowboy, "~> 1.0" }
-      ]
-    end
-  end
-
-  # elixir/otp version helpers
-  def minor_elixir_version do
-    {_, version} = Version.parse(System.version)
-    version.minor
-  end
-
-  def otp_version do
-    :erlang.system_info(:otp_release)
-    |> to_string()
-    |> String.to_integer()
+  # Aliases are shortcuts or tasks specific to the current project.
+  # For example, to install project dependencies and perform other setup tasks, run:
+  #
+  #     $ mix setup
+  #
+  # See the documentation for `Mix` for more info on aliases.
+  defp aliases do
+    [
+      setup: ["deps.get", "cmd npm install --prefix assets"],
+      dev: "run --no-halt dev.exs"
+    ]
   end
 end

@@ -1,0 +1,4 @@
+/*! topbar 0.1.4, 2020-04-27
+ *  http://buunguyen.github.io/topbar
+ *  Copyright (c) 2019 Buu Nguyen
+ *  Licensed under the MIT License */
