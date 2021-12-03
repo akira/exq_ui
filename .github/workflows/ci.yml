@@ -1,0 +1,23 @@
+on:
+  - push
+  - pull_request
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    strategy:
+      matrix:
+        include:
+          - elixir: 1.10.4
+            otp: 23.0
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker-compose up -d
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+      - run: mix deps.get
+      - run: mix format --check-formatted
+      - run: mix compile --force --warnings-as-errors
+      - run: mix test --trace
