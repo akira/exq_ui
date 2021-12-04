@@ -1,7 +1,9 @@
 <div class="row">
   <%= if @item do %>
   <div class="col-4 my-2">
-    <%= link "Delete", class: "btn btn-danger btn-sm", to: "#", phx_click: "delete", phx_value_raw: @item.raw %>
+    <%= for %{name: name, label: label} <- @actions do %>
+      <%= link label, class: "btn btn-danger btn-sm me-1", to: "#", phx_click: name, phx_value_raw: @item.raw %>
+    <% end %>
   </div>
   <div class="col-12">
     <table class="my-2 table table-bordered">
