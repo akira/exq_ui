@@ -98,6 +98,15 @@ defmodule ExqUI.Queue do
     end
   end
 
+  def dequeue_retry_jobs(raw_jobs) do
+    if Enum.empty?(raw_jobs) do
+      :ok
+    else
+      {:ok, _} = Api.dequeue_retry_jobs(api(), raw_jobs)
+      :ok
+    end
+  end
+
   def remove_all_retry_jobs() do
     Api.clear_retries(api())
   end

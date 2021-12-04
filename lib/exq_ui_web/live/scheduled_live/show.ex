@@ -4,6 +4,11 @@ defmodule ExqUIWeb.ScheduledLive.Show do
 
   @impl true
   def mount(%{"score" => score, "jid" => jid}, _session, socket) do
+    socket =
+      assign(socket, :actions, [
+        %{name: "delete", label: "Delete"}
+      ])
+
     {:ok, assign(socket, job_details(score, jid))}
   end
 

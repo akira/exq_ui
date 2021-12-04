@@ -25,7 +25,8 @@ defmodule ExqUIWeb.RetryLive.Index do
       ])
       |> assign(:actions, [
         %{name: "delete", label: "Delete"},
-        %{name: "delete_all", label: "Delete All"}
+        %{name: "delete_all", label: "Delete All"},
+        %{name: "retry_now", label: "Retry Now"}
       ])
 
     {:ok, assign(socket, jobs_details(params["page"] || "1"))}
@@ -60,6 +61,18 @@ defmodule ExqUIWeb.RetryLive.Index do
   @impl true
   def handle_event("action", %{"table" => %{"action" => "delete_all"}}, socket) do
     :ok = Queue.remove_all_retry_jobs()
+    socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("action", %{"table" => %{"action" => "retry_now"} = params}, socket) do
+    raw_jobs =
+      Map.delete(params, "action")
+      |> Map.values()
+
+    :ok = Queue.dequeue_retry_jobs(raw_jobs)
+
     socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
     {:noreply, socket}
   end
