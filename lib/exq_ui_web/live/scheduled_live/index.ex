@@ -23,7 +23,8 @@ defmodule ExqUIWeb.ScheduledLive.Index do
       ])
       |> assign(:actions, [
         %{name: "delete", label: "Delete"},
-        %{name: "delete_all", label: "Delete All"}
+        %{name: "delete_all", label: "Delete All"},
+        %{name: "dequeue_now", label: "Add to Qeueue"}
       ])
 
     {:ok, assign(socket, jobs_details(params["page"] || "1"))}
@@ -50,6 +51,17 @@ defmodule ExqUIWeb.ScheduledLive.Index do
       |> Map.values()
 
     :ok = Queue.remove_scheduled_jobs(raw_jobs)
+    socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("action", %{"table" => %{"action" => "dequeue_now"} = params}, socket) do
+    raw_jobs =
+      Map.delete(params, "action")
+      |> Map.values()
+
+    :ok = Queue.dequeue_scheduled_jobs(raw_jobs)
     socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
     {:noreply, socket}
   end

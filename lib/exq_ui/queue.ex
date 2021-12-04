@@ -141,6 +141,15 @@ defmodule ExqUI.Queue do
     Api.clear_scheduled(api())
   end
 
+  def dequeue_scheduled_jobs(raw_jobs) do
+    if Enum.empty?(raw_jobs) do
+      :ok
+    else
+      {:ok, _} = Api.dequeue_scheduled_jobs(api(), raw_jobs)
+      :ok
+    end
+  end
+
   def list_scheduled_jobs(options \\ []) do
     {:ok, jobs} = Api.scheduled(api(), Keyword.merge([score: true, raw: true], options))
     decode_jobs_with_score(jobs)
