@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - elixir: 1.10.4
@@ -20,4 +21,4 @@ jobs:
       - run: mix deps.get
       - run: mix format --check-formatted
       - run: mix compile --force --warnings-as-errors
-      - run: mix test --trace
+      - run: mix test --trace --cover
