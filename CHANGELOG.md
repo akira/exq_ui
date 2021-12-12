@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.1.0] - 2021-12-12
+
+## Changed
+- Complete rewrite using Phoenix Liveview #102 by @ananthakumaran!! NOTE: Needs upgrade of Exq to 0.16.0.
+
+
+### Fixed
+
+
+### Added
+- Add more options to scheduled and retry page #104 by @ananthakumaran
+
+
 ## [0.11.1] - 2021-09-06
 
 ### Fixed
