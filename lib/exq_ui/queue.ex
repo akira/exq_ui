@@ -180,6 +180,15 @@ defmodule ExqUI.Queue do
     Api.clear_failed(api())
   end
 
+  def dequeue_dead_jobs(raw_jobs) do
+    if Enum.empty?(raw_jobs) do
+      :ok
+    else
+      {:ok, _} = Api.dequeue_failed_jobs(api(), raw_jobs)
+      :ok
+    end
+  end
+
   def list_dead_jobs(options \\ []) do
     {:ok, jobs} = Api.failed(api(), Keyword.merge([score: true, raw: true], options))
     decode_jobs_with_score(jobs)

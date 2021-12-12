@@ -25,7 +25,8 @@ defmodule ExqUIWeb.DeadLive.Index do
       ])
       |> assign(:actions, [
         %{name: "delete", label: "Delete"},
-        %{name: "delete_all", label: "Delete All"}
+        %{name: "delete_all", label: "Delete All"},
+        %{name: "dequeue_now", label: "Retry Now"}
       ])
 
     {:ok, assign(socket, jobs_details(params["page"] || "1"))}
@@ -52,7 +53,6 @@ defmodule ExqUIWeb.DeadLive.Index do
       |> Map.values()
 
     :ok = Queue.remove_dead_jobs(raw_jobs)
-
     socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
     {:noreply, socket}
   end
@@ -60,6 +60,17 @@ defmodule ExqUIWeb.DeadLive.Index do
   @impl true
   def handle_event("action", %{"table" => %{"action" => "delete_all"}}, socket) do
     :ok = Queue.remove_all_dead_jobs()
+    socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("action", %{"table" => %{"action" => "dequeue_now"} = params}, socket) do
+    raw_jobs =
+      Map.delete(params, "action")
+      |> Map.values()
+
+    :ok = Queue.dequeue_dead_jobs(raw_jobs)
     socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
     {:noreply, socket}
   end

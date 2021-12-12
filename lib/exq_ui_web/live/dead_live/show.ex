@@ -6,7 +6,8 @@ defmodule ExqUIWeb.DeadLive.Show do
   def mount(%{"score" => score, "jid" => jid}, _session, socket) do
     socket =
       assign(socket, :actions, [
-        %{name: "delete", label: "Delete"}
+        %{name: "delete", label: "Delete"},
+        %{name: "dequeue_now", label: "Retry Now"}
       ])
 
     {:ok, assign(socket, job_details(score, jid))}
@@ -15,6 +16,12 @@ defmodule ExqUIWeb.DeadLive.Show do
   @impl true
   def handle_event("delete", %{"raw" => raw_job}, socket) do
     :ok = Queue.remove_dead_jobs([raw_job])
+    {:noreply, push_redirect(socket, to: Routes.dead_index_path(socket))}
+  end
+
+  @impl true
+  def handle_event("dequeue_now", %{"raw" => raw_job}, socket) do
+    :ok = Queue.dequeue_dead_jobs([raw_job])
     {:noreply, push_redirect(socket, to: Routes.dead_index_path(socket))}
   end
 
