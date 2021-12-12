@@ -10,7 +10,8 @@ defmodule ExqUI.MixProject do
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      package: package()
     ]
   end
 
@@ -32,6 +33,21 @@ defmodule ExqUI.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:floki, ">= 0.30.0", only: :test}
+    ]
+  end
+
+  defp package do
+    [
+      description: """
+      Exq UI is the UI component for Exq, a job processing library.  Exq UI provides the UI dashboard
+      to display stats on job processing.
+      """,
+      maintainers: ["Anantha Kumaran", "Alex Kira"],
+      links: %{"GitHub" => "https://github.com/akira/exq_ui"},
+      licenses: ["Apache2.0"],
+      files:
+        ~w(lib priv test assets/js assets/css assets/static) ++
+          ~w(LICENSE mix.exs README.md CHANGELOG.md)
     ]
   end
 
