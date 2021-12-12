@@ -10,6 +10,7 @@ defmodule ExqUI.MixProject do
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
+      docs: docs(),
       deps: deps(),
       package: package()
     ]
@@ -32,7 +33,10 @@ defmodule ExqUI.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:floki, ">= 0.30.0", only: :test}
+      {:floki, ">= 0.30.0", only: :test},
+
+      # docs
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
@@ -55,6 +59,16 @@ defmodule ExqUI.MixProject do
     [
       setup: ["deps.get", "cmd npm install --prefix assets"],
       dev: "run --no-halt dev.exs"
+    ]
+  end
+
+  defp docs do
+    [
+      extras: ["CHANGELOG.md", "README.md"],
+      main: "readme",
+      formatters: ["html"],
+      source_url: @source_url,
+      source_ref: "v#{@version}"
     ]
   end
 end
