@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-## [0.1.0] - 2021-12-12
+## [0.12.0] - 2021-12-12
 
 ## Changed
 - Complete rewrite using Phoenix Liveview #102 by @ananthakumaran!! NOTE: Needs upgrade of Exq to 0.16.0.
