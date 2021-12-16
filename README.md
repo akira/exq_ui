@@ -1,5 +1,7 @@
 # ExqUI
 
+[![Hex.pm](https://img.shields.io/hexpm/v/exq_ui.svg)](https://hex.pm/packages/exq_ui)
+
 ExqUI provides a UI dashboard for [Exq](https://github.com/akira/exq), a job processing library
 compatible with Resque / Sidekiq for the Elixir language. ExqUI allow
 you to see various job processing stats, as well as details on failed,
