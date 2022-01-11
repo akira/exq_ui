@@ -29,7 +29,7 @@ defmodule ExqUI.MixProject do
   defp deps do
     [
       {:exq, ">= 0.9.0"},
-      {:phoenix_live_view, "~> 0.16.0"},
+      {:phoenix_live_view, "~> 0.16"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
