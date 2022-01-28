@@ -40,7 +40,8 @@ defmodule ExqUIWeb.Router do
       options[:live_session_name] || :exq_ui,
       [
         session: {__MODULE__, :__session__, []},
-        root_layout: {ExqUIWeb.LayoutView, :root}
+        root_layout: {ExqUIWeb.LayoutView, :root},
+        on_mount: options[:live_session_on_mount] || __MODULE__
       ],
       [
         private: %{live_socket_path: live_socket_path},
@@ -52,5 +53,9 @@ defmodule ExqUIWeb.Router do
   @doc false
   def __session__(_conn) do
     %{}
+  end
+
+  def mount(_params, _session, socket) do
+    {:ok, socket}
   end
 end
