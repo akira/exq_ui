@@ -1,10 +1,12 @@
 defmodule ExqUI.MixProject do
   use Mix.Project
 
+  @version "0.12.0"
+
   def project do
     [
       app: :exq_ui,
-      version: "0.12.0",
+      version: @version,
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
@@ -67,7 +69,7 @@ defmodule ExqUI.MixProject do
       extras: ["CHANGELOG.md", "README.md"],
       main: "readme",
       formatters: ["html"],
-      source_url: @source_url,
+      source_url: "https://github.com/akira/exq_ui",
       source_ref: "v#{@version}"
     ]
   end
