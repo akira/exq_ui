@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- support phoenix\_live\_view 0.17 #109
+
 ## [0.12.0] - 2021-12-12
 
 ## Changed
