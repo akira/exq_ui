@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.DeadLive.Index do
+  @moduledoc false
   use ExqUIWeb, :live_view
   alias ExqUI.Queue
 

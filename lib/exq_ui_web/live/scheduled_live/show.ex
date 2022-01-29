@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.ScheduledLive.Show do
+  @moduledoc false
   use ExqUIWeb, :live_view
   alias ExqUI.Queue
 

@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.PaginationComponent do
+  @moduledoc false
   use ExqUIWeb, :live_component
 
   @length 5

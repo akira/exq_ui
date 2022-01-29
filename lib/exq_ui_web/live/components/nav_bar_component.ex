@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.NavBarComponent do
+  @moduledoc false
   use ExqUIWeb, :live_component
 
   @impl true

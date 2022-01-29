@@ -1,7 +1,10 @@
 defmodule ExqUI.Queue do
+  @moduledoc false
+
   alias Exq.Api
 
   defmodule JobItem do
+    @moduledoc false
     defstruct [:job, :id, :raw, :score, :scheduled_at]
   end
 

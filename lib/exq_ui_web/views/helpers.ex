@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.Helpers do
+  @moduledoc false
   use Phoenix.HTML
   import Phoenix.LiveView.Helpers
 

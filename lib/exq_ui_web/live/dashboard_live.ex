@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.DashboardLive do
+  @moduledoc false
   use ExqUIWeb, :live_view
 
   @impl true

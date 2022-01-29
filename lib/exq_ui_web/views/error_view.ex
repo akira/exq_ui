@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.ErrorView do
+  @moduledoc false
   use ExqUIWeb, :view
 
   # If you want to customize a particular status code

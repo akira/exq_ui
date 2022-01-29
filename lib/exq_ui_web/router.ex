@@ -1,4 +1,15 @@
 defmodule ExqUIWeb.Router do
+  @doc """
+
+  Exposes ExqUI web interface at the specified
+  `path`. `Phoenix.LiveView.Router.live_session/3` is used to wrap all
+  the live routes.
+
+  ## Options
+
+  * live_session_name - Name of the live_session. Defaults to `:exq_ui`
+  * live_socket_path - Should match the value used for `socket "/live", Phoenix.LiveView.Socket`. Defaults to `/live`
+  """
   defmacro live_exq_ui(path, opts \\ []) do
     quote bind_quoted: binding() do
       scope path, alias: false, as: false do

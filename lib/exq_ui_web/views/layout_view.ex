@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.LayoutView do
+  @moduledoc false
   use ExqUIWeb, :view
 
   js_path = Path.join(__DIR__, "../../../priv/static/js/app.js")

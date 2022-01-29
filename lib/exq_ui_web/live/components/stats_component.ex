@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.StatsComponent do
+  @moduledoc false
   use ExqUIWeb, :live_component
   alias ExqUI.Queue
 

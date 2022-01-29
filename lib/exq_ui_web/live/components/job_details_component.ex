@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.JobDetailsComponent do
+  @moduledoc false
   use ExqUIWeb, :live_component
 
   @impl true

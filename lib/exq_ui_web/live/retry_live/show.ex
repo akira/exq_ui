@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.RetryLive.Show do
+  @moduledoc false
   use ExqUIWeb, :live_view
   alias ExqUI.Queue
 

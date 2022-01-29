@@ -1,4 +1,5 @@
 defmodule ExqUIWeb.Router.Helpers do
+  @moduledoc false
   def dashboard_path(socket, params \\ %{}), do: build(socket, "/", params)
   def busy_index_path(socket, params \\ %{}), do: build(socket, "/busy", params)
   def queue_index_path(socket, params \\ %{}), do: build(socket, "/queues", params)
