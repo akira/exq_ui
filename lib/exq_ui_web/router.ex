@@ -9,6 +9,7 @@ defmodule ExqUIWeb.Router do
 
   * live_session_name - Name of the live_session. Defaults to `:exq_ui`
   * live_socket_path - Should match the value used for `socket "/live", Phoenix.LiveView.Socket`. Defaults to `/live`
+  * live_session_on_mount - Declares an optional module callback to be invoked on the LiveView's mount
   """
   defmacro live_exq_ui(path, opts \\ []) do
     quote bind_quoted: binding() do
@@ -34,28 +35,32 @@ defmodule ExqUIWeb.Router do
 
   @doc false
   def __options__(options) do
-    live_socket_path = Keyword.get(options, :live_socket_path, "/live")
+    session_name = options[:live_session_name] || :exq_ui
 
-    {
-      options[:live_session_name] || :exq_ui,
-      [
-        session: {__MODULE__, :__session__, []},
-        root_layout: {ExqUIWeb.LayoutView, :root},
-        on_mount: options[:live_session_on_mount] || __MODULE__
-      ],
-      [
-        private: %{live_socket_path: live_socket_path},
-        as: :exq_ui
-      ]
-    }
+    session_opts = [
+      session: {__MODULE__, :__session__, []},
+      root_layout: {ExqUIWeb.LayoutView, :root}
+    ]
+
+    on_mount = options[:live_session_on_mount]
+
+    session_opts =
+      if on_mount do
+        Keyword.put(session_opts, :on_mount, on_mount)
+      else
+        session_opts
+      end
+
+    route_opts = [
+      private: %{live_socket_path: Keyword.get(options, :live_socket_path, "/live")},
+      as: :exq_ui
+    ]
+
+    {session_name, session_opts, route_opts}
   end
 
   @doc false
   def __session__(_conn) do
     %{}
-  end
-
-  def mount(_params, _session, socket) do
-    {:ok, socket}
   end
 end
