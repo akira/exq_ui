@@ -20,7 +20,7 @@ defmodule ExqUIWeb.ScheduledLive.Index do
         },
         %{header: "Queue", accessor: fn item -> item.job.queue end},
         %{header: "Module", accessor: fn item -> item.job.class end},
-        %{header: "Arguments", accessor: fn item -> inspect(item.job.args) end}
+        %{header: "Arguments", text_break: true, accessor: fn item -> inspect(item.job.args) end}
       ])
       |> assign(:actions, [
         %{name: "delete", label: "Delete"},
