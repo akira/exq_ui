@@ -35,8 +35,8 @@ defmodule ExqUI.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:redix, ">= 0.9.0"},
       {:floki, ">= 0.30.0", only: :test},
-
       # docs
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]

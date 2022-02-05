@@ -21,8 +21,8 @@ defmodule ExqUIWeb.RetryLive.Index do
         %{header: "Retry Count", accessor: fn item -> item.job.retry_count end},
         %{header: "Queue", accessor: fn item -> item.job.queue end},
         %{header: "Module", accessor: fn item -> item.job.class end},
-        %{header: "Arguments", accessor: fn item -> inspect(item.job.args) end},
-        %{header: "Error", accessor: fn item -> item.job.error_message end}
+        %{header: "Arguments", text_break: true, accessor: fn item -> inspect(item.job.args) end},
+        %{header: "Error", text_break: true, accessor: fn item -> item.job.error_message end}
       ])
       |> assign(:actions, [
         %{name: "delete", label: "Delete"},

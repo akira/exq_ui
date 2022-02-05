@@ -27,8 +27,8 @@
           <%= for item <- @items do %>
               <tr>
                 <td class="text-center"><%= checkbox(f, item.id, hidden_input: false, checked_value: item.raw, class: "form-check-input js-select-row") %></td>
-                <%= for %{accessor: accessor} <- @columns do %>
-                    <td><%= accessor.(item) %></td>
+                <%= for %{accessor: accessor} = column <- @columns do %>
+                    <td class={column[:text_break] && "text-break"}><%= accessor.(item) %></td>
                 <% end %>
               </tr>
           <% end %>
