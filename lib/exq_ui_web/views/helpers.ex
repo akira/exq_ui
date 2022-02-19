@@ -18,8 +18,18 @@ defmodule ExqUIWeb.Helpers do
     ""
   end
 
+  def human_time(%DateTime{} = timestamp) do
+    formatted = DateTime.to_iso8601(timestamp)
+
+    content_tag(:span, formatted,
+      "phx-hook": "Timestamp",
+      id: "timestamp-#{:erlang.unique_integer()}",
+      title: formatted
+    )
+  end
+
   def human_time(epoch) when is_number(epoch) do
-    DateTime.from_unix!(round(epoch))
+    human_time(DateTime.from_unix!(round(epoch)))
   end
 
   def date_selector_class(current, days) do
