@@ -30,7 +30,7 @@ defmodule ExqUI.MixProject do
 
   defp deps do
     [
-      {:exq, ">= 0.9.0"},
+      {:exq, github: "akira/exq", branch: "master"},
       {:phoenix_live_view, "~> 0.16"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:jason, "~> 1.0"},

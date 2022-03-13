@@ -215,6 +215,10 @@ defmodule ExqUI.Queue do
     processes
   end
 
+  def send_signal(node_id, signal_name) do
+    Api.send_signal(api(), node_id, signal_name)
+  end
+
   defp decode_jobs_with_score(jobs) do
     Enum.map(jobs, fn {json, score} ->
       job_with_score(json, score)
