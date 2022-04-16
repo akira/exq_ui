@@ -1,7 +1,7 @@
 defmodule ExqUI.MixProject do
   use Mix.Project
 
-  @version "0.12.0"
+  @version "0.12.1"
 
   def project do
     [
@@ -30,7 +30,7 @@ defmodule ExqUI.MixProject do
 
   defp deps do
     [
-      {:exq, github: "akira/exq", branch: "master"},
+      {:exq, ">= 0.16.2"},
       {:phoenix_live_view, "~> 0.16"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:jason, "~> 1.0"},
