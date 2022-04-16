@@ -5,8 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.12.1] - 2022-02-15
 ### Added
-- support phoenix\_live\_view 0.17 #109
+- Support phoenix\_live\_view 0.17 #109 by @ananthakumaran
+- Add :live_session_on_mount option #110 by @neslinesli93
+- Add toggle switch per node to unsubscibe from all queues #114 by @ananthakumaran
+
+### Changed
+- Use relative time format #113 by @ananthakumaran
+- improve table layout #111 by @ananthakumaran
 
 ## [0.12.0] - 2021-12-12
 
