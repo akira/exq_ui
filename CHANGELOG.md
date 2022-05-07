@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.12.2] - 2022-05-07
+### Fixed
+- Fix compile issue for missing id attribute #117 by @williamweckl
+
 ## [0.12.1] - 2022-02-15
 ### Added
 - Support phoenix\_live\_view 0.17 #109 by @ananthakumaran
