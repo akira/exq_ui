@@ -41,7 +41,7 @@ defmodule DemoWeb.Router do
   scope "/", DemoWeb do
     pipe_through :browser
 
-    live_exq_ui("/exq")
+    live_exq_ui("/exq", live_socket_path: "/exq/live")
   end
 end
 
@@ -54,7 +54,9 @@ defmodule DemoWeb.Endpoint do
     signing_salt: "Y3AT90O7"
   ]
 
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  socket "/exq/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]]
+
   socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
   plug Phoenix.LiveReloader
   plug Phoenix.CodeReloader
