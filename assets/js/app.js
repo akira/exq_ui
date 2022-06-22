@@ -25,7 +25,10 @@ import { Timestamp } from "./hooks/timestamp";
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
-let liveSocket = new LiveSocket("/live", Socket, {
+let socketPath =
+  document.querySelector("html").getAttribute("phx-socket") || "/live";
+
+let liveSocket = new LiveSocket(socketPath, Socket, {
   params: { _csrf_token: csrfToken },
   hooks: {
     Table: Table,
