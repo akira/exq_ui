@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.12.3] - 2022-08-12
+### Fixed
+- respect live_socket_path config option #119 by @ananthakumaran
+
+
 ## [0.12.2] - 2022-05-07
 ### Fixed
 - Fix compile issue for missing id attribute #117 by @williamweckl
