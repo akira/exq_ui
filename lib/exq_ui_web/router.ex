@@ -28,6 +28,10 @@ defmodule ExqUIWeb.Router do
           live "/dead/:score/:jid", ExqUIWeb.DeadLive.Show, :index, route_opts
           live "/scheduled", ExqUIWeb.ScheduledLive.Index, :index, route_opts
           live "/scheduled/:score/:jid", ExqUIWeb.ScheduledLive.Show, :index, route_opts
+
+          if Application.get_env(:exq_ui, :exq_scheduler_name) do
+            live "/recurring", ExqUIWeb.RecurringLive.Index, :index, route_opts
+          end
         end
       end
     end

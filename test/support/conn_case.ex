@@ -49,6 +49,7 @@ defmodule ExqUI.ConnCase do
 
   setup do
     :ok = populate()
+    on_exit(fn -> Redix.command!(:redix, ["FLUSHALL"]) end)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 

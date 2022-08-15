@@ -11,7 +11,10 @@ defmodule ExqUIWeb.BusyLive.Index do
   @impl true
   def handle_event(
         "signal",
-        %{"signal" => %{"name" => "TSTP", "node_id" => node_id}},
+        %{
+          "signal" => %{"name" => "TSTP", "node_id" => node_id},
+          "_target" => ["signal", "quiet"]
+        },
         socket
       ) do
     :ok = Queue.send_signal(node_id, "TSTP")
@@ -27,6 +30,11 @@ defmodule ExqUIWeb.BusyLive.Index do
 
     socket = assign(socket, :nodes, nodes)
 
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("signal", _, socket) do
     {:noreply, socket}
   end
 end

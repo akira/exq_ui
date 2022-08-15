@@ -1,0 +1,48 @@
+<%= live_component ExqUIWeb.StatsComponent, id: "stats" %>
+
+<div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Active</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Cron</th>
+            <th scope="col">Timezone</th>
+            <th scope="col">Last Time</th>
+            <th scope="col">Next Time</th>
+            <th scope="col">Queue</th>
+            <th scope="col">Module</th>
+            <th scope="col">Arguments</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for item <- @items do %>
+              <tr>
+                <td>
+                  <%= form_for :active, "#", [id: "schedule-#{item.schedule.name}", phx_change: :active, class: "mb-0 form-check form-switch form-check-inline", style: "margin: auto;display: flex;justify-content: center"], fn f -> %>
+                    <%= hidden_input(f, :name, value: item.schedule.name) %>
+                    <%= hidden_input(f, :enabled, value: !item.schedule.schedule_opts.enabled) %>
+                    <%= checkbox(f, :toggle, value: item.schedule.schedule_opts.enabled, class: "form-check-input", role: "switch", title: "disable") %>
+                  <% end %>
+                </td>
+                <td><%= item.schedule.name %></td>
+                <td class="text-break"><%= item.schedule.description %></td>
+                <td class="text-nowrap"><%= item.cron %></td>
+                <td><%= item.schedule.timezone %></td>
+                <td class="text-nowrap"><%= human_time(item.last_run) %></td>
+                <td class="text-nowrap" style={!item.schedule.schedule_opts.enabled && "text-decoration: line-through"} ><%= human_time(item.next_run) %></td>
+                <td><%= item.schedule.job.queue %></td>
+                <td><%= item.schedule.job.class %></td>
+                <td class="text-break"><%= inspect(item.schedule.job.args) %></td>
+                <td class="text-nowrap"><%= link "Enqueue Now", class: "btn btn-danger btn-sm", to: "#", phx_click: "enqueue_now", phx_value_name: item.schedule.name %></td>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

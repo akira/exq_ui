@@ -21,6 +21,11 @@
         <li class="nav-item">
           <%= nav_link(@socket, "Dead", Routes.dead_index_path(@socket)) %>
         </li>
+        <%= if Application.get_env(:exq_ui, :exq_scheduler_name) do %>
+        <li class="nav-item">
+          <%= nav_link(@socket, "Recurring", Routes.recurring_index_path(@socket)) %>
+        </li>
+        <% end %>
       </ul>
     </div>
     <form class="d-flex align-items-center" phx-target="stats">

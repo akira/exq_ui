@@ -58,10 +58,23 @@ defmodule DemoWeb.Router do
 end
 ```
 
+## Exq Scheduler
+
+ExqUI provides support for [Exq Scheduler](https://github.com/activesphere/exq-scheduler). It can be enabled by
+giving a name to exq scheduler and specifying the same name in exq ui config.
+
+```elixir
+config :exq_scheduler,
+  name: ExqScheduler
+
+config :exq_ui,
+  exq_scheduler_name: ExqScheduler
+```
+
 ## Development
 
 ```sh
 mix setup # on first run
-mix run dev.exs
+mix run --no-halt dev.exs
 open http://localhost:4000/exq
 ```
