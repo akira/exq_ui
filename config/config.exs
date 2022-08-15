@@ -37,7 +37,6 @@ config :exq_scheduler, :schedules,
     description: "Schedule a Hardworker job every 2 minutes",
     cron: "*/2 * * * * Asia/Jakarta",
     class: "Hardworker",
-    include_metadata: true,
     args: [435_493],
     queue: "hard"
   },
@@ -45,6 +44,7 @@ config :exq_scheduler, :schedules,
     description: "Schedule a Hardworker job every 3 minutes",
     cron: "*/3 * * * *",
     class: "Hardworker",
+    include_metadata: true,
     args: [],
     queue: "soft"
   }
