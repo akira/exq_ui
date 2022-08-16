@@ -31,6 +31,7 @@ defmodule ExqUI.MixProject do
   defp deps do
     [
       {:exq, ">= 0.16.2"},
+      {:exq_scheduler, "~> 1.0", optional: true},
       {:phoenix_live_view, "~> 0.16"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:jason, "~> 1.0"},

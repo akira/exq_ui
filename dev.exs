@@ -1,4 +1,5 @@
 Logger.configure(level: :debug)
+Application.ensure_all_started(:exq_scheduler)
 
 # Configures the endpoint
 Application.put_env(:exq_ui, DemoWeb.Endpoint,
@@ -81,4 +82,3 @@ Task.async(fn ->
   {:ok, _} = Supervisor.start_link(children, strategy: :one_for_one)
   Process.sleep(:infinity)
 end)
-|> Task.await(:infinity)

@@ -18,7 +18,7 @@ defmodule ExqUIWeb.BusyLive.IndexTest do
 
     html =
       element(view, "#node-anantha-ubuntu")
-      |> render_change(%{})
+      |> render_change(%{"_target" => ["signal", "quiet"]})
 
     assert html =~ ~S(disabled="disabled")
   end

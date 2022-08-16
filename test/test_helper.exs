@@ -1,3 +1,5 @@
+Application.ensure_all_started(:exq_scheduler)
+
 children = [
   {Phoenix.PubSub, name: ExqUI.PubSub},
   DemoWeb.Endpoint,
