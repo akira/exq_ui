@@ -14,7 +14,11 @@ defmodule ExqUI.MixProject do
       aliases: aliases(),
       docs: docs(),
       deps: deps(),
-      package: package()
+      package: package(),
+      test_coverage: [
+        ignore_modules: [ExqUI.Queue.JobItem, ExqUIWeb, ExqUIWeb.ErrorView, ExqUIWeb.Router],
+        summary: [threshold: 80]
+      ]
     ]
   end
 

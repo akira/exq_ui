@@ -30,6 +30,24 @@ defmodule ExqUIWeb.ScheduledLive.IndexTest do
     refute html =~ ~r/Hardworker.*509/
   end
 
+  test "delete_all", %{conn: conn} do
+    {:ok, view, _} = live(conn, "/scheduled")
+    html = render(view)
+    assert html =~ ~r/Hardworker.*864/
+    assert html =~ ~r/Hardworker.*509/
+
+    element(
+      view,
+      "#table-component"
+    )
+    |> render_hook("action", %{"table" => %{"action" => "delete_all"}})
+
+    {:ok, view, _} = live(conn, "/scheduled")
+    html = render(view)
+    refute html =~ ~r/Hardworker.*864/
+    refute html =~ ~r/Hardworker.*509/
+  end
+
   test "add to queue", %{conn: conn} do
     {:ok, view, _} = live(conn, "/scheduled")
 

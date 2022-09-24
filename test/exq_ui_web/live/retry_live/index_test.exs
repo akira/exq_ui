@@ -30,6 +30,24 @@ defmodule ExqUIWeb.RetryLive.IndexTest do
     assert html =~ ~r/hard.*235.*RuntimeError/
   end
 
+  test "delete_all", %{conn: conn} do
+    {:ok, view, _} = live(conn, "/retries")
+    html = render(view)
+    assert html =~ ~r/hard.*499.*{:bad, :reason}/
+    assert html =~ ~r/hard.*235.*RuntimeError/
+
+    element(
+      view,
+      "#table-component"
+    )
+    |> render_hook("action", %{"table" => %{"action" => "delete_all"}})
+
+    {:ok, view, _} = live(conn, "/retries")
+    html = render(view)
+    refute html =~ ~r/hard.*499.*{:bad, :reason}/
+    refute html =~ ~r/hard.*235.*RuntimeError/
+  end
+
   test "retry now", %{conn: conn} do
     {:ok, view, _} = live(conn, "/retries")
 
