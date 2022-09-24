@@ -7,14 +7,18 @@ defmodule ExqUI.MixProject do
     [
       app: :exq_ui,
       version: @version,
-      elixir: "~> 1.7",
+      elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       docs: docs(),
       deps: deps(),
-      package: package()
+      package: package(),
+      test_coverage: [
+        ignore_modules: [ExqUI.Queue.JobItem, ExqUIWeb, ExqUIWeb.ErrorView, ExqUIWeb.Router],
+        summary: [threshold: 80]
+      ]
     ]
   end
 
@@ -32,7 +36,7 @@ defmodule ExqUI.MixProject do
     [
       {:exq, ">= 0.16.2"},
       {:exq_scheduler, "~> 1.0", optional: true},
-      {:phoenix_live_view, "~> 0.16"},
+      {:phoenix_live_view, "~> 0.17"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},

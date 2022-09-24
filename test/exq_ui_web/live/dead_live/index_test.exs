@@ -54,4 +54,22 @@ defmodule ExqUIWeb.DeadLive.IndexTest do
     html = render(view)
     assert html =~ ~r/Hardworker.*409/
   end
+
+  test "delete_all", %{conn: conn} do
+    {:ok, view, _} = live(conn, "/dead")
+    html = render(view)
+    assert html =~ ~r/hard.*409.*RuntimeError/
+    assert html =~ ~r/hard.*548.*kill/
+
+    element(
+      view,
+      "#table-component"
+    )
+    |> render_hook("action", %{"table" => %{"action" => "delete_all"}})
+
+    {:ok, view, _} = live(conn, "/dead")
+    html = render(view)
+    refute html =~ ~r/hard.*409.*RuntimeError/
+    refute html =~ ~r/hard.*548.*kill/
+  end
 end
