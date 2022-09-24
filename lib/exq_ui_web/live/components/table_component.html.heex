@@ -6,7 +6,7 @@
       <% end %>
     </div>
     <div class="col-6">
-      <%= live_component ExqUIWeb.PaginationComponent, total: @total, current_page: @current_page, page_size: @page_size %>
+      <.live_component module={ExqUIWeb.PaginationComponent} id="pagination" total={@total} current_page={@current_page} page_size={@page_size} />
     </div>
   </div>
   <div class="row">
