@@ -5,10 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.3.0] - 2022-11-25
+### Added
+- Add support for exq_scheduler on UI #124 by @ananthakumaran
+### Changed
+- Add support for phx-live 0.18 #125 by @ananthakumaran
+### Breaking Changes
+- Drop support for LiveView 0.16
+
 ## [0.12.3] - 2022-08-12
 ### Fixed
 - respect live_socket_path config option #119 by @ananthakumaran
-
 
 ## [0.12.2] - 2022-05-07
 ### Fixed
