@@ -10,18 +10,15 @@ jobs:
       matrix:
         include:
           - elixir: 1.12.3
-            otp: 24.1.5
-            version-type: strict
+            otp: 24.1
           - elixir: 1.13.4
-            otp: 24.1.5
+            otp: 24.1
             check_warnings: true
             check_format: true
-            version-type: strict
           - elixir: 1.14.3
             otp: 25.2.1
             check_warnings: true
             check_format: true
-            version-type: strict
     steps:
       - uses: actions/checkout@v2
       - run: docker-compose up -d
@@ -29,6 +26,7 @@ jobs:
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
+          version-type: strict
       - run: mix deps.get
       - run: mix format --check-formatted
         if: ${{ matrix.check_format }}
