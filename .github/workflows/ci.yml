@@ -10,9 +10,13 @@ jobs:
       matrix:
         include:
           - elixir: 1.12.3
-            otp: 24.1
+            otp: 24.1.7
           - elixir: 1.13.0
-            otp: 24.1
+            otp: 24.1.7
+            check_warnings: true
+            check_format: true
+          - elixir: 1.14.3
+            otp: 25.2.1
             check_warnings: true
             check_format: true
     steps:
