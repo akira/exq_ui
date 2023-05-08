@@ -20,8 +20,23 @@ defmodule ExqUIWeb.Router.Helpers do
   def dead_show_path(socket, score, jid, params \\ %{}),
     do: build(socket, "/dead/#{score}/#{jid}", params)
 
+  # TODO: Remove this and the conditional on Phoenix v1.7+
+  @compile {:no_warn_undefined, Phoenix.VerifiedRoutes}
   defp build(socket, path, params) do
-    root = socket.router.__helpers__.exq_ui_path(socket, :root)
+    router = socket.router
+
+    root =
+      if function_exported?(router, :__exq_ui_prefix__, 0) do
+        prefix = router.__exq_ui_prefix__()
+
+        Phoenix.VerifiedRoutes.unverified_path(
+          socket,
+          router,
+          prefix
+        )
+      else
+        router.__helpers__.exq_ui_path(socket, :root)
+      end
 
     query =
       if Enum.empty?(params) do
