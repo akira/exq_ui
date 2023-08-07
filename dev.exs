@@ -15,7 +15,7 @@ Application.put_env(:exq_ui, DemoWeb.Endpoint,
       "node_modules/webpack/bin/webpack.js",
       "--mode",
       System.get_env("NODE_ENV") || "production",
-      "--watch-stdin",
+      "--watch-options-stdin",
       cd: "assets"
     ]
   ],
