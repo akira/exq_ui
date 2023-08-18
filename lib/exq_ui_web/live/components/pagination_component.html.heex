@@ -1,19 +1,37 @@
 <div>
-<%= if @total_page > 0 do %>
-<nav class="my-2">
-  <ul class="pagination pagination-sm justify-content-end mb-0">
-    <li class={"page-item #{if @current_page == 1, do: "disabled"}"}>
-      <%= link "«", class: "page-link", to: "#", phx_page_loading: true, phx_click: "page", phx_value_page: 1 %>
-    </li>
-    <%= for i <- @start_page..@end_page do %>
-      <li class={"page-item #{if @current_page == i, do: "active"}"}>
-        <%= link i, class: "page-link", to: "#", phx_page_loading: true, phx_click: "page", phx_value_page: i %>
-      </li>
-    <% end %>
-    <li class={"page-item #{if @current_page == @total_page, do: "disabled"}"}>
-      <%= link "»", class: "page-link", to: "#", phx_page_loading: true, phx_click: "page", phx_value_page: @total_page %>
-    </li>
-  </ul>
-</nav>
-<% end %>
+  <%= if @total_page > 0 do %>
+    <nav class="my-2">
+      <ul class="pagination pagination-sm justify-content-end mb-0">
+        <li class={"page-item #{if @current_page == 1, do: "disabled"}"}>
+          <%= link("«",
+            class: "page-link",
+            to: "#",
+            phx_page_loading: true,
+            phx_click: "page",
+            phx_value_page: 1
+          ) %>
+        </li>
+        <%= for i <- @start_page..@end_page do %>
+          <li class={"page-item #{if @current_page == i, do: "active"}"}>
+            <%= link(i,
+              class: "page-link",
+              to: "#",
+              phx_page_loading: true,
+              phx_click: "page",
+              phx_value_page: i
+            ) %>
+          </li>
+        <% end %>
+        <li class={"page-item #{if @current_page == @total_page, do: "disabled"}"}>
+          <%= link("»",
+            class: "page-link",
+            to: "#",
+            phx_page_loading: true,
+            phx_click: "page",
+            phx_value_page: @total_page
+          ) %>
+        </li>
+      </ul>
+    </nav>
+  <% end %>
 </div>

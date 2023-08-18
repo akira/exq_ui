@@ -9,19 +9,28 @@
   </thead>
   <tbody>
     <%= for queue <- @queues do %>
-        <tr>
-          <td>
-            <span>
-              <%= live_redirect queue.name, class: "nounderline", to: Routes.queue_show_path(@socket, queue.name) %>
-            </span>
-          </td>
-          <td><%= queue.count %></td>
-          <td>
-            <span>
-              <%= link "Delete", class: "btn btn-danger btn-sm", to: "#", phx_click: "delete", phx_value_name: queue.name, data: [confirm: "Are you sure?"] %>
-            </span>
-          </td>
-        </tr>
+      <tr>
+        <td>
+          <span>
+            <%= live_redirect(queue.name,
+              class: "nounderline",
+              to: Routes.queue_show_path(@socket, queue.name)
+            ) %>
+          </span>
+        </td>
+        <td><%= queue.count %></td>
+        <td>
+          <span>
+            <%= link("Delete",
+              class: "btn btn-danger btn-sm",
+              to: "#",
+              phx_click: "delete",
+              phx_value_name: queue.name,
+              data: [confirm: "Are you sure?"]
+            ) %>
+          </span>
+        </td>
+      </tr>
     <% end %>
   </tbody>
 </table>

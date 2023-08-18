@@ -22,15 +22,22 @@
           <%= nav_link(@socket, "Dead", Routes.dead_index_path(@socket)) %>
         </li>
         <%= if Application.get_env(:exq_ui, :exq_scheduler_name) do %>
-        <li class="nav-item">
-          <%= nav_link(@socket, "Recurring", Routes.recurring_index_path(@socket)) %>
-        </li>
+          <li class="nav-item">
+            <%= nav_link(@socket, "Recurring", Routes.recurring_index_path(@socket)) %>
+          </li>
         <% end %>
       </ul>
     </div>
     <form class="d-flex align-items-center" phx-target="stats">
       <label for="refresh-interval" class="text-light col-auto me-2">Update every</label>
-      <select name="refresh_interval" phx-hook="Refresh" id="refresh-interval" class="form-select" aria-label="Refresh Interval" phx-update="ignore">
+      <select
+        name="refresh_interval"
+        phx-hook="Refresh"
+        id="refresh-interval"
+        class="form-select"
+        aria-label="Refresh Interval"
+        phx-update="ignore"
+      >
         <%= options_for_select([1, 2, 5, 10, 30], 5) %>
       </select>
     </form>

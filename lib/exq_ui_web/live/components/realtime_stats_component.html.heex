@@ -4,18 +4,44 @@
       <div class="d-flex align-items-center">
         <h6 class="mb-0 me-2 text-muted">Realtime</h6>
         <span class="legend me-2">
-          <svg class="rounded me-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007200"></rect></svg>
+          <svg
+            class="rounded me-1"
+            width="16"
+            height="16"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+          >
+            <rect width="100%" height="100%" fill="#007200"></rect>
+          </svg>
           <span>Processed</span>
         </span>
         <span class="legend me-2">
-          <svg class="rounded me-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#dc3545"></rect></svg>
+          <svg
+            class="rounded me-1"
+            width="16"
+            height="16"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+          >
+            <rect width="100%" height="100%" fill="#dc3545"></rect>
+          </svg>
           <span>Failed</span>
         </span>
       </div>
     </div>
   </div>
   <div class="row">
-    <div id="realtime-chart" class="col-12" phx-hook="RealtimePlot" phx-update="ignore" data-tick={@tick_interval}>
+    <div
+      id="realtime-chart"
+      class="col-12"
+      phx-hook="RealtimePlot"
+      phx-update="ignore"
+      data-tick={@tick_interval}
+    >
     </div>
   </div>
 </div>

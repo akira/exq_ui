@@ -4,10 +4,38 @@
       <div class="d-flex align-items-center mt-2">
         <h6 class="mb-0 me-2 text-muted">Historical</h6>
         <div class="btn-group btn-group-sm" role="group">
-          <label phx-target={@myself} phx-click="days" phx-value-days="7" class={"btn #{date_selector_class(@days, 7)}"}>1 week</label>
-          <label phx-target={@myself} phx-click="days" phx-value-days="30" class={"btn #{date_selector_class(@days, 30)}"}>1 month</label>
-          <label phx-target={@myself} phx-click="days" phx-value-days="90" class={"btn #{date_selector_class(@days, 90)}"}>3 months</label>
-          <label phx-target={@myself} phx-click="days" phx-value-days="180" class={"btn #{date_selector_class(@days, 180)}"}>6 months</label>
+          <label
+            phx-target={@myself}
+            phx-click="days"
+            phx-value-days="7"
+            class={"btn #{date_selector_class(@days, 7)}"}
+          >
+            1 week
+          </label>
+          <label
+            phx-target={@myself}
+            phx-click="days"
+            phx-value-days="30"
+            class={"btn #{date_selector_class(@days, 30)}"}
+          >
+            1 month
+          </label>
+          <label
+            phx-target={@myself}
+            phx-click="days"
+            phx-value-days="90"
+            class={"btn #{date_selector_class(@days, 90)}"}
+          >
+            3 months
+          </label>
+          <label
+            phx-target={@myself}
+            phx-click="days"
+            phx-value-days="180"
+            class={"btn #{date_selector_class(@days, 180)}"}
+          >
+            6 months
+          </label>
         </div>
       </div>
     </div>
