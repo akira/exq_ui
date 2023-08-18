@@ -1,59 +1,64 @@
 <div class="row">
   <%= if @item do %>
-  <div class="col-4 my-2">
-    <%= for %{name: name, label: label} <- @actions do %>
-      <%= link label, class: "btn btn-danger btn-sm me-1", to: "#", phx_click: name, phx_value_raw: @item.raw %>
-    <% end %>
-  </div>
-  <div class="col-12">
-    <table class="my-2 table table-bordered">
-      <tbody>
-        <tr>
-          <th>Queue</th>
-          <td><%= @item.job.queue %></td>
-        </tr>
-        <tr>
-          <th>Module</th>
-          <td><%= @item.job.class %></td>
-        </tr>
-        <tr>
-          <th>JID</th>
-          <td><%= @item.job.jid %></td>
-        </tr>
-        <tr>
-          <th>Arguments</th>
-          <td><%= inspect(@item.job.args) %></td>
-        </tr>
-        <tr>
-          <th>Enqueued At</th>
-          <td><%= human_time(@item.job.enqueued_at) %></td>
-        </tr>
-        <tr>
-          <th>Failed At</th>
-          <td><%= human_time(@item.job.failed_at) %></td>
-        </tr>
-        <tr>
-          <th>Last Retried At</th>
-          <td><%= human_time(@item.job.retried_at) %></td>
-        </tr>
-        <tr>
-          <th>Retry Count</th>
-          <td><%= @item.job.retry_count %></td>
-        </tr>
-        <tr>
-          <th>Error Module</th>
-          <td><%= @item.job.error_class %></td>
-        </tr>
-        <tr>
-          <th>Error Message</th>
-          <td><pre><%= @item.job.error_message %></pre></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="col-4 my-2">
+      <%= for %{name: name, label: label} <- @actions do %>
+        <%= link(label,
+          class: "btn btn-danger btn-sm me-1",
+          to: "#",
+          phx_click: name,
+          phx_value_raw: @item.raw
+        ) %>
+      <% end %>
+    </div>
+    <div class="col-12">
+      <table class="my-2 table table-bordered">
+        <tbody>
+          <tr>
+            <th>Queue</th>
+            <td><%= @item.job.queue %></td>
+          </tr>
+          <tr>
+            <th>Module</th>
+            <td><%= @item.job.class %></td>
+          </tr>
+          <tr>
+            <th>JID</th>
+            <td><%= @item.job.jid %></td>
+          </tr>
+          <tr>
+            <th>Arguments</th>
+            <td><%= inspect(@item.job.args) %></td>
+          </tr>
+          <tr>
+            <th>Enqueued At</th>
+            <td><%= human_time(@item.job.enqueued_at) %></td>
+          </tr>
+          <tr>
+            <th>Failed At</th>
+            <td><%= human_time(@item.job.failed_at) %></td>
+          </tr>
+          <tr>
+            <th>Last Retried At</th>
+            <td><%= human_time(@item.job.retried_at) %></td>
+          </tr>
+          <tr>
+            <th>Retry Count</th>
+            <td><%= @item.job.retry_count %></td>
+          </tr>
+          <tr>
+            <th>Error Module</th>
+            <td><%= @item.job.error_class %></td>
+          </tr>
+          <tr>
+            <th>Error Message</th>
+            <td><pre><%= @item.job.error_message %></pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   <% else %>
-  <div class="col-12">
-    <div class="my-2 alert alert-danger">Job not found</div>
-  </div>
+    <div class="col-12">
+      <div class="my-2 alert alert-danger">Job not found</div>
+    </div>
   <% end %>
 </div>

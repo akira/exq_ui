@@ -1,11 +1,23 @@
 <.live_component module={ExqUIWeb.NavBarComponent} id="nav-bar" />
 <main role="main" class="container">
-  <p style="display:none" class="invisible alert alert-info" role="alert"
+  <p
+    style="display:none"
+    class="invisible alert alert-info"
+    role="alert"
     phx-click="lv:clear-flash"
-    phx-value-key="info"><%= live_flash(@flash, :info) %></p>
+    phx-value-key="info"
+  >
+    <%= live_flash(@flash, :info) %>
+  </p>
 
-  <p style="display:none" class="alert alert-danger" role="alert"
+  <p
+    style="display:none"
+    class="alert alert-danger"
+    role="alert"
     phx-click="lv:clear-flash"
-    phx-value-key="error"><%= live_flash(@flash, :error) %></p>
+    phx-value-key="error"
+  >
+    <%= live_flash(@flash, :error) %>
+  </p>
   <%= @inner_content %>
 </main>
