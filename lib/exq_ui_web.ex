@@ -28,7 +28,7 @@ defmodule ExqUIWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {ExqUIWeb.LayoutView, "live.html"}
+        layout: {ExqUIWeb.LayoutView, :live}
 
       unquote(view_helpers())
     end
