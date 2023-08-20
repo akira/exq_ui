@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.14.0] - 2023-08-20
+### Added
+- Add support for phx-live 0.19 and phx 1.7 by @ananthakumaran
+### Breaking Changes
+- Drop support for LiveView 0.17
+
 ## [0.13.0] - 2022-11-25
 ### Added
 - Add support for exq_scheduler on UI #124 by @ananthakumaran
