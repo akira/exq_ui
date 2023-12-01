@@ -14,7 +14,7 @@
         <td>
           <div class="d-flex align-items-center">
             <span class="me-2"><%= node.identity %></span>
-            <%= form_for :signal, "#", [id: "node-#{node.identity}", phx_change: :signal, class: "mb-0 form-check form-switch form-check-inline"], fn f -> %>
+            <%= form_for :signal, "#", [id: "node-#{node.identity}", phx_auto_recover: :ignore, phx_change: :signal, class: "mb-0 form-check form-switch form-check-inline"], fn f -> %>
               <%= hidden_input(f, :name, value: "TSTP") %>
               <%= hidden_input(f, :node_id, value: node.identity) %>
               <%= checkbox(f, :quiet,

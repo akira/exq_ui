@@ -23,7 +23,7 @@
           <%= for item <- @items do %>
             <tr>
               <td>
-                <%= form_for :active, "#", [id: "schedule-#{item.schedule.name}", phx_change: :active, class: "mb-0 form-check form-switch form-check-inline", style: "margin: auto;display: flex;justify-content: center"], fn f -> %>
+                <%= form_for :active, "#", [id: "schedule-#{item.schedule.name}", phx_auto_recover: :ignore, phx_change: :active, class: "mb-0 form-check form-switch form-check-inline", style: "margin: auto;display: flex;justify-content: center"], fn f -> %>
                   <%= hidden_input(f, :name, value: item.schedule.name) %>
                   <%= hidden_input(f, :enabled, value: !item.schedule.schedule_opts.enabled) %>
                   <%= checkbox(f, :toggle,
