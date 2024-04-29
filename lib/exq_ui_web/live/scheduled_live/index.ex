@@ -11,11 +11,13 @@ defmodule ExqUIWeb.ScheduledLive.Index do
       assign(socket, :columns, [
         %{
           header: "When",
+          link: true,
           accessor: fn item ->
-            live_redirect(human_time(item.scheduled_at),
-              to: Routes.scheduled_show_path(socket, item.score, item.id),
+            %{
+              text: human_time(item.scheduled_at),
+              link: Routes.scheduled_show_path(socket, item.score, item.id),
               class: "nounderline"
-            )
+            }
           end
         },
         %{header: "Queue", accessor: fn item -> item.job.queue end},

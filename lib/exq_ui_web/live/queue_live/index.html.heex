@@ -12,25 +12,23 @@
       <tr>
         <td>
           <span>
-            <%= live_redirect(queue.name,
-              class: "nounderline",
-              to: Routes.queue_show_path(@socket, queue.name)
-            ) %>
+            <.link navigate={Routes.queue_show_path(@socket, queue.name)} class="nounderline">
+              <%= queue.name %>
+            </.link>
           </span>
         </td>
-        <td><%= queue.count %></td>
+        <td>
+          <%= queue.count %>
+        </td>
         <td>
           <span>
-            <%= link("Delete",
-              class: "btn btn-danger btn-sm",
-              to: "#",
-              phx_click: "delete",
-              phx_value_name: queue.name,
-              data: [confirm: "Are you sure?"]
-            ) %>
+            <.link navigate="#" phx-click="delete" phx-value-name={queue.name} data-confirm="Are you sure?"
+              class="btn btn-danger btn-sm">
+              Delete
+            </.link>
           </span>
         </td>
       </tr>
-    <% end %>
+      <% end %>
   </tbody>
 </table>

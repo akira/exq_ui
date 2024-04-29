@@ -11,11 +11,13 @@ defmodule ExqUIWeb.RetryLive.Index do
       assign(socket, :columns, [
         %{
           header: "Next Retry",
+          link: true,
           accessor: fn item ->
-            live_redirect(human_time(item.scheduled_at),
-              to: Routes.retry_show_path(socket, item.score, item.id),
+            %{
+              text: human_time(item.scheduled_at),
+              link: Routes.retry_show_path(socket, item.score, item.id),
               class: "nounderline"
-            )
+            }
           end
         },
         %{header: "Retry Count", accessor: fn item -> item.job.retry_count end},
