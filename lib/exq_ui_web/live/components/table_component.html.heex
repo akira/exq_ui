@@ -19,7 +19,7 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <%= form_for :table, "#", [phx_submit: :action], fn f -> %>
+      <%= form_for :table, "#" , [phx_submit: :action], fn f -> %>
         <button type="submit" class="btn btn-primary js-submit-button" style="display:none">
           Submit
         </button>
@@ -31,7 +31,9 @@
                 <input class="form-check-input js-select-all-rows" type="checkbox" value="" />
               </th>
               <%= for %{header: header} <- @columns do %>
-                <th scope="col"><%= header %></th>
+                <th scope="col">
+                  <%= header %>
+                </th>
               <% end %>
             </tr>
           </thead>
@@ -45,8 +47,19 @@
                     class: "form-check-input js-select-row"
                   ) %>
                 </td>
-                <%= for %{accessor: accessor} = column <- @columns do %>
-                  <td class={column[:text_break] && "text-break"}><%= accessor.(item) %></td>
+                <%= for column <- @columns do %>
+                  <td class={column[:text_break] && "text-break"}>
+                    <%= if column[:link] do %>
+                      <.link
+                        navigate={column.accessor.(item)[:link]}
+                        class={column.accessor.(item)[:class]}
+                      >
+                        <%= column.accessor.(item)[:text] %>
+                      </.link>
+                    <% else %>
+                      <%= column.accessor.(item) %>
+                    <% end %>
+                  </td>
                 <% end %>
               </tr>
             <% end %>
