@@ -2,17 +2,13 @@ defmodule ExqUIWeb.Helpers do
   @moduledoc false
 
   use PhoenixHTMLHelpers
-  import Phoenix.LiveView.Helpers
 
-  def nav_link(socket, name, link) do
-    active =
-      if String.contains?(Atom.to_string(socket.view), String.slice(name, 0..3)) do
-        " active"
-      else
-        ""
-      end
-
-    live_redirect(name, to: link, class: "nav-link" <> active)
+  def nav_link_class(socket, name) do
+    if String.contains?(Atom.to_string(socket.view), String.slice(name, 0..3)) do
+      "nav-link active"
+    else
+      "nav-link"
+    end
   end
 
   def human_time(nil) do

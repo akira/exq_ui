@@ -4,26 +4,55 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto mb-lg-0">
         <li class="nav-item">
-          <%= nav_link(@socket, "Dashboard", Routes.dashboard_path(@socket)) %>
+          <.link
+            navigate={Routes.dashboard_path(@socket)}
+            class={nav_link_class(@socket, "Dashboard")}
+          >
+            Dashboard
+          </.link>
         </li>
         <li class="nav-item">
-          <%= nav_link(@socket, "Busy", Routes.busy_index_path(@socket)) %>
+          <.link navigate={Routes.dashboard_path(@socket)} class={nav_link_class(@socket, "Busy")}>
+            Busy
+          </.link>
         </li>
         <li class="nav-item">
-          <%= nav_link(@socket, "Queues", Routes.queue_index_path(@socket)) %>
+          <.link
+            navigate={Routes.dashboard_path(@socket)}
+            class={nav_link_class(@socket, "Queues")}
+          >
+            Queues
+          </.link>
         </li>
         <li class="nav-item">
-          <%= nav_link(@socket, "Retries", Routes.retry_index_path(@socket)) %>
+          <.link
+            navigate={Routes.dashboard_path(@socket)}
+            class={nav_link_class(@socket, "Retries")}
+          >
+            Retries
+          </.link>
         </li>
         <li class="nav-item">
-          <%= nav_link(@socket, "Scheduled", Routes.scheduled_index_path(@socket)) %>
+          <.link
+            navigate={Routes.dashboard_path(@socket)}
+            class={nav_link_class(@socket, "Scheduled")}
+          >
+            Scheduled
+          </.link>
         </li>
         <li class="nav-item">
-          <%= nav_link(@socket, "Dead", Routes.dead_index_path(@socket)) %>
+          <.link navigate={Routes.dashboard_path(@socket)} class={nav_link_class(@socket, "Dead")}>
+            Dead
+          </.link>
         </li>
         <%= if Application.get_env(:exq_ui, :exq_scheduler_name) do %>
           <li class="nav-item">
-            <%= nav_link(@socket, "Recurring", Routes.recurring_index_path(@socket)) %>
+            <.link
+              navigate={Routes.dashboard_path(@socket)}
+              class={nav_link_class(@socket, "Recurring")}
+            >
+              Recurring
+            </.link>
           </li>
         <% end %>
       </ul>
