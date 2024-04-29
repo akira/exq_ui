@@ -5,7 +5,7 @@ defmodule ExqUIWeb.QueueLive.IndexTest do
     {:ok, view, _} = live(conn, "/queues")
     html = render(view)
 
-    assert html =~ ~r/hard.*1.*Delete/
+    assert html =~ ~r/hard.*1.*Delete/s
 
     html =
       element(
@@ -15,7 +15,7 @@ defmodule ExqUIWeb.QueueLive.IndexTest do
       )
       |> render_click()
 
-    refute html =~ ~r/hard.*1.*Delete/
+    refute html =~ ~r/hard.*1.*Delete/s
   end
 
   test "view single queue", %{conn: conn} do
