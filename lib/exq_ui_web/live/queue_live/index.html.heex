@@ -22,13 +22,18 @@
         </td>
         <td>
           <span>
-            <.link navigate="#" phx-click="delete" phx-value-name={queue.name} data-confirm="Are you sure?"
-              class="btn btn-danger btn-sm">
+            <.link
+              navigate="#"
+              phx-click="delete"
+              phx-value-name={queue.name}
+              data-confirm="Are you sure?"
+              class="btn btn-danger btn-sm"
+            >
               Delete
             </.link>
           </span>
         </td>
       </tr>
-      <% end %>
+    <% end %>
   </tbody>
 </table>
