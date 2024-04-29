@@ -5,8 +5,8 @@ defmodule ExqUIWeb.RetryLive.IndexTest do
     {:ok, view, _} = live(conn, "/retries")
     html = render(view)
 
-    assert html =~ ~r/hard.*499.*{:bad, :reason}/
-    assert html =~ ~r/hard.*235.*RuntimeError/
+    assert html =~ ~r/hard.*499.*{:bad, :reason}/s
+    assert html =~ ~r/hard.*235.*RuntimeError/s
   end
 
   test "view and delete single job", %{conn: conn} do
@@ -26,15 +26,15 @@ defmodule ExqUIWeb.RetryLive.IndexTest do
       |> follow_redirect(conn)
 
     html = render(view)
-    refute html =~ ~r/hard.*499.*{:bad, :reason}/
-    assert html =~ ~r/hard.*235.*RuntimeError/
+    refute html =~ ~r/hard.*499.*{:bad, :reason}/s
+    assert html =~ ~r/hard.*235.*RuntimeError/s
   end
 
   test "delete_all", %{conn: conn} do
     {:ok, view, _} = live(conn, "/retries")
     html = render(view)
-    assert html =~ ~r/hard.*499.*{:bad, :reason}/
-    assert html =~ ~r/hard.*235.*RuntimeError/
+    assert html =~ ~r/hard.*499.*{:bad, :reason}/s
+    assert html =~ ~r/hard.*235.*RuntimeError/s
 
     element(
       view,
@@ -65,11 +65,11 @@ defmodule ExqUIWeb.RetryLive.IndexTest do
       |> follow_redirect(conn)
 
     html = render(view)
-    refute html =~ ~r/hard.*499.*{:bad, :reason}/
-    assert html =~ ~r/hard.*235.*RuntimeError/
+    refute html =~ ~r/hard.*499.*{:bad, :reason}/s
+    assert html =~ ~r/hard.*235.*RuntimeError/s
 
     {:ok, view, _} = live(conn, "/queues/hard")
     html = render(view)
-    assert html =~ ~r/Hardworker.*499/
+    assert html =~ ~r/Hardworker.*499/s
   end
 end

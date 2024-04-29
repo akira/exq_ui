@@ -5,8 +5,8 @@ defmodule ExqUIWeb.ScheduledLive.IndexTest do
     {:ok, view, _} = live(conn, "/scheduled")
     html = render(view)
 
-    assert html =~ ~r/Hardworker.*864/
-    assert html =~ ~r/Hardworker.*509/
+    assert html =~ ~r/Hardworker.*864/s
+    assert html =~ ~r/Hardworker.*509/s
   end
 
   test "view and delete single job", %{conn: conn} do
@@ -26,15 +26,15 @@ defmodule ExqUIWeb.ScheduledLive.IndexTest do
       |> follow_redirect(conn)
 
     html = render(view)
-    assert html =~ ~r/Hardworker.*864/
-    refute html =~ ~r/Hardworker.*509/
+    assert html =~ ~r/Hardworker.*864/s
+    refute html =~ ~r/Hardworker.*509/s
   end
 
   test "delete_all", %{conn: conn} do
     {:ok, view, _} = live(conn, "/scheduled")
     html = render(view)
-    assert html =~ ~r/Hardworker.*864/
-    assert html =~ ~r/Hardworker.*509/
+    assert html =~ ~r/Hardworker.*864/s
+    assert html =~ ~r/Hardworker.*509/s
 
     element(
       view,
@@ -44,8 +44,8 @@ defmodule ExqUIWeb.ScheduledLive.IndexTest do
 
     {:ok, view, _} = live(conn, "/scheduled")
     html = render(view)
-    refute html =~ ~r/Hardworker.*864/
-    refute html =~ ~r/Hardworker.*509/
+    refute html =~ ~r/Hardworker.*864/s
+    refute html =~ ~r/Hardworker.*509/s
   end
 
   test "add to queue", %{conn: conn} do
@@ -65,11 +65,11 @@ defmodule ExqUIWeb.ScheduledLive.IndexTest do
       |> follow_redirect(conn)
 
     html = render(view)
-    assert html =~ ~r/Hardworker.*864/
-    refute html =~ ~r/Hardworker.*509/
+    assert html =~ ~r/Hardworker.*864/s
+    refute html =~ ~r/Hardworker.*509/s
 
     {:ok, view, _} = live(conn, "/queues/hard")
     html = render(view)
-    assert html =~ ~r/Hardworker.*509/
+    assert html =~ ~r/Hardworker.*509/s
   end
 end

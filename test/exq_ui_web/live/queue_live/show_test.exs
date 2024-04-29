@@ -5,7 +5,7 @@ defmodule ExqUIWeb.QueueLive.ShowTest do
     {:ok, view, _} = live(conn, "/queues/hard")
     html = render(view)
 
-    assert html =~ ~r/Hardworker.*428/
+    assert html =~ ~r/Hardworker.*428/s
   end
 
   test "delete_all", %{conn: conn} do
@@ -18,7 +18,7 @@ defmodule ExqUIWeb.QueueLive.ShowTest do
       )
       |> render_hook("action", %{"table" => %{"action" => "delete_all"}})
 
-    refute html =~ ~r/Hardworker.*428/
+    refute html =~ ~r/Hardworker.*428/s
   end
 
   test "delete", %{conn: conn} do
@@ -37,6 +37,6 @@ defmodule ExqUIWeb.QueueLive.ShowTest do
         }
       })
 
-    refute html =~ ~r/Hardworker.*428/
+    refute html =~ ~r/Hardworker.*428/s
   end
 end

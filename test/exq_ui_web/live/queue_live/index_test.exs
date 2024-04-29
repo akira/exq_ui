@@ -27,6 +27,6 @@ defmodule ExqUIWeb.QueueLive.IndexTest do
       |> follow_redirect(conn)
 
     html = render(view)
-    assert html =~ ~r/Hardworker.*428/
+    assert html =~ ~r/Hardworker.*428/s
   end
 end

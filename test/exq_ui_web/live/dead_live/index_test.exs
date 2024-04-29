@@ -5,8 +5,8 @@ defmodule ExqUIWeb.DeadLive.IndexTest do
     {:ok, view, _} = live(conn, "/dead")
     html = render(view)
 
-    assert html =~ ~r/hard.*409.*RuntimeError/
-    assert html =~ ~r/hard.*548.*kill/
+    assert html =~ ~r/hard.*409.*RuntimeError/s
+    assert html =~ ~r/hard.*548.*kill/s
   end
 
   test "view and delete single job", %{conn: conn} do
@@ -26,8 +26,8 @@ defmodule ExqUIWeb.DeadLive.IndexTest do
       |> follow_redirect(conn)
 
     html = render(view)
-    refute html =~ ~r/hard.*409.*RuntimeError/
-    assert html =~ ~r/hard.*548.*kill/
+    refute html =~ ~r/hard.*409.*RuntimeError/s
+    assert html =~ ~r/hard.*548.*kill/s
   end
 
   test "retry now", %{conn: conn} do
@@ -47,19 +47,19 @@ defmodule ExqUIWeb.DeadLive.IndexTest do
       |> follow_redirect(conn)
 
     html = render(view)
-    refute html =~ ~r/hard.*409.*RuntimeError/
-    assert html =~ ~r/hard.*548.*kill/
+    refute html =~ ~r/hard.*409.*RuntimeError/s
+    assert html =~ ~r/hard.*548.*kill/s
 
     {:ok, view, _} = live(conn, "/queues/hard")
     html = render(view)
-    assert html =~ ~r/Hardworker.*409/
+    assert html =~ ~r/Hardworker.*409/s
   end
 
   test "delete_all", %{conn: conn} do
     {:ok, view, _} = live(conn, "/dead")
     html = render(view)
-    assert html =~ ~r/hard.*409.*RuntimeError/
-    assert html =~ ~r/hard.*548.*kill/
+    assert html =~ ~r/hard.*409.*RuntimeError/s
+    assert html =~ ~r/hard.*548.*kill/s
 
     element(
       view,

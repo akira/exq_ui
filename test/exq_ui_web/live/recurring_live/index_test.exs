@@ -46,6 +46,6 @@ defmodule ExqUIWeb.RecurringLive.IndexTest do
       |> follow_redirect(conn)
 
     html = render(view)
-    assert html =~ ~r/Hardworker.*435493/
+    assert html =~ ~r/Hardworker.*435493/s
   end
 end
