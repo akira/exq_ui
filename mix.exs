@@ -51,6 +51,7 @@ defmodule ExqUI.MixProject do
 
   defp package do
     [
+      name: "exq_ui_fork",
       description: """
       Exq UI is the UI component for Exq, a job processing library.  Exq UI provides the UI dashboard
       to display stats on job processing.
