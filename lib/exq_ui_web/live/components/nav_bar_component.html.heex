@@ -12,13 +12,16 @@
           </.link>
         </li>
         <li class="nav-item">
-          <.link navigate={Routes.dashboard_path(@socket)} class={nav_link_class(@socket, "Busy")}>
+          <.link
+            navigate={Routes.busy_index_path(@socket)}
+            class={nav_link_class(@socket, "Busy")}
+          >
             Busy
           </.link>
         </li>
         <li class="nav-item">
           <.link
-            navigate={Routes.dashboard_path(@socket)}
+            navigate={Routes.queue_index_path(@socket)}
             class={nav_link_class(@socket, "Queues")}
           >
             Queues
@@ -26,7 +29,7 @@
         </li>
         <li class="nav-item">
           <.link
-            navigate={Routes.dashboard_path(@socket)}
+            navigate={Routes.retry_index_path(@socket)}
             class={nav_link_class(@socket, "Retries")}
           >
             Retries
@@ -34,21 +37,24 @@
         </li>
         <li class="nav-item">
           <.link
-            navigate={Routes.dashboard_path(@socket)}
+            navigate={Routes.scheduled_index_path(@socket)}
             class={nav_link_class(@socket, "Scheduled")}
           >
             Scheduled
           </.link>
         </li>
         <li class="nav-item">
-          <.link navigate={Routes.dashboard_path(@socket)} class={nav_link_class(@socket, "Dead")}>
+          <.link
+            navigate={Routes.dead_index_path(@socket)}
+            class={nav_link_class(@socket, "Dead")}
+          >
             Dead
           </.link>
         </li>
         <%= if Application.get_env(:exq_ui_fork, :exq_scheduler_name) do %>
           <li class="nav-item">
             <.link
-              navigate={Routes.dashboard_path(@socket)}
+              navigate={Routes.recurring_index_path(@socket)}
               class={nav_link_class(@socket, "Recurring")}
             >
               Recurring
