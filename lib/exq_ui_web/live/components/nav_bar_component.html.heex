@@ -45,7 +45,7 @@
             Dead
           </.link>
         </li>
-        <%= if Application.get_env(:exq_ui, :exq_scheduler_name) do %>
+        <%= if Application.get_env(:exq_ui_fork, :exq_scheduler_name) do %>
           <li class="nav-item">
             <.link
               navigate={Routes.dashboard_path(@socket)}

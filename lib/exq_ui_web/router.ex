@@ -7,7 +7,7 @@ defmodule ExqUIWeb.Router do
 
   ## Options
 
-  * live_session_name - Name of the live_session. Defaults to `:exq_ui`
+  * live_session_name - Name of the live_session. Defaults to `:exq_ui_fork`
   * live_socket_path - Should match the value used for `socket "/live", Phoenix.LiveView.Socket`. Defaults to `/live`
   * live_session_on_mount - Declares an optional module callback to be invoked on the LiveView's mount
   """
@@ -30,7 +30,7 @@ defmodule ExqUIWeb.Router do
             live "/scheduled", ExqUIWeb.ScheduledLive.Index, :index, route_opts
             live "/scheduled/:score/:jid", ExqUIWeb.ScheduledLive.Show, :index, route_opts
 
-            if Application.compile_env(:exq_ui, :exq_scheduler_name) do
+            if Application.compile_env(:exq_ui_fork, :exq_scheduler_name) do
               live "/recurring", ExqUIWeb.RecurringLive.Index, :index, route_opts
             end
           end
@@ -54,7 +54,7 @@ defmodule ExqUIWeb.Router do
 
   @doc false
   def __options__(options) do
-    session_name = options[:live_session_name] || :exq_ui
+    session_name = options[:live_session_name] || :exq_ui_fork
 
     session_opts = [
       session: {__MODULE__, :__session__, []},
@@ -72,7 +72,7 @@ defmodule ExqUIWeb.Router do
 
     route_opts = [
       private: %{live_socket_path: Keyword.get(options, :live_socket_path, "/live")},
-      as: :exq_ui
+      as: :exq_ui_fork
     ]
 
     {session_name, session_opts, route_opts}

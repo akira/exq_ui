@@ -14,7 +14,7 @@ defmodule DemoWeb.Router do
 end
 
 defmodule DemoWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :exq_ui
+  use Phoenix.Endpoint, otp_app: :exq_ui_fork
 
   @session_options [
     store: :cookie,

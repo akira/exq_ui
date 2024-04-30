@@ -233,6 +233,6 @@ defmodule ExqUI.Queue do
   end
 
   def api do
-    Application.get_env(:exq_ui, :api_name, Exq.Api)
+    Application.get_env(:exq_ui_fork, :api_name, Exq.Api)
   end
 end

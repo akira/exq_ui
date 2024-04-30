@@ -39,6 +39,6 @@ defmodule ExqUIWeb.RecurringLive.Index do
   end
 
   defp scheduler do
-    Application.get_env(:exq_ui, :exq_scheduler_name, ExqScheduler)
+    Application.get_env(:exq_ui_fork, :exq_scheduler_name, ExqScheduler)
   end
 end

@@ -7,7 +7,7 @@ config :exq,
   port: 6379,
   namespace: "exq"
 
-config :exq_ui,
+config :exq_ui_fork,
   api_name: Exq.Api,
   exq_scheduler_name: ExqScheduler
 

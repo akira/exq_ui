@@ -5,7 +5,7 @@ defmodule ExqUI.MixProject do
 
   def project do
     [
-      app: :exq_ui,
+      app: :exq_ui_fork,
       version: @version,
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),

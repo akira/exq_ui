@@ -2,7 +2,7 @@ Logger.configure(level: :debug)
 Application.ensure_all_started(:exq_scheduler)
 
 # Configures the endpoint
-Application.put_env(:exq_ui, DemoWeb.Endpoint,
+Application.put_env(:exq_ui_fork, DemoWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "JUrii8hEdYZjAo/LHUziUO1xx0ViDK+I1yYDVvNrLpcYWH93l4kSBvWsbfGwJRu5",
   live_view: [signing_salt: "jhwmDSe0"],
@@ -47,7 +47,7 @@ defmodule DemoWeb.Router do
 end
 
 defmodule DemoWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :exq_ui
+  use Phoenix.Endpoint, otp_app: :exq_ui_fork
 
   @session_options [
     store: :cookie,
