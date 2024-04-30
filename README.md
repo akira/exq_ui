@@ -1,5 +1,6 @@
 # ExqUI
-
+#This is a complete fork from akira/exq_ui
+#it's a temporary measure to support phoenix_html 4 +, when they are able to bump their side, this repo will be closed 
 [![Hex.pm](https://img.shields.io/hexpm/v/exq_ui.svg)](https://hex.pm/packages/exq_ui)
 
 ExqUI provides a UI dashboard for [Exq](https://github.com/akira/exq), a job processing library
