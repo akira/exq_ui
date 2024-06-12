@@ -1,6 +1,8 @@
 defmodule ExqUIWeb.Helpers do
   @moduledoc false
-  use Phoenix.HTML
+  import Phoenix.HTML
+  import Phoenix.HTML.Form
+  use PhoenixHTMLHelpers
   import Phoenix.LiveView.Helpers
 
   def nav_link(socket, name, link) do

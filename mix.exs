@@ -36,8 +36,9 @@ defmodule ExqUI.MixProject do
     [
       {:exq, ">= 0.16.2"},
       {:exq_scheduler, "~> 1.0", optional: true},
-      {:phoenix_live_view, "~> 0.18"},
+      {:phoenix_live_view, "~> 0.20"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_html_helpers, "~> 1.0"},
       {:phoenix_view, "~> 2.0"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
