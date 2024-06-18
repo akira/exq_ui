@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.15.0] - 2024-06-18
+### Changed
+- Don't toggle switches on websocket reconnects
+
 ## [0.14.0] - 2023-08-20
 ### Added
 - Add support for phx-live 0.19 and phx 1.7 by @ananthakumaran
