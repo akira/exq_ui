@@ -12,10 +12,9 @@
       <tr>
         <td>
           <span>
-            <%= live_redirect(queue.name,
-              class: "nounderline",
-              to: Routes.queue_show_path(@socket, queue.name)
-            ) %>
+            <.link class="nounderline" navigate={Routes.queue_show_path(@socket, queue.name)}>
+              <%= queue.name %>
+            </.link>
           </span>
         </td>
         <td><%= queue.count %></td>

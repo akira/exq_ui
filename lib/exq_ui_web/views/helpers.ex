@@ -2,7 +2,7 @@ defmodule ExqUIWeb.Helpers do
   @moduledoc false
 
   use PhoenixHTMLHelpers
-  import Phoenix.LiveView.Helpers
+  import Phoenix.Component
 
   def nav_link(socket, name, link) do
     active =
@@ -12,7 +12,19 @@ defmodule ExqUIWeb.Helpers do
         ""
       end
 
-    live_redirect(name, to: link, class: "nav-link" <> active)
+    assigns = %{to: link, class: "nav-link" <> active, name: name}
+
+    ~H|<.link navigate={@to} class={@class}><%= @name %></.link>|
+  end
+
+  def live_link(text, options) do
+    assigns = %{
+      to: Keyword.fetch!(options, :to),
+      class: Keyword.get(options, :class, ""),
+      text: text
+    }
+
+    ~H|<.link navigate={@to} class={@class}><%= @text %></.link>|
   end
 
   def human_time(nil) do
