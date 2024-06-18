@@ -54,10 +54,9 @@
         <td><%= job.pid %></td>
         <td><%= job.payload.jid %></td>
         <td>
-          <%= live_redirect(job.queue,
-            class: "nounderline",
-            to: Routes.queue_show_path(@socket, job.queue)
-          ) %>
+          <.link class="nounderline" navigate={Routes.queue_show_path(@socket, job.queue)}>
+            <%= job.queue %>
+          </.link>
         </td>
         <td><%= job.payload.class %></td>
         <td><%= inspect(job.payload.args) %></td>
