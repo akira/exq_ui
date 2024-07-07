@@ -25,7 +25,7 @@ defmodule ExqUIWeb.ScheduledLive.Index do
       |> assign(:actions, [
         %{name: "delete", label: "Delete"},
         %{name: "delete_all", label: "Delete All"},
-        %{name: "dequeue_now", label: "Add to Qeueue"}
+        %{name: "dequeue_now", label: "Add to Queue"}
       ])
 
     {:ok, assign(socket, jobs_details(params["page"] || "1"))}
