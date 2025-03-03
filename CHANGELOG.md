@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.16.0] - 2025-03-01
+### Changed
+- Add support for Phoenix html 4 #149 @Hermanlangner and @ananthakumaran
+
+
 ## [0.15.0] - 2024-06-18
 ### Changed
 - Don't toggle switches on websocket reconnects
