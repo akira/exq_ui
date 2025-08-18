@@ -16,15 +16,17 @@ defmodule ExqUIWeb.RealtimeStatsComponent do
 
   @impl true
   def update(assigns, socket) do
-    stats = Queue.realtime_stats(assigns[:stats])
+    config = socket.assigns[:config] || assigns[:config]
+
+    stats = Queue.realtime_stats(config, assigns[:stats])
 
     send_update_after(
       __MODULE__,
-      [id: "realtime-stats", stats: stats],
+      [id: "realtime-stats", stats: stats, config: config],
       @tick_interval
     )
 
     socket = push_event(socket, "append-point", Map.take(stats, [:processed, :failed]))
-    {:ok, assign(socket, stats: stats, tick_interval: @tick_interval)}
+    {:ok, assign(socket, stats: stats, tick_interval: @tick_interval, config: config)}
   end
 end

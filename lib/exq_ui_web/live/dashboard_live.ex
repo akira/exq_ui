@@ -3,8 +3,8 @@ defmodule ExqUIWeb.DashboardLive do
   use ExqUIWeb, :live_view
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket}
+  def mount(_params, %{"config" => config}, socket) do
+    {:ok, assign(socket, %{config: config})}
   end
 
   @impl true
