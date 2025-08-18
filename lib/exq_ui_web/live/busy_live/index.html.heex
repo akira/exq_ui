@@ -54,7 +54,7 @@
         <td><%= job.pid %></td>
         <td><%= job.payload.jid %></td>
         <td>
-          <.link class="nounderline" navigate={Routes.queue_show_path(@socket, job.queue)}>
+          <.link class="nounderline" navigate={Routes.queue_show_path(@config, job.queue)}>
             <%= job.queue %>
           </.link>
         </td>

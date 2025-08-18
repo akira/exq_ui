@@ -57,7 +57,7 @@ defmodule ExqUIWeb.QueueLive.Show do
 
     socket =
       assign(socket, jobs_details(config, name, page))
-      |> push_patch(to: Routes.queue_show_path(socket, name, page: page))
+      |> push_patch(to: Routes.queue_show_path(config, name, page: page))
 
     {:noreply, socket}
   end
