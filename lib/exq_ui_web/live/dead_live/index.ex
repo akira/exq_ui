@@ -13,7 +13,7 @@ defmodule ExqUIWeb.DeadLive.Index do
           header: "Last Failed",
           accessor: fn item ->
             live_link(human_time(item.scheduled_at),
-              to: Routes.dead_show_path(socket, item.score, item.id),
+              to: Routes.dead_show_path(config, item.score, item.id),
               class: "nounderline"
             )
           end
@@ -45,7 +45,7 @@ defmodule ExqUIWeb.DeadLive.Index do
 
     socket =
       assign(socket, jobs_details(config, page))
-      |> push_patch(to: Routes.dead_index_path(socket, page: page))
+      |> push_patch(to: Routes.dead_index_path(config, page: page))
 
     {:noreply, socket}
   end

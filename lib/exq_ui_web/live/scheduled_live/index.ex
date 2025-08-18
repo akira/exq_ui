@@ -13,7 +13,7 @@ defmodule ExqUIWeb.ScheduledLive.Index do
           header: "When",
           accessor: fn item ->
             live_link(human_time(item.scheduled_at),
-              to: Routes.scheduled_show_path(socket, item.score, item.id),
+              to: Routes.scheduled_show_path(config, item.score, item.id),
               class: "nounderline"
             )
           end
@@ -43,7 +43,7 @@ defmodule ExqUIWeb.ScheduledLive.Index do
 
     socket =
       assign(socket, jobs_details(config, page))
-      |> push_patch(to: Routes.scheduled_index_path(socket, page: page))
+      |> push_patch(to: Routes.scheduled_index_path(config, page: page))
 
     {:noreply, socket}
   end

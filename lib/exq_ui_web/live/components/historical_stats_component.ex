@@ -23,10 +23,12 @@ defmodule ExqUIWeb.HistoricalStatsComponent do
     {days, ""} = Integer.parse(days)
     days = Enum.min([180, Enum.max([0, days])])
 
+    config = socket.assigns.config
+
     socket =
       assign(socket, :days, days)
       |> send_points()
-      |> push_patch(to: Routes.dashboard_path(socket, days: days))
+      |> push_patch(to: Routes.dashboard_path(config, days: days))
 
     {:noreply, socket}
   end

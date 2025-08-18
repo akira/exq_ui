@@ -40,6 +40,7 @@ defmodule ExqUI.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_view, "~> 2.0"},
       {:phoenix_html_helpers, "~> 1.0"},
+      {:phoenix, "~> 1.7"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:redix, ">= 0.9.0"},
