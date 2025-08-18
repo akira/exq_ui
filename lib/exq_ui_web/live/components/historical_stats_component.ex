@@ -10,8 +10,11 @@ defmodule ExqUIWeb.HistoricalStatsComponent do
   end
 
   @impl true
-  def update(_assigns, socket) do
-    socket = send_points(socket)
+  def update(assigns, socket) do
+    socket =
+      assign(socket, :config, assigns.config)
+      |> send_points()
+
     {:ok, socket}
   end
 
@@ -29,7 +32,8 @@ defmodule ExqUIWeb.HistoricalStatsComponent do
   end
 
   defp send_points(socket) do
-    stats = Queue.historical_stats(socket.assigns[:days])
+    config = socket.assigns.config
+    stats = Queue.historical_stats(config, socket.assigns[:days])
     push_event(socket, "replace-points", %{points: stats})
   end
 end

@@ -4,8 +4,14 @@ defmodule ExqUIWeb.BusyLive.Index do
   alias ExqUI.Queue
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, %{nodes: Queue.list_nodes(), jobs: Queue.list_current_jobs()})}
+
+  def mount(_params, %{"config" => config}, socket) do
+    {:ok,
+     assign(socket, %{
+       config: config,
+       nodes: Queue.list_nodes(config),
+       jobs: Queue.list_current_jobs(config)
+     })}
   end
 
   @impl true
@@ -17,7 +23,8 @@ defmodule ExqUIWeb.BusyLive.Index do
         },
         socket
       ) do
-    :ok = Queue.send_signal(node_id, "TSTP")
+    config = socket.assigns.config
+    :ok = Queue.send_signal(config, node_id, "TSTP")
 
     nodes =
       Enum.map(socket.assigns.nodes, fn node ->

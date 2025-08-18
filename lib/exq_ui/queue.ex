@@ -8,15 +8,15 @@ defmodule ExqUI.Queue do
     defstruct [:job, :id, :raw, :score, :scheduled_at]
   end
 
-  def stats() do
-    {:ok, queues} = Api.queue_size(api())
+  def stats(config) do
+    {:ok, queues} = Api.queue_size(api(config))
     enqueued = Enum.reduce(queues, 0, fn {_name, count}, sum -> count + sum end)
-    {:ok, busy} = Api.busy(api())
-    {:ok, retries} = Api.retry_size(api())
-    {:ok, scheduled} = Api.scheduled_size(api())
-    {:ok, dead} = Api.failed_size(api())
-    {:ok, processed} = Api.stats(api(), "processed")
-    {:ok, failed} = Api.stats(api(), "failed")
+    {:ok, busy} = Api.busy(api(config))
+    {:ok, retries} = Api.retry_size(api(config))
+    {:ok, scheduled} = Api.scheduled_size(api(config))
+    {:ok, dead} = Api.failed_size(api(config))
+    {:ok, processed} = Api.stats(api(config), "processed")
+    {:ok, failed} = Api.stats(api(config), "failed")
 
     %{
       enqueued: enqueued,
@@ -29,10 +29,10 @@ defmodule ExqUI.Queue do
     }
   end
 
-  def realtime_stats(last \\ %{}) do
+  def realtime_stats(config, last \\ %{}) do
     last = last || %{}
-    {:ok, processed_total} = Api.stats(api(), "processed")
-    {:ok, failed_total} = Api.stats(api(), "failed")
+    {:ok, processed_total} = Api.stats(api(config), "processed")
+    {:ok, failed_total} = Api.stats(api(config), "failed")
 
     %{
       processed: processed_total - Map.get(last, :processed_total, processed_total),
@@ -42,11 +42,11 @@ defmodule ExqUI.Queue do
     }
   end
 
-  def historical_stats(days) do
+  def historical_stats(config, days) do
     today = Date.utc_today()
     dates = Enum.map(0..(days - 1), fn i -> Date.add(today, -1 * i) |> Date.to_string() end)
-    {:ok, processed_counts} = Api.stats(api(), "processed", dates)
-    {:ok, failed_counts} = Api.stats(api(), "failed", dates)
+    {:ok, processed_counts} = Api.stats(api(config), "processed", dates)
+    {:ok, failed_counts} = Api.stats(api(config), "failed", dates)
 
     Enum.zip([dates, processed_counts, failed_counts])
     |> Enum.map(fn {date, processed, failed} ->
@@ -54,22 +54,22 @@ defmodule ExqUI.Queue do
     end)
   end
 
-  def list_queues() do
-    {:ok, queues} = Api.queue_size(api())
+  def list_queues(config) do
+    {:ok, queues} = Api.queue_size(api(config))
     Enum.map(queues, fn {name, count} -> %{name: name, count: count} end)
   end
 
-  def remove_queue(name) do
-    Api.remove_queue(api(), name)
+  def remove_queue(config, name) do
+    Api.remove_queue(api(config), name)
   end
 
-  def count_enqueued_jobs(name) do
-    {:ok, total} = Api.queue_size(api(), name)
+  def count_enqueued_jobs(config, name) do
+    {:ok, total} = Api.queue_size(api(config), name)
     total
   end
 
-  def list_enqueued_jobs(name, options \\ []) do
-    {:ok, raw_jobs} = Api.jobs(api(), name, Keyword.merge([raw: true], options))
+  def list_enqueued_jobs(config, name, options \\ []) do
+    {:ok, raw_jobs} = Api.jobs(api(config), name, Keyword.merge([raw: true], options))
 
     items =
       Enum.map(raw_jobs, fn json ->
@@ -80,143 +80,143 @@ defmodule ExqUI.Queue do
     items
   end
 
-  def remove_enqueued_jobs(name, raw_jobs) do
+  def remove_enqueued_jobs(config, name, raw_jobs) do
     if Enum.empty?(raw_jobs) do
       :ok
     else
-      Api.remove_enqueued_jobs(api(), name, raw_jobs)
+      Api.remove_enqueued_jobs(api(config), name, raw_jobs)
     end
   end
 
-  def count_retry_jobs() do
-    {:ok, total} = Api.retry_size(api())
+  def count_retry_jobs(config) do
+    {:ok, total} = Api.retry_size(api(config))
     total
   end
 
-  def remove_retry_jobs(raw_jobs) do
+  def remove_retry_jobs(config, raw_jobs) do
     if Enum.empty?(raw_jobs) do
       :ok
     else
-      Api.remove_retry_jobs(api(), raw_jobs)
+      Api.remove_retry_jobs(api(config), raw_jobs)
     end
   end
 
-  def dequeue_retry_jobs(raw_jobs) do
+  def dequeue_retry_jobs(config, raw_jobs) do
     if Enum.empty?(raw_jobs) do
       :ok
     else
-      {:ok, _} = Api.dequeue_retry_jobs(api(), raw_jobs)
+      {:ok, _} = Api.dequeue_retry_jobs(api(config), raw_jobs)
       :ok
     end
   end
 
-  def remove_all_retry_jobs() do
-    Api.clear_retries(api())
+  def remove_all_retry_jobs(config) do
+    Api.clear_retries(api(config))
   end
 
-  def list_retry_jobs(options \\ []) do
-    {:ok, jobs} = Api.retries(api(), Keyword.merge([score: true, raw: true], options))
+  def list_retry_jobs(config, options \\ []) do
+    {:ok, jobs} = Api.retries(api(config), Keyword.merge([score: true, raw: true], options))
     decode_jobs_with_score(jobs)
   end
 
-  def find_retry_job(score, jid) do
-    {:ok, json} = Api.find_retry(api(), score, jid, raw: true)
+  def find_retry_job(config, score, jid) do
+    {:ok, json} = Api.find_retry(api(config), score, jid, raw: true)
 
     if json do
       job_with_score(json, score)
     end
   end
 
-  def count_scheduled_jobs() do
-    {:ok, total} = Api.scheduled_size(api())
+  def count_scheduled_jobs(config) do
+    {:ok, total} = Api.scheduled_size(api(config))
     total
   end
 
-  def remove_scheduled_jobs(raw_jobs) do
+  def remove_scheduled_jobs(config, raw_jobs) do
     if Enum.empty?(raw_jobs) do
       :ok
     else
-      Api.remove_scheduled_jobs(api(), raw_jobs)
+      Api.remove_scheduled_jobs(api(config), raw_jobs)
     end
   end
 
-  def remove_all_scheduled_jobs() do
-    Api.clear_scheduled(api())
+  def remove_all_scheduled_jobs(config) do
+    Api.clear_scheduled(api(config))
   end
 
-  def dequeue_scheduled_jobs(raw_jobs) do
+  def dequeue_scheduled_jobs(config, raw_jobs) do
     if Enum.empty?(raw_jobs) do
       :ok
     else
-      {:ok, _} = Api.dequeue_scheduled_jobs(api(), raw_jobs)
+      {:ok, _} = Api.dequeue_scheduled_jobs(api(config), raw_jobs)
       :ok
     end
   end
 
-  def list_scheduled_jobs(options \\ []) do
-    {:ok, jobs} = Api.scheduled(api(), Keyword.merge([score: true, raw: true], options))
+  def list_scheduled_jobs(config, options \\ []) do
+    {:ok, jobs} = Api.scheduled(api(config), Keyword.merge([score: true, raw: true], options))
     decode_jobs_with_score(jobs)
   end
 
-  def find_scheduled_job(score, jid) do
-    {:ok, json} = Api.find_scheduled(api(), score, jid, raw: true)
+  def find_scheduled_job(config, score, jid) do
+    {:ok, json} = Api.find_scheduled(api(config), score, jid, raw: true)
 
     if json do
       job_with_score(json, score)
     end
   end
 
-  def count_dead_jobs() do
-    {:ok, total} = Api.failed_size(api())
+  def count_dead_jobs(config) do
+    {:ok, total} = Api.failed_size(api(config))
     total
   end
 
-  def remove_dead_jobs(raw_jobs) do
+  def remove_dead_jobs(config, raw_jobs) do
     if Enum.empty?(raw_jobs) do
       :ok
     else
-      Api.remove_failed_jobs(api(), raw_jobs)
+      Api.remove_failed_jobs(api(config), raw_jobs)
     end
   end
 
-  def remove_all_dead_jobs() do
-    Api.clear_failed(api())
+  def remove_all_dead_jobs(config) do
+    Api.clear_failed(api(config))
   end
 
-  def dequeue_dead_jobs(raw_jobs) do
+  def dequeue_dead_jobs(config, raw_jobs) do
     if Enum.empty?(raw_jobs) do
       :ok
     else
-      {:ok, _} = Api.dequeue_failed_jobs(api(), raw_jobs)
+      {:ok, _} = Api.dequeue_failed_jobs(api(config), raw_jobs)
       :ok
     end
   end
 
-  def list_dead_jobs(options \\ []) do
-    {:ok, jobs} = Api.failed(api(), Keyword.merge([score: true, raw: true], options))
+  def list_dead_jobs(config, options \\ []) do
+    {:ok, jobs} = Api.failed(api(config), Keyword.merge([score: true, raw: true], options))
     decode_jobs_with_score(jobs)
   end
 
-  def find_dead_job(score, jid) do
-    {:ok, json} = Api.find_failed(api(), score, jid, raw: true)
+  def find_dead_job(config, score, jid) do
+    {:ok, json} = Api.find_failed(api(config), score, jid, raw: true)
 
     if json do
       job_with_score(json, score)
     end
   end
 
-  def list_nodes() do
-    {:ok, nodes} = Api.nodes(api())
+  def list_nodes(config) do
+    {:ok, nodes} = Api.nodes(api(config))
     nodes
   end
 
-  def list_current_jobs() do
-    {:ok, processes} = Api.processes(api())
+  def list_current_jobs(config) do
+    {:ok, processes} = Api.processes(api(config))
     processes
   end
 
-  def send_signal(node_id, signal_name) do
-    Api.send_signal(api(), node_id, signal_name)
+  def send_signal(config, node_id, signal_name) do
+    Api.send_signal(api(config), node_id, signal_name)
   end
 
   defp decode_jobs_with_score(jobs) do
@@ -232,7 +232,9 @@ defmodule ExqUI.Queue do
     %JobItem{raw: json, id: job.jid, job: job, score: score, scheduled_at: scheduled_at}
   end
 
-  def api do
-    Application.get_env(:exq_ui, :api_name, Exq.Api)
+  def api(config) do
+    Map.get_lazy(config, :api_name, fn ->
+      Application.get_env(:exq_ui, :api_name, Exq.Api)
+    end)
   end
 end

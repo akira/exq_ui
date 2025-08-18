@@ -6,7 +6,7 @@ defmodule ExqUIWeb.ScheduledLive.Index do
   @page_size 30
 
   @impl true
-  def mount(params, _session, socket) do
+  def mount(params, %{"config" => config}, socket) do
     socket =
       assign(socket, :columns, [
         %{
@@ -27,8 +27,9 @@ defmodule ExqUIWeb.ScheduledLive.Index do
         %{name: "delete_all", label: "Delete All"},
         %{name: "dequeue_now", label: "Add to Queue"}
       ])
+      |> assign(:config, config)
 
-    {:ok, assign(socket, jobs_details(params["page"] || "1"))}
+    {:ok, assign(socket, jobs_details(config, params["page"] || "1"))}
   end
 
   @impl true
@@ -38,8 +39,10 @@ defmodule ExqUIWeb.ScheduledLive.Index do
 
   @impl true
   def handle_event("page", %{"page" => page}, socket) do
+    config = socket.assigns.config
+
     socket =
-      assign(socket, jobs_details(page))
+      assign(socket, jobs_details(config, page))
       |> push_patch(to: Routes.scheduled_index_path(socket, page: page))
 
     {:noreply, socket}
@@ -47,46 +50,51 @@ defmodule ExqUIWeb.ScheduledLive.Index do
 
   @impl true
   def handle_event("action", %{"table" => %{"action" => "delete"} = params}, socket) do
+    config = socket.assigns.config
+
     raw_jobs =
       Map.delete(params, "action")
       |> Map.values()
 
-    :ok = Queue.remove_scheduled_jobs(raw_jobs)
-    socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
+    :ok = Queue.remove_scheduled_jobs(config, raw_jobs)
+    socket = assign(socket, jobs_details(config, socket.assigns.current_page || "1"))
     {:noreply, socket}
   end
 
   @impl true
   def handle_event("action", %{"table" => %{"action" => "dequeue_now"} = params}, socket) do
+    config = socket.assigns.config
+
     raw_jobs =
       Map.delete(params, "action")
       |> Map.values()
 
-    :ok = Queue.dequeue_scheduled_jobs(raw_jobs)
-    socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
+    :ok = Queue.dequeue_scheduled_jobs(config, raw_jobs)
+    socket = assign(socket, jobs_details(config, socket.assigns.current_page || "1"))
     {:noreply, socket}
   end
 
   @impl true
   def handle_event("action", %{"table" => %{"action" => "delete_all"}}, socket) do
-    :ok = Queue.remove_all_scheduled_jobs()
-    socket = assign(socket, jobs_details(socket.assigns.current_page || "1"))
+    config = socket.assigns.config
+    :ok = Queue.remove_all_scheduled_jobs(config)
+    socket = assign(socket, jobs_details(config, socket.assigns.current_page || "1"))
     {:noreply, socket}
   end
 
-  defp jobs_details(page) when is_binary(page) do
+  defp jobs_details(config, page) when is_binary(page) do
     page =
       case Integer.parse(page) do
         :error -> 1
         {page, _} -> page
       end
 
-    jobs_details(page)
+    jobs_details(config, page)
   end
 
-  defp jobs_details(page) do
-    total = Queue.count_scheduled_jobs()
-    items = Queue.list_scheduled_jobs(offset: @page_size * (page - 1), size: @page_size)
+  defp jobs_details(config, page) do
+    total = Queue.count_scheduled_jobs(config)
+    items = Queue.list_scheduled_jobs(config, offset: @page_size * (page - 1), size: @page_size)
     %{items: items, total: total, current_page: page, page_size: @page_size}
   end
 end

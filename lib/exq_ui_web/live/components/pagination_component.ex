@@ -13,6 +13,7 @@ defmodule ExqUIWeb.PaginationComponent do
 
     {:ok,
      assign(socket, %{
+       config: assigns.config,
        total: assigns.total,
        total_page: total_page,
        current_page: current_page,

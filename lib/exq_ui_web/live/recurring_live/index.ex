@@ -4,14 +4,17 @@ defmodule ExqUIWeb.RecurringLive.Index do
   @compile {:no_warn_undefined, [ExqScheduler]}
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, schedules_details())}
+  def mount(_params, %{"config" => config}, socket) do
+    {:ok,
+     assign(socket, schedules_details(config))
+     |> assign(:config, config)}
   end
 
   @impl true
   def handle_event("enqueue_now", %{"name" => name}, socket) do
-    :ok = ExqScheduler.enqueue_now(scheduler(), String.to_atom(name))
-    {:noreply, assign(socket, schedules_details())}
+    config = socket.assigns.config
+    :ok = ExqScheduler.enqueue_now(scheduler(config), String.to_atom(name))
+    {:noreply, assign(socket, schedules_details(config))}
   end
 
   @impl true
@@ -20,12 +23,14 @@ defmodule ExqUIWeb.RecurringLive.Index do
         %{"active" => %{"name" => name, "enabled" => enabled}, "_target" => ["active", "toggle"]},
         socket
       ) do
+    config = socket.assigns.config
+
     case enabled do
-      "false" -> :ok = ExqScheduler.disable(scheduler(), String.to_atom(name))
-      "true" -> :ok = ExqScheduler.enable(scheduler(), String.to_atom(name))
+      "false" -> :ok = ExqScheduler.disable(scheduler(config), String.to_atom(name))
+      "true" -> :ok = ExqScheduler.enable(scheduler(config), String.to_atom(name))
     end
 
-    {:noreply, assign(socket, schedules_details())}
+    {:noreply, assign(socket, schedules_details(config))}
   end
 
   @impl true
@@ -33,12 +38,14 @@ defmodule ExqUIWeb.RecurringLive.Index do
     {:noreply, socket}
   end
 
-  defp schedules_details() do
-    schedules = ExqScheduler.schedules(scheduler())
+  defp schedules_details(config) do
+    schedules = ExqScheduler.schedules(scheduler(config))
     %{items: schedules}
   end
 
-  defp scheduler do
-    Application.get_env(:exq_ui, :exq_scheduler_name, ExqScheduler)
+  defp scheduler(config) do
+    Map.get_lazy(config, :exq_scheduler_name, fn ->
+      Application.get_env(:exq_ui, :exq_scheduler_name)
+    end)
   end
 end
