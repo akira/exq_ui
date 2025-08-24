@@ -1,13 +1,13 @@
 env:
-  ELIXIR_VERSION: "1.13.4"
-  OTP_VERSION: "25.0.1"
+  ELIXIR_VERSION: "1.16"
+  OTP_VERSION: "26"
 on:
   push:
     tags:
       - '*'
 jobs:
   publish:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set up Elixir
