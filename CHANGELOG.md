@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.17.0] - 2025-08-24
+### Changed
+- Make it possible to use `live_exq_ui` multiple times in a router #152 by @ananthakumaran
+### Breaking Changes
+- Drop support for Phoenix 1.6
+
 ## [0.16.0] - 2025-03-01
 ### Changed
 - Add support for Phoenix html 4 #149 @Hermanlangner and @ananthakumaran
