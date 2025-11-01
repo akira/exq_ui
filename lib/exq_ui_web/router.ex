@@ -17,7 +17,7 @@ defmodule ExqUIWeb.Router do
     quote bind_quoted: binding() do
       scope path, alias: false, as: false do
         {session_name, session_opts, route_opts} =
-          ExqUIWeb.Router.__options__(opts, Phoenix.Router.scoped_path(__MODULE__, path))
+          ExqUIWeb.Router.__options__(opts, Phoenix.Router.scoped_path(__MODULE__, "/"))
 
         import Phoenix.LiveView.Router, only: [live: 4, live_session: 3]
 
