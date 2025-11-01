@@ -61,7 +61,7 @@ function graph(element) {
       .range([height - margin.bottom, margin.top])
       .nice();
 
-    const yAxis = axisLeft(y).ticks(7);
+    const yAxis = axisLeft(y).tickFormat(format("~s"));;
 
     const failed = line()
       .x((d) => x(d.date))
