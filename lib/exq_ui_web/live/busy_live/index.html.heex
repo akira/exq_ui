@@ -35,33 +35,14 @@
   </tbody>
 </table>
 <h5 class="text-muted">Jobs</h5>
-<table class="mt-2 table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Node</th>
-      <th scope="col">PID</th>
-      <th scope="col">JID</th>
-      <th scope="col">Queue</th>
-      <th scope="col">Module</th>
-      <th scope="col">Arguments</th>
-      <th scope="col">Started</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for job <- @jobs do %>
-      <tr>
-        <td><%= job.host %></td>
-        <td><%= job.pid %></td>
-        <td><%= job.payload.jid %></td>
-        <td>
-          <.link class="nounderline" navigate={Routes.queue_show_path(@config, job.queue)}>
-            <%= job.queue %>
-          </.link>
-        </td>
-        <td><%= job.payload.class %></td>
-        <td><%= inspect(job.payload.args) %></td>
-        <td><%= human_time(job.run_at) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<.live_component
+  config={@config}
+  module={ExqUIWeb.TableComponent}
+  id="busy-table"
+  actions={@actions}
+  columns={@columns}
+  items={@items}
+  total={@total}
+  current_page={@current_page}
+  page_size={@page_size}
+/>
