@@ -5,7 +5,7 @@ defmodule ExqUI.Queue do
 
   defmodule JobItem do
     @moduledoc false
-    defstruct [:job, :id, :raw, :score, :scheduled_at]
+    defstruct [:job, :id, :raw, :score, :scheduled_at, :process]
   end
 
   def stats(config) do
@@ -212,7 +212,15 @@ defmodule ExqUI.Queue do
 
   def list_current_jobs(config) do
     {:ok, processes} = Api.processes(api(config))
-    processes
+
+    Enum.map(processes, fn process ->
+      %JobItem{
+        id: process.payload.jid,
+        process: process,
+        job: process.payload,
+        raw: Jason.encode!(%{node_id: process.host, jid: process.payload.jid, pid: process.pid})
+      }
+    end)
   end
 
   def send_signal(config, node_id, signal_name) do
