@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+## [0.18.0] - 2025-11-04
+
+### Added
+- Add ability to cancel jobs from Busy tab #154 by @ananthakumaran
+
+### Fixed
+- Fix root path handling
 
 ## [0.17.0] - 2025-08-24
 ### Changed
