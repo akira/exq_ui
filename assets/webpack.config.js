@@ -11,7 +11,12 @@ module.exports = (env, options) => {
   return {
     optimization: {
       minimizer: [
-        new TerserPlugin({ cache: true, parallel: true, sourceMap: devMode }),
+        new TerserPlugin({ 
+          parallel: true,
+          terserOptions: {
+            sourceMap: devMode
+          }
+        }),
         new CssMinimizerPlugin(),
       ],
     },

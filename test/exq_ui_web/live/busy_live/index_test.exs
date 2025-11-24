@@ -14,12 +14,12 @@ defmodule ExqUIWeb.BusyLive.IndexTest do
     {:ok, view, _} = live(conn, "/busy")
 
     html = render(view)
-    refute html =~ ~S(disabled="disabled")
+    refute html =~ ~S(disabled="")
 
     html =
       element(view, "#node-anantha-ubuntu")
       |> render_change(%{"_target" => ["signal", "quiet"]})
 
-    assert html =~ ~S(disabled="disabled")
+    assert html =~ ~S(disabled="")
   end
 end
