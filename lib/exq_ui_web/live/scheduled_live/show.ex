@@ -19,14 +19,14 @@ defmodule ExqUIWeb.ScheduledLive.Show do
   def handle_event("delete", %{"raw" => raw_job}, socket) do
     config = socket.assigns.config
     :ok = Queue.remove_scheduled_jobs(config, [raw_job])
-    {:noreply, push_redirect(socket, to: Routes.scheduled_index_path(config))}
+    {:noreply, push_navigate(socket, to: Routes.scheduled_index_path(config))}
   end
 
   @impl true
   def handle_event("dequeue_now", %{"raw" => raw_job}, socket) do
     config = socket.assigns.config
     :ok = Queue.dequeue_scheduled_jobs(config, [raw_job])
-    {:noreply, push_redirect(socket, to: Routes.scheduled_index_path(config))}
+    {:noreply, push_navigate(socket, to: Routes.scheduled_index_path(config))}
   end
 
   defp job_details(config, score, jid) do
