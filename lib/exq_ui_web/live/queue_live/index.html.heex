@@ -20,13 +20,9 @@
         <td><%= queue.count %></td>
         <td>
           <span>
-            <%= link("Delete",
-              class: "btn btn-danger btn-sm",
-              to: "#",
-              phx_click: "delete",
-              phx_value_name: queue.name,
-              data: [confirm: "Are you sure?"]
-            ) %>
+            <.link class="btn btn-danger btn-sm" phx-click="delete" phx-value-name={queue.name} data-confirm="Are you sure?">
+              Delete
+            </.link>
           </span>
         </td>
       </tr>

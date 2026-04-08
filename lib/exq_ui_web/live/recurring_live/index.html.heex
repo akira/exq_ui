@@ -23,7 +23,7 @@
           <%= for item <- @items do %>
             <tr>
               <td>
-                <%= form_for :active, "#", [id: "schedule-#{item.schedule.name}", phx_auto_recover: :ignore, phx_change: :active, class: "mb-0 form-check form-switch form-check-inline", style: "margin: auto;display: flex;justify-content: center"], fn f -> %>
+                <.form :let={f} for={%{}} as={:active} id={"schedule-#{item.schedule.name}"} phx-auto-recover="ignore" phx-change="active" class="mb-0 form-check form-switch form-check-inline" style="margin: auto;display: flex;justify-content: center">
                   <%= hidden_input(f, :name, value: item.schedule.name) %>
                   <%= hidden_input(f, :enabled, value: !item.schedule.schedule_opts.enabled) %>
                   <%= checkbox(f, :toggle,
@@ -32,7 +32,7 @@
                     role: "switch",
                     title: "disable"
                   ) %>
-                <% end %>
+                </.form>
               </td>
               <td><%= item.schedule.name %></td>
               <td class="text-break"><%= item.schedule.description %></td>
@@ -49,12 +49,9 @@
               <td><%= item.schedule.job.class %></td>
               <td class="text-break"><%= inspect(item.schedule.job.args) %></td>
               <td class="text-nowrap">
-                <%= link("Enqueue Now",
-                  class: "btn btn-danger btn-sm",
-                  to: "#",
-                  phx_click: "enqueue_now",
-                  phx_value_name: item.schedule.name
-                ) %>
+                <.link class="btn btn-danger btn-sm" phx-click="enqueue_now" phx-value-name={item.schedule.name}>
+                  Enqueue Now
+                </.link>
               </td>
             </tr>
           <% end %>

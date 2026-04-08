@@ -25,7 +25,7 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <%= form_for :table, "#", [phx_submit: :action], fn f -> %>
+      <.form :let={f} for={%{}} as={:table} phx-submit="action">
         <button type="submit" class="btn btn-primary js-submit-button" style="display:none">
           Submit
         </button>
@@ -58,7 +58,7 @@
             <% end %>
           </tbody>
         </table>
-      <% end %>
+      </.form>
     </div>
   </div>
 </div>

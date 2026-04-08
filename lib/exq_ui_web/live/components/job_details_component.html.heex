@@ -2,12 +2,9 @@
   <%= if @item do %>
     <div class="col-4 my-2">
       <%= for %{name: name, label: label} <- @actions do %>
-        <%= link(label,
-          class: "btn btn-danger btn-sm me-1",
-          to: "#",
-          phx_click: name,
-          phx_value_raw: @item.raw
-        ) %>
+        <.link class="btn btn-danger btn-sm me-1" phx-click={name} phx-value-raw={@item.raw}>
+          <%= label %>
+        </.link>
       <% end %>
     </div>
     <div class="col-12">
